@@ -39,6 +39,7 @@
 \newcommand{\sohm}{\si{\ohm}}
 \newcommand{\skom}{\si{\kilo\ohm}}
 \newcommand{\sdb}{\si{\decibel}}
+\newcommand{\shz}{\si{\hertz}}
 \newcommand{\img}{\mathrm{i}}
 
 \usetikzlibrary{calc, arrows}
@@ -289,14 +290,25 @@ For fig 2, $i_O = i_R$, note that since the pos/neg terminal of the op amp above
 and hence proportional to $v_I$ and independent of $Z_L$.\\
 
 \section{2.69}
-An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?
+An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?\\
+Ans: We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) $ , so if $\tau = RC$ is the time constant.
+\[
+  \frac{1}{10^3 \tau} = 10^2 \; \Rightarrow \; \tau = 10^{-5}
+\]
+and Hence at $10^5 \shz$, $\abs{V_o}/\abs{V_i} = 1 / (10^5 10^{-5}) = 1$. 
 
 \section{2.79}
 Derive the transfer function of the circuit in Fig and show that it can be written in the form
 \[
-  \frac{V_o}{V_i} = \frac{-R_2/R_1}{\left(1+(\omega_1/(\img\omega))\right)\left(1+(\omega/(\img\omega_2))\right)}
+  \frac{\abs{V_o}}{\abs{V_i}} = \frac{-R_2/R_1}{\left(1+(\omega_1/(\img\omega))\right)\left(1+(\omega/(\img\omega_2))\right)}
 \]
-
+Where $\omega_1 = 1/(C_1R_1)$ and $\omega_2 = 1/(C_2R_2)$. Assuming that the circuit is designed such that $\omega_2 \gg \omega_1$, find approximate expressinos for the transfer function in the following frequency regions:
+\begin{enumerate}[label=(\alph*)]
+  \item $\omega \ll \omega_1$
+  \item $\omega_1 \ll \omega \ll \omega_2$
+  \item $\omega \gg \omega_2$
+\end{enumerate}
+Use these approximations to sketch a Bode plot for the magnitude response. Observe that the circuit performs as an amplifier whose gain rolls off at the low-frequency end in the manner of a high-pass STC network, and at the high frequency end in the manner of a low-pass STC network. Design the circuit to provide a gain of $40 \sdb$ in the "middle frequency range," a low-frequency $3\sdb$ point at $100\si{kHz}$, and an input resistance (at $\omega \gg \omega_1$) of $1\skom$. \\
 \begin{circuitikz}[american voltages, american currents]
   \draw[color=black, thick]
   (6, -.5) node[op amp](op1) {}
@@ -305,7 +317,20 @@ Derive the transfer function of the circuit in Fig and show that it can be writt
   (p1) to[short] ++(0, 1.5) to [C, l=$C_2$] ++(2.5, 0) to[short] ++(0, -1.5)
   (op1.out) to[short] ($ (p1)+(2.5, -2) $)
   ;
-\end{circuitikz}
+\end{circuitikz} \\
+Ans: 
+\begin{align*}
+  \frac{V_o}{V_i} &= -\frac{1 / (\img \omega C_2 + 1 / R_2)}{R_1 + 1 / (\img \omega C_1)}\\
+  &= \frac{-1}{\left( \img \omega C_2 + \frac{1}{R_2} \right) \left( R_1 + \frac{1}{\img \omega C_1} \right)}\\
+  &= \frac{-R_2/R_1}{(1 + \img \omega C_2 R_2) \left( \frac{1}{\img \omega C_1 R_1} + R_2 \right)}\\
+  &= \frac{-R_2/R_1}{(1+\omega_1/(\img \omega))(1+\img(\omega/\omega_2))}
+\end{align*}
+Let the transfer function be $f(\omega)$ and $- R_2 / R_1 = \alpha$
+\begin{enumerate}[label=(\alph*)]
+  \item $\omega \ll \omega_1 \ll \omega_2 \Rightarrow 1 + \img(\omega / \omega_2) \approx 1$ and $1 + \omega_1/(\img \omega) \approx \omega / \omega_1$, Hence $f(\omega) \approx \alpha \img \omega / \omega_1$
+  \item $\omega_1 \ll \omega \ll \omega_2 \Rightarrow 1 + \img(\omega / \omega_2) \approx 1$ and $1 + \omega_1/(\img \omega) \approx 1$, Hence $f(\omega) \approx \alpha$
+  \item $\omega_1 \ll \omega_2 \ll \omega \Rightarrow 1 + \img(\omega / \omega_2) \approx \img \omega / \omega_2$ and $1 + \omega_1/(\img \omega) \approx 1$, Hence $f(\omega) \approx \alpha \omega_2 / (\img \omega)$
+\end{enumerate}
 
 \section{2.100}
 A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
