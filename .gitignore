@@ -1,3 +1,5 @@
 *.tmp
 *.log
 *.aux
+*.fls
+*.fdb_latexmk

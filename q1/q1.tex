@@ -184,7 +184,7 @@ Figure shows a circuit that provides an output voltage $v_o$ whose value can be 
 
 \begin{circuitikz}
 	\draw[color=black, thick][american voltages, american currents]
-  (0, 9) to [R, l=$20\skom$] (0, 6) to [pR, l_=$100\skom$pot, n=pot] (0, 3) to [R, l=$20\skom$] (0, 0)
+  (0, 9) to [R, l=$20\skom$] (0, 6) to [pR, l_=$100\skom$, n=pot] (0, 3) to [R, l=$20\skom$] (0, 0)
   (4, 5) node[op amp](op) {}
   (0, 0) to [short, -*] (3, 0) -| (op.down)
   (op.up) |- (3, 9) to [short, *-] (0, 9)
