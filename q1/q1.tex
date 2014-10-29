@@ -141,11 +141,41 @@ Show that $v_O$ is given by
 \section{2.51}
 Figure shows a circuit that provides an output voltage $v_o$ whose value can be varied by turning the wiper of the 100\skom potentiometer. Find the range over which $v_o$ can be varied. If the potentiometer is a "20-turn" device, find the change in $v_o$ corresponding to each turn of the pot.
 
+\begin{circuitikz}
+	\draw[color=black, thick][american voltages, american currents]
+  (0, 9) to [R, l=$20\skom$] (0, 6) to [pR, l_=$100\skom$pot, n=pot] (0, 3) to [R, l=$20\skom$] (0, 0)
+  (4, 5) node[op amp](op) {}
+  (0, 0) to [short, -*] (3, 0) -| (op.down)
+  (op.up) |- (3, 9) to [short, *-] (0, 9)
+  (op.+) to [short] (pot.wiper)
+  (op.out) to [short, -*] ++(.5, 0) to [short, -o] ++(.5, 0) node[right] {$V_O$}
+  (op.out)+(.5, 0) |- ++(-3, 2) |- (op.-)
+	;
+  \draw (3, 0) node[below] {$-15\svol$};
+  \draw (3, 9) node[above] {$+15 \svol$};
+
+\end{circuitikz}
+
 \section{2.63}
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
 
 \section{2.65}
 The circuit shown in Fig is intended to supply a voltage to floating loads (those for which both terminals are ungrounded) while making possible use of available power supply.
+
+\begin{circuitikz}
+	\draw[color=black, thick][american voltages, american currents]
+  (0, 9) to [R, l=$20\skom$] (0, 6) to [pR, l_=$100\skom$pot, n=pot] (0, 3) to [R, l=$20\skom$] (0, 0)
+  (4, 5) node[op amp](op) {}
+  (0, 0) to [short, -*] (3, 0) -| (op.down)
+  (op.up) |- (3, 9) to [short, *-] (0, 9)
+  (op.+) to [short] (pot.wiper)
+  (op.out) to [short, -*] ++(.5, 0) to [short, -o] ++(.5, 0) node[right] {$V_O$}
+  (op.out)+(.5, 0) |- ++(-3, 2) |- (op.-)
+	;
+  \draw (3, 0) node[below] {$-15\svol$};
+  \draw (3, 9) node[above] {$+15 \svol$};
+
+\end{circuitikz}
 
 \section{2.66}
 The two circuits in Fig are intended to function as voltage-to-current converters; that is, they supply the load impedance $Z_L$ with a current proportional to $v_I$ and independent of the value of $Z_L$. Show that this is indeed the case, and find for each circuit $i_o$ as a function of $v_I$. Comment on the differences between the two circuits.
