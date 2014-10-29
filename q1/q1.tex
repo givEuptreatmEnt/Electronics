@@ -35,6 +35,7 @@
 \newcommand{\samp}{\si{\ampere}}
 \newcommand{\smia}{\si{\milli\ampere}}
 \newcommand{\svol}{\si{\volt}}
+\newcommand{\skv}{\si{\kilo\volt}}
 \newcommand{\sohm}{\si{\ohm}}
 \newcommand{\skom}{\si{\kilo\ohm}}
 \newcommand{\sdb}{\si{\decibel}}
@@ -75,7 +76,7 @@ The circuit in Fig below can be can be consider to be an extension of the circui
       R_3 &= (R || R) + R / 2 = R\\
       R_4 &= (R || R) + R / 2 = R\\
     \end{align*}
-  \item Find the currents $I_1, I_2, I_3, I_4$, in terms of $I$
+  \item Find the currents $I_1, I_2, I_3, I_4$, in terms of $I$\\
     Ans:
     \begin{align*}
       I_1 &= IR / R = I\\
@@ -137,28 +138,28 @@ The circuit below utilizes an ideal op amp.\\
 
 
 \section{2.37}
-Figure P2.37 shows a circuit for a digital-to-analog converter.
+Figure P2.37 shows a circuit for a digital-to-analog converter. The circuit accepts a 4-bit input binary word $a_3a_2a_1a_0$ where $a_i \in \{0, 1\}$. Each of the bits of the input word controls the correspondingly numbered switch. For instance, if $a_2$ is 0 then switch $S_2$ connects the $20 \skom$ resistor to ground, while if $a_2$ is $1$ then $S_2$ connects the $20 \skom$ resistor to the $+5\svol$ power supply.
 Show that $v_O$ is given by
 \[
   v_O = - \frac{R_f}{16} \sum_{i=0}^{3} 2^i a_i
 \]
-where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0$ to $-12\svol$.
+where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0$ to $-12\svol$.\\
 
 \begin{circuitikz}[
     arw/.style={->, thick, shorten <=2pt, shorten >=2pt},
     >=triangle 45,
   ]
   \draw[color=black, thick][american voltages, american currents]
-  (0, 0) node[spdt, xscale=-1] (s1) {}
-  (0, 3) node[spdt, xscale=-1] (s2) {}
-  (0, 6) node[spdt, xscale=-1] (s3) {}
-  (0, 9) node[spdt, xscale=-1] (s4) {}
+  (0, 0) node[spdt, xscale=-1, label={[label distance=.4cm]above:$S_0$}] (s1) {}
+  (0, 3) node[spdt, xscale=-1, label={[label distance=.4cm]above:$S_1$}] (s2) {}
+  (0, 6) node[spdt, xscale=-1, label={[label distance=.4cm]above:$S_2$}] (s3) {}
+  (0, 9) node[spdt, xscale=-1, label={[label distance=.4cm]above:$S_3$}] (s4) {}
   (s4.in) to[R, l=$10\skom$] ++(3, 0) to [short] ($ (s1.in)+(3, 0) $)
   (s3.in) to[R, l=$20\skom$, -*] ++(3, 0) node(p1){}
   ($ (p1)+(2.5,-1.5) $) node[op amp](op){}
   (s2.in) to[R, l=$40\skom$, -*] ++(3, 0)
   (s1.in) to[R, l=$80\skom$] ++(3, 0)
-  ($ (p1)+(0,-1) $) to[short, *-*] ++(1, 0) to[short] ++(0, 1) to[R, l=$R_f$] ++(3, 0) to[short, -*] ++(0, -1.5) to[short, -o] ++(.5, 0)node(p2){} to[open, v=$v_O$] ++(0, -2) node[ground]{}
+  ($ (p1)+(0,-1) $) to[short, *-*, i={\color{red}$I_1$}] ++(1, 0) to[short] ++(0, 1) to[R, l=$R_f$] ++(3, 0) to[short, -*] ++(0, -1.5) to[short, -o] ++(.5, 0)node(p2){} to[open, v=$v_O$] ++(0, -2) node[ground]{}
   (op.-) to[short] ($ (p1)+(1,-1) $) 
   (op.+) node[ground]{}
   (op.out) to[short] (p2)
@@ -177,7 +178,16 @@ where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0
   (s3.out 2) node[ground] {}
   (s4.out 2) node[ground] {}
   ;
-\end{circuitikz}
+\end{circuitikz}\\
+Ans:\\
+Note that 
+\[
+  I_1 = \sum_{i=0}^{3} a_i (5\svol) / (10 \cdot 2^{(3-i)} \skom) = \sum_{i=0}^{3} a_i / 2^{(4-i)} (\smia)
+\]
+so
+\[
+  v_O = 0 - R_f I_1 = - R_f \sum_{i=0}^{3} a_i 2^i / 16 (\skv)
+\]
 
 \section{2.51}
 Figure shows a circuit that provides an output voltage $v_o$ whose value can be varied by turning the wiper of the 100\skom potentiometer. Find the range over which $v_o$ can be varied. If the potentiometer is a "20-turn" device, find the change in $v_o$ corresponding to each turn of the pot.
@@ -188,17 +198,28 @@ Figure shows a circuit that provides an output voltage $v_o$ whose value can be 
   (4, 5) node[op amp](op) {}
   (0, 0) to [short, -*] (3, 0) -| (op.down)
   (op.up) |- (3, 9) to [short, *-] (0, 9)
-  (op.+) to [short] (pot.wiper)
-  (op.out) to [short, -*] ++(.5, 0) to [short, -o] ++(.5, 0) node[right] {$V_O$}
+  (op.+) to[short, -*] ++(-1, 0) node[label={\color{red}$v_1$}]{} to[short] (pot.wiper)
+  (op.out) to [short, -*] ++(.5, 0) to [short, -o] ++(.5, 0) node[right] {$v_O$}
   (op.out)+(.5, 0) |- ++(-3, 2) |- (op.-)
 	;
   \draw (3, 0) node[below] {$-15\svol$};
   \draw (3, 9) node[above] {$+15 \svol$};
 
-\end{circuitikz}
-
+\end{circuitikz} \\
+Ans: \\
+We have
+\begin{align*}
+  v_O &= v_1 \\
+  v_{1, \text{max}} &= (15\svol) \frac{100 + 20}{100 + 20 + 20} + (-15\svol) \frac{20}{100 + 20 + 20} \approx 10.7\svol \\
+  v_{1, \text{min}} &= - v_{1, \text{max}}
+\end{align*}
+And so the voltage change each turn is $(v_{1, \text{max}} - v_{1, \text{min}}) / 20 \approx 1.07$.
 \section{2.63}
+
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
+
+最好能算啦…
+
 
 \section{2.65}
 The circuit shown in Fig is intended to supply a voltage to floating loads (those for which both terminals are ungrounded) while making possible use of available power supply.
@@ -218,6 +239,17 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
 	;
 \end{circuitikz}
 
+\begin{enumerate}[label=(\alph*)]
+  \item Assuming ideal op amps, sketch the voltage waveforms at nodes B and C for a $1\svol$ peak-to-peak sine wave applied at A. Also sketch $v_O$\\
+  ans: 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\textwidth]{2_66.pdf}
+  \end{figure}
+  \item What is the voltage gain $v_O / v_I$? \\
+    Ans: It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 3$.
+\end{enumerate}
+
 \section{2.66}
 The two circuits in Fig are intended to function as voltage-to-current converters; that is, they supply the load impedance $Z_L$ with a current proportional to $v_I$ and independent of the value of $Z_L$. Show that this is indeed the case, and find for each circuit $i_o$ as a function of $v_I$. Comment on the differences between the two circuits.
 
@@ -227,7 +259,7 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   (2.5, 5.5) node[op amp](op2){}
   (0, 0) to [short, o-] (op1.+)
   (op1.out) -| ++(0.5, 1.5) to[short, -*] ++(-3, 0) node[](p1){} |- (op1.-)
-  (p1) to[R, l=$R$, -*] ++(0, 2) to[european resistor, l=$Z_L$, i_<=$i_O$] ++(3, 0) |- (op2.out)
+  (p1) to[R, l=$R$,i={\color{red}$i_R$}, -*] ++(0, 2) to[european resistor, l=$Z_L$, i_<=$i_O$] ++(3, 0) |- (op2.out)
   (p1)+(0, 2) |- (op2.+)
   ;
   \draw let \p{A}=(op2.-) in
@@ -240,15 +272,21 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   \draw[color=black, thick]
   (4.5, 1.5) node[op amp](op1){}
   (6.5, -2) node[op amp, rotate=180, yscale=-1](op2){}
-  (0, 0) to [R, l=$R_1$, o-*] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
+  (0, 0) to [R, l=$R_1$, o-*, i={\color{red}$i_2$}] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
   (op2.out) -| (5, 0)
-  (2, 0) |- (op1.+)
-  (0, 2) to [R, l=$R_1$, o-*] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(3.5, 0) to [R, l=$R$, -*] ++ (0, -4) node[](p1){} -- (op2.+)
+  (2.5, 0) |- (op1.+)
+  (0, 2) to [R, l=$R_1$, o-*, i={\color{red}$i_1$}] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(3.5, 0) to [R, l=$R$, -*, i={\color{red}$i_R$}] ++ (0, -4) node[](p1){} -- (op2.+)
   (2.5, 2) -- (op1.-)
   (p1) to[short, -o] ++(0, -.5) to[european resistor, l=$Z_L$, i_<=$i_o$] ++(0, -2.5) node[ground] {}
   (0, 2) to[open, v=$v_1$] (0, 0)
   ;
-\end{circuitikz}
+\end{circuitikz} \\
+For fig 1, $i_O = i_R = v_I / R$ and hence proportional to $v_I$ and independent of $Z_L$.\\
+For fig 2, $i_O = i_R$, note that since the pos/neg terminal of the op amp above is virtual shorted, $v_I - i_1 R_1 = -i_2 R_1$,so $-i_1 R_1 + i_2 R_1 = -v_I$, hence we have
+\[
+  i_R = \frac{v_I - 2i_1 R_1 + 2i_2r_1}{R} = -v_I / R
+\]
+and hence proportional to $v_I$ and independent of $Z_L$.\\
 
 \section{2.69}
 An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?
