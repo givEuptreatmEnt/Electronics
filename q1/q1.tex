@@ -40,6 +40,8 @@
 \newcommand{\sdb}{\si{\decibel}}
 \newcommand{\img}{\mathrm{i}}
 
+\usetikzlibrary{calc}
+
 \begin{document}
 
 \section{2.27}
@@ -164,21 +166,46 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
 
 \begin{circuitikz}
 	\draw[color=black, thick][american voltages, american currents]
-  (0, 9) to [R, l=$20\skom$] (0, 6) to [pR, l_=$100\skom$pot, n=pot] (0, 3) to [R, l=$20\skom$] (0, 0)
-  (4, 5) node[op amp](op) {}
-  (0, 0) to [short, -*] (3, 0) -| (op.down)
-  (op.up) |- (3, 9) to [short, *-] (0, 9)
-  (op.+) to [short] (pot.wiper)
-  (op.out) to [short, -*] ++(.5, 0) to [short, -o] ++(.5, 0) node[right] {$V_O$}
-  (op.out)+(.5, 0) |- ++(-3, 2) |- (op.-)
+  (6, 0.5) node[op amp](op1){}
+  (6, 3.5) node[op amp](op2){}
+  (0, 0) node[ground]{} to [R, l=$10\skom$] (op1.+)
+  (0, 2) to[short, o-*] ++(1, 0) -- ++(0, -1) to [R, l=$10\skom$, -*] (op1.-) -- ++(0, 1) to [R, l=$30\skom$] ++(3, 0) to [short] ++(0, -1.5) node(p1){} to[short, -o] ++(0.5, 0) node[right](C){C}
+  (op1.out) to [short, -*] (p1)
+  (1, 2) -- ++(0, 1) to [R, l=$10\skom$] (op2.+)
+  (0, 4) node[ground]{} to [R, l=$10\skom$, -*] (op2.-) -- ++(0, 1) to[R, l=$20\skom$] ++ (3, 0) to [short] ++(0, -1.5) node(p2){} to [short, -o] ++(.5, 0) node[right](B){B}
+  (op2.out) to [short, -*] (p2)
+  (0, 2) to [open, v=$v_I$] (0, 0)
+  (B) to [open, v^=$v_O$] (C)
 	;
-  \draw (3, 0) node[below] {$-15\svol$};
-  \draw (3, 9) node[above] {$+15 \svol$};
-
 \end{circuitikz}
 
 \section{2.66}
 The two circuits in Fig are intended to function as voltage-to-current converters; that is, they supply the load impedance $Z_L$ with a current proportional to $v_I$ and independent of the value of $Z_L$. Show that this is indeed the case, and find for each circuit $i_o$ as a function of $v_I$. Comment on the differences between the two circuits.
+
+\begin{circuitikz}[american voltages, american currents]
+  \draw[color=black, thick]
+  (2.5, 0.5) node[op amp](op1){}
+  (2.5, 5.5) node[op amp](op2){}
+  (0, 0) to [short, o-] (op1.+)
+  (op1.out) -| ++(0.5, 1.5) to[short, -*] ++(-3, 0) node[](p1){} |- (op1.-)
+  (p1) to[R, l=$R$, -*] ++(0, 2) to[european resistor, l=$Z_L$] ++(3, 0) |- (op2.out)
+  (p1)+(0, 2) |- (op2.+)
+  ;
+  \draw let \p{A}=(op2.-) in
+  (op2.-) to [short, -o] (0, \y{A}) to[open, v=$v_I$] (0, 0)
+  ;
+
+\end{circuitikz}
+\begin{circuitikz}[american voltages, american currents]
+  \draw[color=black, thick]
+  (4.5, 1.5) node[op amp](op1){}
+  (6.5, -2) node[op amp, rotate=180, yscale=-1](op2){}
+  (0, 0) to [R, l=$R_1$, o-*] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
+  (op2.out) -| (5, 0)
+  (2, 0) |- (op1.+)
+  (0, 2) to [R, l=$R_1$, -*] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(4, 0) to [R, l=$R$] ++ (0, -4) 
+  ;
+\end{circuitikz}
 
 \section{2.69}
 An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?
