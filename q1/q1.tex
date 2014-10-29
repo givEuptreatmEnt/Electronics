@@ -40,7 +40,7 @@
 \newcommand{\sdb}{\si{\decibel}}
 \newcommand{\img}{\mathrm{i}}
 
-\usetikzlibrary{calc}
+\usetikzlibrary{calc, arrows}
 
 \begin{document}
 
@@ -95,6 +95,8 @@ The circuit in Fig below can be can be consider to be an extension of the circui
 
 \section{2.28}
 The circuit below utilizes an ideal op amp.\\
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}[american voltages, american currents]
 	\draw[color=black, thick]
   (0, 0) node[ground]{} to [battery1=$1\si{\volt}$] (0, 2) to [R, l=$10\si{\kilo\ohm}$, i>=$I_1$, -*] (3, 2) -- (3, 5) to [R, l=$10\si{\kilo\ohm}$, i>=$I_2$, -*] (6, 5)
@@ -106,6 +108,7 @@ The circuit below utilizes an ideal op amp.\\
   (6, 5) to [R, l=$100\si{\ohm}$, v=$V_x$, i^<=$I_3$] (6, 2.5) node[ground]{}
 	;
 \end{tikzpicture}
+\end{figure}
 \begin{enumerate}[label=(\alph*)]
   \item Find $I_1, I_2, I_3, V_x$\\
     Ans: 
@@ -139,6 +142,42 @@ Show that $v_O$ is given by
 \[
   v_O = - \frac{R_f}{16} \sum_{i=0}^{3} 2^i a_i
 \]
+where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0$ to $-12\svol$.
+
+\begin{circuitikz}[
+    arw/.style={->, thick, shorten <=2pt, shorten >=2pt},
+    >=triangle 45,
+  ]
+  \draw[color=black, thick][american voltages, american currents]
+  (0, 0) node[spdt, xscale=-1] (s1) {}
+  (0, 3) node[spdt, xscale=-1] (s2) {}
+  (0, 6) node[spdt, xscale=-1] (s3) {}
+  (0, 9) node[spdt, xscale=-1] (s4) {}
+  (s4.in) to[R, l=$10\skom$] ++(3, 0) to [short] ($ (s1.in)+(3, 0) $)
+  (s3.in) to[R, l=$20\skom$, -*] ++(3, 0) node(p1){}
+  ($ (p1)+(2.5,-1.5) $) node[op amp](op){}
+  (s2.in) to[R, l=$40\skom$, -*] ++(3, 0)
+  (s1.in) to[R, l=$80\skom$] ++(3, 0)
+  ($ (p1)+(0,-1) $) to[short, *-*] ++(1, 0) to[short] ++(0, 1) to[R, l=$R_f$] ++(3, 0) to[short, -*] ++(0, -1.5) to[short, -o] ++(.5, 0)node(p2){} to[open, v=$v_O$] ++(0, -2) node[ground]{}
+  (op.-) to[short] ($ (p1)+(1,-1) $) 
+  (op.+) node[ground]{}
+  (op.out) to[short] (p2)
+  ;
+  \draw[arw]
+  (s1.out 1) to ++(-1, 0) node[left]{$+5\svol$};
+  \draw[arw]
+  (s2.out 1) to ++(-1, 0) node[left]{$+5\svol$};
+  \draw[arw]
+  (s3.out 1) to ++(-1, 0) node[left]{$+5\svol$};
+  \draw[arw]
+  (s4.out 1) to ++(-1, 0) node[left]{$+5\svol$};
+  \draw
+  (s1.out 2) node[ground] {}
+  (s2.out 2) node[ground] {}
+  (s3.out 2) node[ground] {}
+  (s4.out 2) node[ground] {}
+  ;
+\end{circuitikz}
 
 \section{2.51}
 Figure shows a circuit that provides an output voltage $v_o$ whose value can be varied by turning the wiper of the 100\skom potentiometer. Find the range over which $v_o$ can be varied. If the potentiometer is a "20-turn" device, find the change in $v_o$ corresponding to each turn of the pot.
