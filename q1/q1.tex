@@ -188,7 +188,7 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   (2.5, 5.5) node[op amp](op2){}
   (0, 0) to [short, o-] (op1.+)
   (op1.out) -| ++(0.5, 1.5) to[short, -*] ++(-3, 0) node[](p1){} |- (op1.-)
-  (p1) to[R, l=$R$, -*] ++(0, 2) to[european resistor, l=$Z_L$] ++(3, 0) |- (op2.out)
+  (p1) to[R, l=$R$, -*] ++(0, 2) to[european resistor, l=$Z_L$, i_<=$i_O$] ++(3, 0) |- (op2.out)
   (p1)+(0, 2) |- (op2.+)
   ;
   \draw let \p{A}=(op2.-) in
@@ -196,6 +196,7 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   ;
 
 \end{circuitikz}
+\quad\quad
 \begin{circuitikz}[american voltages, american currents]
   \draw[color=black, thick]
   (4.5, 1.5) node[op amp](op1){}
@@ -203,7 +204,10 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   (0, 0) to [R, l=$R_1$, o-*] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
   (op2.out) -| (5, 0)
   (2, 0) |- (op1.+)
-  (0, 2) to [R, l=$R_1$, -*] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(4, 0) to [R, l=$R$] ++ (0, -4) 
+  (0, 2) to [R, l=$R_1$, o-*] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(3.5, 0) to [R, l=$R$, -*] ++ (0, -4) node[](p1){} -- (op2.+)
+  (2.5, 2) -- (op1.-)
+  (p1) to[short, -o] ++(0, -.5) to[european resistor, l=$Z_L$, i_<=$i_o$] ++(0, -2.5) node[ground] {}
+  (0, 2) to[open, v=$v_1$] (0, 0)
   ;
 \end{circuitikz}
 
@@ -216,6 +220,15 @@ Derive the transfer function of the circuit in Fig and show that it can be writt
   \frac{V_o}{V_i} = \frac{-R_2/R_1}{\left(1+(\omega_1/(\img\omega))\right)\left(1+(\omega/(\img\omega_2))\right)}
 \]
 
+\begin{circuitikz}[american voltages, american currents]
+  \draw[color=black, thick]
+  (6, -.5) node[op amp](op1) {}
+  (0, 0) to [C, l=$C_1$, o-] ++(2.5, 0) to [R, l=$R_1$, -*] ++(2.5, 0) to [short, -*] ++(0, 1.5) node[](p1){} to [R, -*, l=$R_2$] ++(2.5, 0) to [short, -*] ++(0, -2) to [short, -o] ++(.5, 0) node[right] {$V_o$}
+  (op1.+) -- ++ (-.5, 0) node[ground]{}
+  (p1) to[short] ++(0, 1.5) to [C, l=$C_2$] ++(2.5, 0) to[short] ++(0, -1.5)
+  (op1.out) to[short] ($ (p1)+(2.5, -2) $)
+  ;
+\end{circuitikz}
 
 \section{2.100}
 A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
