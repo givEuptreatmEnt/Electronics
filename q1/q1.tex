@@ -219,8 +219,22 @@ And so the voltage change each turn is $(v_{1, \text{max}} - v_{1, \text{min}}) 
 
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
 
-最好能算啦…
+For $v_{Icm}$, the first stage has no effect, $v_{O1} = v_{O2} = v_{Icm}$.
+So common-mode gain $A_{Icm} = 1\svol/\svol$. For $v_{Id}$, we have
+\[ v_{O1} - v_{O2} = \left(1 + 2\frac{100}{10}\right) v_{Id} = 21 v_{Id}, \]
+and since $R_3 = R_4$, difference-mode gain $ A_{Id} = 21\svol/\svol$.
+CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) = \infty$.
 
+If all resistors are specified as $\pm 1\%$ units, we can maximize common-mode
+gain by let  $R_{31} = R_{42} = 101\skom, R_{32} = R_{41} = 99\skom$,
+then common-mode gain
+\[ A_{Icm} = \frac{R_{42}}{R_{32}+R_{42}}
+  \left( 1 - \frac{R_{41}R_{32}}{R_{31}R_{42}} \right)
+  \approx \SI{1.98e-2}{\volt/\volt}. \]
+And we minimize difference-mode gain by let $2R_1 = 10.1\skom, R_2 = 99\skom$.
+\[ A_{Id} = \frac{2R_2 + 2R_1}{2R_1}
+  \frac{R_{41}+R_{42}}{R_{31}+R_{32}} \approx \SI{20.6}{\volt/\volt}. \]
+CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 138.95\sdb$.
 
 \section{2.65}
 The circuit shown in Fig is intended to supply a voltage to floating loads (those for which both terminals are ungrounded) while making possible use of available power supply.
@@ -245,7 +259,7 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
   ans: 
   \begin{figure}[H]
     \centering
-    \includegraphics[width=.8\textwidth]{2_66.pdf}
+    \includegraphics[width=.6\textwidth]{2_66.pdf}
   \end{figure}
   \item What is the voltage gain $v_O / v_I$? \\
     Ans: It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
@@ -371,8 +385,6 @@ A short-base diode is one where the widths of the $p$ and $n$ regions are much s
     \[ \tau_T = \frac{1}{2} \frac{W_n^2}{D_p} \]
   \item if a designer wishes to limit $C_d$ to $8 \si{\pico\farad}$ at $I = 1\smia$, what should $W_n$ be? Assume $D_p = 10 \si{\centi\meter^2/\second}$ 
 \end{enumerate}
-
-
 
 \end{document}
 
