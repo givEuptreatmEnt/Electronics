@@ -352,6 +352,27 @@ A $p^n$ junction is one in which the doping concentration in the $p$ region is m
 \]
 For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$
 
+\section{1.82}
+A short-base diode is one where the widths of the $p$ and $n$ regions are much smaller than $L_n$ and $L_p$, respectively. As a result, the excess minority carrier distribution in each region is a straight line rather than the exponentials shown in Fig. 1.39.
+\begin{enumerate}[label=(\alph*)]
+  \item For the short-base diode, sketch a figure corresponding to Fig.1.39 and assume as in Fig.1.39 that $N_A \gg N_D$.
+  \item Following a derivation similar to that given in Section 1.11.2, show that if the widths of the p and n regions are denoted $W_p$ and $W_n$ then 
+    \[
+      I = Aqn_i^2 \left( \frac{D_p}{(W_n - x_n) N_D} + \frac{D_n}{(W_p - x_p) N_A} \right) \left( e^{V/V_T} - 1 \right) 
+    \]
+    and
+    \begin{align*}
+      Q_p &= \frac{1}{2} \frac{(W_n - x_n)^2}{D_p} I_p \\
+          &\approx \frac{1}{2} \frac{W_n^2}{D_p}I_p, \quad \text{for } W_n \gg x_n
+    \end{align*}
+  \item Also, assuming $Q \approx Q_p, I \approx I_p$, show that
+    \[ C_d = \frac{\tau_T}{V_T} I \]
+    where
+    \[ \tau_T = \frac{1}{2} \frac{W_n^2}{D_p} \]
+  \item if a designer wishes to limit $C_d$ to $8 \si{\pico\farad}$ at $I = 1\smia$, what should $W_n$ be? Assume $D_p = 10 \si{\centi\meter^2/\second}$ 
+\end{enumerate}
+
+
 
 \end{document}
 
