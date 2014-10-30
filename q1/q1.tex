@@ -248,7 +248,7 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
     \includegraphics[width=.8\textwidth]{2_66.pdf}
   \end{figure}
   \item What is the voltage gain $v_O / v_I$? \\
-    Ans: It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 3$.
+    Ans: It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
 \end{enumerate}
 
 \section{2.66}
@@ -344,6 +344,13 @@ Consider an inverting summer with two inputs $V_1$ and $V_2$ and with $V_O = -(V
 
 \section{2.104}
 An op amp having a slew rate of $20 \si{V/\micro s}$ is to be used in the unity-gain follower configuration, with input pulses that rise from $0$ to $3\svol$. What is the shortest pulse that can be used while ensuring full-amplitude output? For such a pulse, describe the outputing resulting.
+
+\section{1.78}
+A $p^n$ junction is one in which the doping concentration in the $p$ region is much greater than that in the $n$ region. In such a junction, the foward current is mostly due to hole injection across the junction. Show that
+\[
+  I \approx I_p = Aqn_i^2\frac{D_p}{L_p N_D} \left( e^{V/V_T} - 1 \right)
+\]
+For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$
 
 
 \end{document}
