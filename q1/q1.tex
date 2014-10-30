@@ -234,7 +234,10 @@ then common-mode gain
 And we minimize difference-mode gain by let $2R_1 = 10.1\skom, R_2 = 99\skom$.
 \[ A_{Id} = \frac{2R_2 + 2R_1}{2R_1}
   \frac{R_{41}+R_{42}}{R_{31}+R_{32}} \approx \SI{20.6}{\volt/\volt}. \]
-CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 138.95\sdb$.
+CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 60.34\sdb$.
+
+If $2R_1 = 1\skom$, then $A_{Id} \approx \SI{201}{\volt/\volt}$.
+The first stage dominates the difference-mode gain.
 
 \section{2.65}
 The circuit shown in Fig is intended to supply a voltage to floating loads (those for which both terminals are ungrounded) while making possible use of available power supply.
