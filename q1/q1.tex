@@ -41,6 +41,9 @@
 \newcommand{\sdb}{\si{\decibel}}
 \newcommand{\shz}{\si{\hertz}}
 \newcommand{\img}{\mathrm{i}}
+\newcommand{\dD}{\mathrm{d}}
+\newcommand{\iD}{\:\mathrm{d}}
+\newcommand{\Ans}{{\bf Ans:} \\}
 
 \usetikzlibrary{calc, arrows}
 
@@ -70,28 +73,28 @@ The circuit in Fig below can be can be consider to be an extension of the circui
 
 \begin{enumerate}[label=(\alph*)]
   \item Find the resistance looking into node 1, 2, 3, 4.\\
-    Ans: 
+    \Ans 
     \begin{align*}
       R_1 &= R\\
-      R_2 &= (R || R) + R / 2 = R\\
-      R_3 &= (R || R) + R / 2 = R\\
-      R_4 &= (R || R) + R / 2 = R\\
+      R_2 &= (R_1 || R) + R / 2 = R\\
+      R_3 &= (R_2 || R) + R / 2 = R\\
+      R_4 &= (R_3 || R) + R / 2 = R\\
     \end{align*}
   \item Find the currents $I_1, I_2, I_3, I_4$, in terms of $I$\\
-    Ans:
+    \Ans
     \begin{align*}
       I_1 &= IR / R = I\\
       I_2 &= ((I+I_1) (R/2) + IR) / R= 2I\\
       I_3 &= (4IR/2 + 2IR)/R = 4I \\
-      I_4 &= (8IR/2 + 4IR)/R = 8I 
+      I_4 &= -(4I + 4I) = -8I 
     \end{align*}
   \item Find the voltages at node 1, 2, 3, 4.\\
-    Ans:
+    \Ans
     \begin{align*}
-      V_1 &= IR               \\
-      V_2 &= V_1 + 2IR/2 = 2IR\\
-      V_3 &= V_2 + 4IR/2 = 4IR\\
-      V_4 &= V_3 + 8IR/2 = 8IR
+      V_1 &= -IR               \\
+      V_2 &= V_1 + 2IR/2 = -2IR\\
+      V_3 &= V_2 + 4IR/2 = -4IR\\
+      V_4 &= V_3 + 8IR/2 = -8IR
     \end{align*}
 \end{enumerate}
 
@@ -113,7 +116,7 @@ The circuit below utilizes an ideal op amp.\\
 \end{figure}
 \begin{enumerate}[label=(\alph*)]
   \item Find $I_1, I_2, I_3, V_x$\\
-    Ans: 
+    \Ans 
     \begin{align*}
       I_1 &= 1\si{\volt} / 10\si{\kilo\ohm} = 0.1\si{\milli\ampere}\\
       I_2 &= I_1 = 0.1\si{\milli\ampere}\\
@@ -121,7 +124,7 @@ The circuit below utilizes an ideal op amp.\\
       I_3 &= 1 / 100\si{\ohm} = 10\si{\milli\ampere}
     \end{align*}
   \item If $V_O$ is not to be lower than $-13\si{\volt}$, find the maximum allowed value of $R_L$\\
-    Ans: 
+    \Ans 
     \begin{align*}
       V_O &= V_x + R_L I_L = V_x + R_L (I_2 + I_3)\\
           &= - 1\si{\volt} - (10.1 \smia) R_L
@@ -131,6 +134,7 @@ The circuit below utilizes an ideal op amp.\\
       R_L \leq 12\svol / 10.1 \smia \approx 1.19
     \]
   \item If $R_L$ is varied in the range $100 \sohm$ to $1 \si{\kilo\ohm}$, what is the corresponding change in $I_L$ and in $V_O$?
+    \Ans
     $I_L$ would not change\\
     \[
       V_O \rvert_{R_L = 100 \sohm} = 2.02 \svol, V_O \rvert_{R_L = 1\skom} = 11.2\svol
@@ -180,7 +184,7 @@ where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0
   (s4.out 2) node[ground] {}
   ;
 \end{circuitikz}\\
-Ans:\\
+\Ans
 Note that 
 \[
   I_1 = \sum_{i=0}^{3} a_i (5\svol) / (10 \cdot 2^{(3-i)} \skom) = \sum_{i=0}^{3} a_i / 2^{(4-i)} (\smia)
@@ -207,7 +211,7 @@ Figure shows a circuit that provides an output voltage $v_o$ whose value can be 
   \draw (3, 9) node[above] {$+15 \svol$};
 
 \end{circuitikz} \\
-Ans: \\
+\Ans
 We have
 \begin{align*}
   v_O &= v_1 \\
@@ -218,7 +222,7 @@ And so the voltage change each turn is $(v_{1, \text{max}} - v_{1, \text{min}}) 
 \section{2.63}
 
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
-
+\Ans
 For $v_{Icm}$, the first stage has no effect, $v_{O1} = v_{O2} = v_{Icm}$.
 So common-mode gain $A_{Icm} = 1\svol/\svol$. For $v_{Id}$, we have
 \[ v_{O1} - v_{O2} = \left(1 + 2\frac{100}{10}\right) v_{Id} = 21 v_{Id}, \]
@@ -259,18 +263,17 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
 
 \begin{enumerate}[label=(\alph*)]
   \item Assuming ideal op amps, sketch the voltage waveforms at nodes B and C for a $1\svol$ peak-to-peak sine wave applied at A. Also sketch $v_O$\\
-  ans: 
+  \Ans
   \begin{figure}[H]
     \centering
     \includegraphics[width=.6\textwidth]{2_66.pdf}
   \end{figure}
   \item What is the voltage gain $v_O / v_I$? \\
-    Ans: It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
+    \Ans It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
 \end{enumerate}
 
 \section{2.66}
 The two circuits in Fig are intended to function as voltage-to-current converters; that is, they supply the load impedance $Z_L$ with a current proportional to $v_I$ and independent of the value of $Z_L$. Show that this is indeed the case, and find for each circuit $i_o$ as a function of $v_I$. Comment on the differences between the two circuits.
-
 \begin{circuitikz}[american voltages, american currents]
   \draw[color=black, thick]
   (2.5, 0.5) node[op amp](op1){}
@@ -299,16 +302,18 @@ The two circuits in Fig are intended to function as voltage-to-current converter
   (0, 2) to[open, v=$v_1$] (0, 0)
   ;
 \end{circuitikz} \\
+\Ans
 For fig 1, $i_O = i_R = v_I / R$ and hence proportional to $v_I$ and independent of $Z_L$.\\
 For fig 2, $i_O = i_R$, note that since the pos/neg terminal of the op amp above is virtual shorted, $v_I - i_1 R_1 = -i_2 R_1$,so $-i_1 R_1 + i_2 R_1 = -v_I$, hence we have
 \[
   i_R = \frac{v_I - 2i_1 R_1 + 2i_2r_1}{R} = -v_I / R
 \]
 and hence proportional to $v_I$ and independent of $Z_L$.\\
-
+Comment: No comment.
 \section{2.69}
 An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?\\
-Ans: We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) $ , so if $\tau = RC$ is the time constant.
+\Ans
+We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) $ , so if $\tau = RC$ is the time constant.
 \[
   \frac{1}{10^3 \tau} = 10^2 \; \Rightarrow \; \tau = 10^{-5}
 \]
@@ -335,7 +340,7 @@ Use these approximations to sketch a Bode plot for the magnitude response. Obser
   (op1.out) to[short] ($ (p1)+(2.5, -2) $)
   ;
 \end{circuitikz} \\
-Ans: 
+\Ans
 \begin{align*}
   \frac{V_o}{V_i} &= -\frac{1 / (\img \omega C_2 + 1 / R_2)}{R_1 + 1 / (\img \omega C_1)}\\
   &= \frac{-1}{\left( \img \omega C_2 + \frac{1}{R_2} \right) \left( R_1 + \frac{1}{\img \omega C_1} \right)}\\
@@ -351,16 +356,29 @@ Let the transfer function be $f(\omega)$ and $- R_2 / R_1 = \alpha$
 
 \section{2.100}
 A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency? \\
-By the single pole model of the op amp. $f_t > 100 \cdot 5 \si{\mega\hertz}$. (事實上要寫出這個答案需要不少恥力，因為這時候只剛好是$3 \sdb$ frequency.)\\
-Let $G(\omega)$ be the gain of the best available amplifier. $G(5\si{\mega\hertz}) = 40 / 5 = 8$. So you will need at least $3$ op amp so that $8^3 = 512$.\\
-But actually if we consider the $3\sdb$ frequency, $G(5 \si{\mega\hertz}) = \frac{40}{2 \cdot 5} = 4$, so you will need $4$ op amp so that $4^4 = 256$.
-剩下的需要op amp的low frequency gain. 題目沒給是要算小小小。
-
+\Ans
+By the single pole model of the op amp. $f_t > 100 \cdot 5 \si{\mega\hertz}$, provided that the low frequency gain is much greater than $100 \si{V/V}$.\\ 
+Let $G(\omega)$ be the gain of the best available amplifier. $G(5\si{\mega\hertz}) = 40 / 5 = 8$. So you will need at least $3$ op amp so that $8^3 = 512 > 100$.\\
+Now we solve for the gain of the op amp $G$. notice that the $3\sdb$ frequency will be approximately at $40/G \si{\mega\hertz}$, so for the total gain to be $100 \si{V/V}$, we have
+\[
+  \frac{G}{\displaystyle \sqrt{1 + \left(\frac{f}{40 / G}^2\right)}} = \sqrt[3]{100}
+\]
+Solve for $G$ we get $G \approx 5.70$, so the $3 \sdb$ frequency each stage is approximately $40\si{\mega\hertz} / 5.7 \approx 7.02\si{\mega\hertz}$. The over all $3 \sdb$ frequency is when $1 + (f'/7.02)^2 = \sqrt[3]{2}$, and so $f' \approx 3.57 \si{\mega\hertz}$.
 \section{2.102}
 Consider an inverting summer with two inputs $V_1$ and $V_2$ and with $V_O = -(V_1 + V_2)$. Find the $3 \sdb$ frequency of each of the gain functions $V_O / V_1$ and $V_O / V_2$ in terms of the op amp $f_1$.
 
+Obviously $V_O / V_1 = V_O / V_2$.
+Set $V_2 = 0$, We have $I_3 = I_1 - I_2 = (V_1 - V_3) / R - V_3 / R$, so $-AV_3 = V_O = V_3 - (V_1 - V_3 - V_3) = 3V_3 - V_1 \; \Rightarrow \; V_O = -1 / (1 + 3 / A)$. Substitute $A = A_0 / (1 + \omega / \omega_b)$ yields 
+\[
+  G(\omega) = \frac{-1}{1 + 3(1 + \omega / \omega_b) / A_0} = \frac{-A_0}{A_0 + 3 + 3 \omega / \omega_b}
+\]
+Notice that $A_0 \gg 3$, so $\omega_{3\sdb} \approx A_0 \omega_b / 3 \approx \omega_t / 3 $.
+
+
 \section{2.104}
 An op amp having a slew rate of $20 \si{V/\micro s}$ is to be used in the unity-gain follower configuration, with input pulses that rise from $0$ to $3\svol$. What is the shortest pulse that can be used while ensuring full-amplitude output? For such a pulse, describe the outputing resulting.
+\Ans
+Easy... $3 / 20 = 0.15 \si{\micro s}$.
 
 \section{1.78}
 A $p^+n$ junction is one in which the doping concentration in the $p$ region is much greater than that in the $n$ region. In such a junction, the foward current is mostly due to hole injection across the junction. Show that
@@ -368,11 +386,28 @@ A $p^+n$ junction is one in which the doping concentration in the $p$ region is 
   I \approx I_p = Aqn_i^2\frac{D_p}{L_p N_D} \left( e^{V/V_T} - 1 \right)
 \]
 For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$
+\Ans
+We have
+\[
+  I = I_p + I_n = Aqn_i^2 \left( \frac{D_p}{L_p N_D} + \frac{D_n}{L_n N_A} \right) \left(e^{(V / V_T)} - 1 \right)
+\]
+but since the acceptor dominates, $N_A \gg N_D$, and hence
+\[
+  I \approx I_p = Aqn_i^2\frac{D_p}{L_p N_D} \left( e^{V/V_T} - 1 \right)
+\]
+A straight forward calculation yields
+\begin{align*}
+  I_S &= Aqn_i^2\frac{D_p}{L_p} 
+  &\approx (10^4 \cdot 10^{-8} \si{\centi\meter^3})(1.6 \cdot 10^{-19} \si{C})(1.5\cdot10^{10} \si{/cm^3})^2 (10 \si{cm}) / (10^{-3} \si{cm}) / (10^{16} \si{cm}) \\
+  &\approx 3.6 \cdot 10^{-15} \smia
+\end{align*}
 
 \section{1.82}
 A short-base diode is one where the widths of the $p$ and $n$ regions are much smaller than $L_n$ and $L_p$, respectively. As a result, the excess minority carrier distribution in each region is a straight line rather than the exponentials shown in Fig. 1.39.
 \begin{enumerate}[label=(\alph*)]
   \item For the short-base diode, sketch a figure corresponding to Fig.1.39 and assume as in Fig.1.39 that $N_A \gg N_D$.
+    \Ans
+    TODO or not TODO
   \item Following a derivation similar to that given in Section 1.11.2, show that if the widths of the p and n regions are denoted $W_p$ and $W_n$ then 
     \[
       I = Aqn_i^2 \left( \frac{D_p}{(W_n - x_n) N_D} + \frac{D_n}{(W_p - x_p) N_A} \right) \left( e^{V/V_T} - 1 \right) 
@@ -382,11 +417,56 @@ A short-base diode is one where the widths of the $p$ and $n$ regions are much s
       Q_p &= \frac{1}{2} \frac{(W_n - x_n)^2}{D_p} I_p \\
           &\approx \frac{1}{2} \frac{W_n^2}{D_p}I_p, \quad \text{for } W_n \gg x_n
     \end{align*}
+    \Ans
+    $p_n(x_n) = p_{n_0}e^{V/V_T}$ as usual, but the excess charge at $W_n$ equals $0$, so $p_n(W_n) = p_{n_0}$, hence 
+    \[
+      \frac{\dD p}{\dD x} = p_{n_0} (e^{V/V_T} - 1) / (W_n - x_n) = n_i^2 (e^{V/V_T} - 1)  / ((W_n - x_n) N_D) 
+    \]
+    everywhere, hence we have
+    \[
+      I_p = A J_p = A q D_p \frac{\dD p}{\dD x} = A q n_i^2 \frac{D_p}{ N_D (W_n - x_n) } \left(e^{V/V_T} - 1\right) 
+    \]
+    similarly
+    \[
+      I_n = A J_n = A q D_n \frac{\dD p}{\dD x} = A q n_i^2 \frac{D_n}{ N_A (W_p - x_p) } \left(e^{V/V_T} - 1\right) 
+    \]
+    So
+    \[
+      I = I_n + I_p = Aqn_i^2 \left( \frac{D_p}{(W_n - x_n) N_D} + \frac{D_n}{(W_p - x_p) N_A} \right) \left( e^{V/V_T} - 1 \right) 
+    \]
+    Finally, 
+    \begin{align*}
+      Q_p &= A q \frac{(p_n(x_n) - p_n(W_n))(W_n - x_n)}{2} \\
+          &= A q \frac{(p_n(x_n) - p_n(W_n))(W_n - x_n)^2}{2 (W_n - x_n)} \\
+          &= A q \frac{(W_n - x_n)^2}{D_p} I_p \\
+          &\approx A q \frac{W_n^2}{2 D_p} I_p \quad (\text{If } W_n \gg x_n)
+    \end{align*}
+      
   \item Also, assuming $Q \approx Q_p, I \approx I_p$, show that
     \[ C_d = \frac{\tau_T}{V_T} I \]
     where
     \[ \tau_T = \frac{1}{2} \frac{W_n^2}{D_p} \]
+    \Ans
+    \begin{align*}
+      C_d &= \frac{\dD Q}{\dD V} \approx \frac{\dD Q_p}{\dD V} \\
+      &= \frac{\dD (A q W_n^2 / D_p) I_p }{2 \dD V} \\
+      &= \frac{A q W_n^2}{2 D_p} \frac{\dD I_s \left( e^{V/V_T} - 1 \right)}{\dD V}
+    \end{align*}
+    If $V \gg V_T \approx 25.8 \si{mV}$, 
+    \[ \frac{\dD I_s \left( e^{V/V_T} - 1 \right)}{\dD V} = I_S e^{V/V_T} / V_T \approx I / V_T \]
+    \begin{align*}
+      C_d &\approx \frac{A q W_n^2}{2 D_p} I / V_T\\
+      &= \frac{\tau_T}{V_T} I
+    \end{align*}
+      
+
   \item if a designer wishes to limit $C_d$ to $8 \si{\pico\farad}$ at $I = 1\smia$, what should $W_n$ be? Assume $D_p = 10 \si{\centi\meter^2/\second}$ 
+    \Ans
+    \begin{align*}
+      W_n &= \sqrt{ \frac{2 C_d D_p V_T}{I}} \\
+          &= \sqrt{ 2 (8 \cdot 10^{-12} \si{\farad}) (10^{-3} \si{m}) (25.8 \cdot 10^{-3} \svol) (10^{3} \si{\per\ampere} ) }\\
+      &\approx 642 \si{\nano\meter}
+    \end{align*}
 \end{enumerate}
 
 \end{document}
