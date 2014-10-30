@@ -333,10 +333,14 @@ Let the transfer function be $f(\omega)$ and $- R_2 / R_1 = \alpha$
 \end{enumerate}
 
 \section{2.100}
-A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
+A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency? \\
+By the single pole model of the op amp. $f_t > 100 \cdot 5 \si{\mega\hertz}$. (事實上要寫出這個答案需要不少恥力，因為這時候只剛好是$3 \sdb$ frequency.)\\
+Let $G(\omega)$ be the gain of the best available amplifier. $G(5\si{\mega\hertz}) = 40 / 5 = 8$. So you will need at least $3$ op amp so that $8^3 = 512$.\\
+But actually if we consider the $3\sdb$ frequency, $G(5 \si{\mega\hertz}) = \frac{40}{2 \cdot 5} = 4$, so you will need $4$ op amp so that $4^4 = 256$.
+剩下的需要op amp的low frequency gain. 題目沒給是要算小小小。
 
 \section{2.102}
-Consider an inverting summer with two inputs $V_1$ and $V_2$ and with $V_O = -(V_1 + V_2)$. Find the $3 \sdb$ frequency of each of the gain functions $V_o / V_1$ and $V_o / V_2$ in terms of the op amp $f_1$.
+Consider an inverting summer with two inputs $V_1$ and $V_2$ and with $V_O = -(V_1 + V_2)$. Find the $3 \sdb$ frequency of each of the gain functions $V_O / V_1$ and $V_O / V_2$ in terms of the op amp $f_1$.
 
 \section{2.104}
 An op amp having a slew rate of $20 \si{V/\micro s}$ is to be used in the unity-gain follower configuration, with input pulses that rise from $0$ to $3\svol$. What is the shortest pulse that can be used while ensuring full-amplitude output? For such a pulse, describe the outputing resulting.
