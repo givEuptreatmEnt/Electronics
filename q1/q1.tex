@@ -230,26 +230,45 @@ And so the voltage change each turn is $(v_{1, \text{max}} - v_{1, \text{min}}) 
 
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
 \Ans
-For $v_{Icm}$, the first stage has no effect, $v_{O1} = v_{O2} = v_{Icm}$.
-So common-mode gain $A_{Icm} = 0\svol/\svol$. For $v_{Id}$, we have
-\[ v_{O1} - v_{O2} = \left(1 + 2\frac{100}{10}\right) v_{Id} = 21 v_{Id}, \]
-and since $R_3 = R_4$, difference-mode gain $ A_{Id} = 21\svol/\svol$.
-CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) = \infty$.
+\begin{circuitikz}
+	\draw[color=black, thick][american voltages, american currents]
+  (2, .5) node[op amp](op2) {}
+  (2, 5.5) node[op amp, yscale=-1](op1) {}
+  (8, 3) node[op amp](op3) {}
+  (op1.+) to[short, -o] ++(-2, 0) node[left]{$v_{I1}$}
+  (op2.+) to[short, -o] ++(-2, 0) node[left]{$v_{I2}$}
+  (op2.-) -| ++(-1, .8) node[](v2){}
+  (op1.-) -| ++(-1, -.8) node[](v1){}
+  (op1.out) to[short, -*] ++(.5, 0) node[](v3){} to[short] ++ (0, -1.3) to [R, l=$R_{21}$] (v1) to [R, l=$2R_{1}$] (v2)
+  (op2.out) to[short, -*] ++(.5, 0) node[](v4){} to[short] ++ (0, 1.3) to [R, l_=$R_{22}$] (v2)
+  (v3) to[short] ++(0.5, 0) -| ++(.5, -2) to [R, l=$R_{31}$] (op3.-) -- ++(0, 1) to [R, l=$R_{41}$] ++(3, 0) to[short] ++(0, -1.5)node[](v5){} to[short, *-o] ++(1, 0) to[open, v^=$v_O$] ++(0, -3) node[ground]{}
+  (v4) to[short] ++(0.5, 0) -| ++(.5, 2) to [R, l_=$R_{32}$, -*] (op3.+) to [R, l=$R_{42}$] ++(0, -2.5) node[ground]{}
+  (op3.out) to[short] (v5)
+  ;
+  \draw[dashed] (-.5, -.5) rectangle ($ (v3) + (.5, 1) $);
+  \draw[dashed] ($(v4) + (.7, -1) $) rectangle ($ (v5) + (.5, 2.5) $);
+  \draw (-1.8, 3) node[text width=1.5]{First stage};
+  \draw (7.5, 5.8) node[]{Second stage};
+\end{circuitikz}
 
-If all resistors are specified as $\pm 1\%$ units, we can maximize common-mode
-gain by let  $R_{31} = R_{42} = 101\skom, R_{32} = R_{41} = 99\skom$,
-then common-mode gain
-\[ A_{Icm} = \frac{R_{42}}{R_{32}+R_{42}}
+If the resistor are ideal, the circuit is same as the textbook circuit, So as in textbook, we have
+\begin{align*}
+  A_{cm} &= 0\\
+  A_{d} &= \frac{R_4}{R_3} \left(1 + \frac{R_2}{R_1} \right)\\
+  &= 1 \cdot (1 + 100 / 5) = 21
+\end{align*}
+CMRR is then $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) = \infty$.\\
+
+Now if all resistors are specified as $\pm 1\%$ units. First consider the first stage gain, the common-mode gain would be maximize by letting $R_{31} = R_{42} = 101\skom, R_{32} = R_{41} = 99\skom$, and
+\[ A_{cm} = \frac{R_{42}}{R_{32}+R_{42}}
   \left( 1 - \frac{R_{41}R_{32}}{R_{31}R_{42}} \right)
   \approx \SI{1.98e-2}{\volt/\volt}. \]
-And we minimize difference-mode gain by let $2R_1 = 10.1\skom, R_2 = 99\skom$.
-\[ A_{Id} = \frac{2R_2 + 2R_1}{2R_1}
+  The difference-mode gain wouldn't be affect too much by the resistor bias. \\
+At the first stage. In the worse case, the minimize difference-mode gain by let $2R_1 = 10.1\skom, R_2 = 99\skom$.
+\[ A_{d} = \frac{2R_2 + 2R_1}{2R_1}
   \frac{R_{41}+R_{42}}{R_{31}+R_{32}} \approx \SI{20.6}{\volt/\volt}. \]
-CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 60.34\sdb$.
-
-If $2R_1 = 1\skom$, then $A_{Id} \approx \SI{201}{\volt/\volt}$.
-The first stage dominates the difference-mode gain.
-And the common-mode gain doesn't change. So CMRR is
+  And the common-mode gain is $0$ in every situation. So the overall CMRR is $20\log\left(\frac{A_{d}}{A_{cm}}\right) \approx 60.34\sdb$. \\
+If $2R_1 = 1\skom$, then By similar calculation, $A_{d} \approx \SI{201}{\volt/\volt}$.  The first stage dominates the difference-mode gain.  And the common-mode gain doesn't change. So CMRR is
 $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 80.13\sdb$.
 
 \section{2.65}
@@ -365,19 +384,24 @@ Use these approximations to sketch a Bode plot for the magnitude response. Obser
 \end{align*}
 Let the transfer function be $f(\omega)$ and $- R_2 / R_1 = \alpha$
 \begin{enumerate}[label=(\alph*)]
-  \item $\omega \ll \omega_1 \ll \omega_2 \Rightarrow 1 + \img(\omega / \omega_2) \approx 1$ and $1 + \omega_1/(\img \omega) \approx \omega / \omega_1$, Hence $f(\omega) \approx \alpha \img \omega / \omega_1$
+  \item $\omega \ll \omega_1 \ll \omega_2 \Rightarrow 1 + \img(\omega / \omega_2) \approx 1$ and $1 + \omega_1/(\img \omega) \approx \omega / (\img \omega_1)$, Hence $f(\omega) \approx \alpha \img \omega / \omega_1$
   \item $\omega_1 \ll \omega \ll \omega_2 \Rightarrow 1 + \img(\omega / \omega_2) \approx 1$ and $1 + \omega_1/(\img \omega) \approx 1$, Hence $f(\omega) \approx \alpha$
   \item $\omega_1 \ll \omega_2 \ll \omega \Rightarrow 1 + \img(\omega / \omega_2) \approx \img \omega / \omega_2$ and $1 + \omega_1/(\img \omega) \approx 1$, Hence $f(\omega) \approx \alpha \omega_2 / (\img \omega)$
 \end{enumerate}
+Plot: 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{2_79.pdf}
+\end{figure}
 
 \section{2.100}
 A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
 \Ans
 By the single pole model of the op amp. $f_t > 100 \cdot 5 \si{\mega\hertz}$, provided that the low frequency gain is much greater than $100 \si{V/V}$.\\ 
 Let $G(\omega)$ be the gain of the best available amplifier. $G(5\si{\mega\hertz}) = 40 / 5 = 8$. So you will need at least $3$ op amp so that $8^3 = 512 > 100$.\\
-Now we solve for the gain of the op amp $G$. notice that the $3\sdb$ frequency will be approximately at $40/G \si{\mega\hertz}$, so for the total gain to be $100 \si{V/V}$, we have
+Now we solve for the gain of the op amp $G$. notice that the $3\sdb$ frequency will be approximately at $40/G \si{\mega\hertz}$, so for the total gain to be $100 \si{V/V}$ at $5 \si{\mega\hertz}$, we have
 \[
-  \frac{G}{\displaystyle \sqrt{1 + \left(\frac{f}{40 / G}^2\right)}} = \sqrt[3]{100}
+  \frac{G}{\displaystyle \sqrt{1 + \left(\frac{f}{(40 / G) (\si{\mega\hertz})}\right)^2}} = \sqrt[3]{100}
 \]
 Solve for $G$ we get $G \approx 5.70$, so the $3 \sdb$ frequency each stage is approximately $40\si{\mega\hertz} / 5.7 \approx 7.02\si{\mega\hertz}$. The over all $3 \sdb$ frequency is when $1 + (f'/7.02)^2 = \sqrt[3]{2}$, and so $f' \approx 3.57 \si{\mega\hertz}$.
 \section{2.102}
@@ -417,7 +441,7 @@ A straight forward calculation yields
   &\approx 3.6 \cdot 10^{-15} \samp \\
   I &= I_S \left( e^{V/V_T} - 1\right) \\
   \Rightarrow V &= V_T \ln (I / I_S + 1) \\
-  &\approx 0.662 \si{\milli\volt}
+  &\approx 0.662 \svol
 \end{align*}
 
 \section{1.82}
