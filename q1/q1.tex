@@ -138,7 +138,7 @@ The circuit below utilizes an ideal op amp.\\
     \Ans
     $I_L$ would not change\\
     \[
-      V_O \rvert_{R_L = 100 \sohm} = 2.02 \svol, V_O \rvert_{R_L = 1\skom} = 11.2\svol
+      V_O \rvert_{R_L = 100 \sohm} = -2.01 \svol, V_O \rvert_{R_L = 1\skom} = -11.1\svol
     \]
 \end{enumerate}
 
@@ -298,6 +298,9 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
   \end{figure}
 \item What is the voltage gain $v_O / v_I$?
   \Ans It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
+\item Assuming that the op amps operate from $\pm 15 \svol$ power supplies and that their output saturates at $\pm 14 \svol$ (in the manner shown in Fig.1.14), what is the largest sine-wave output that can be accomodated? Specify both its peak-to-peak and rms values.
+  \Ans
+  Since $v_B = -v_C$, so if required $|v_B|, |v_C| < 14 \svol$, The maximum output is $|v_O| = |v_B - v_C| = 28 \svol$. and the rms value is therefore $28 / \sqrt{2} \svol = 19.8 \svol$.
 \end{enumerate}
 
 \section{2.66}
@@ -365,7 +368,7 @@ Where $\omega_1 = 1/(C_1R_1)$ and $\omega_2 = 1/(C_2R_2)$. Assuming that the cir
   \item $\omega_1 \ll \omega \ll \omega_2$
   \item $\omega \gg \omega_2$
 \end{enumerate}
-Use these approximations to sketch a Bode plot for the magnitude response. Observe that the circuit performs as an amplifier whose gain rolls off at the low-frequency end in the manner of a high-pass STC network, and at the high frequency end in the manner of a low-pass STC network. Design the circuit to provide a gain of $40 \sdb$ in the "middle frequency range," a low-frequency $3\sdb$ point at $100\si{kHz}$, and an input resistance (at $\omega \gg \omega_1$) of $1\skom$.
+Use these approximations to sketch a Bode plot for the magnitude response. Observe that the circuit performs as an amplifier whose gain rolls off at the low-frequency end in the manner of a high-pass STC network, and at the high frequency end in the manner of a low-pass STC network. Design the circuit to provide a gain of $40 \sdb$ in the "middle frequency range," a low-frequency $3\sdb$ point at $100\si{kHz}$, and an input resistance (at $\omega \gg \omega_1$) of $1\skom$.\\
 \begin{circuitikz}[american voltages, american currents]
   \draw[color=black, thick]
   (6, -.5) node[op amp](op1) {}
@@ -393,6 +396,22 @@ Plot:
   \centering
   \includegraphics[width=.5\textwidth]{2_79.pdf}
 \end{figure}
+To satisfied the design, the input resistance
+\[
+  Z = R + \frac{1}{\img \omega_1 C} \approx R \quad (\text{if } \omega_1 \gg \omega)
+\]
+so $R_1 = 1\skom$, and for the gain to be $40 \sdb$
+\[
+  10^{40/20} = G \approx \frac{R_2}{R_1} \; \Rightarrow \; R_2 = 100 R_1 = 100 \skom
+\]
+Finally, to match the $3 \sdb$ frequency, 
+\begin{align*}
+  2 \pi \cdot 100 \shz &= \omega_1 = \frac{1}{C_1R_1}\\
+  \Rightarrow C_1 &= 1.59 \si{\micro\farad}\\
+  2 \pi \cdot 10^{5} \shz &= \omega_2 = \frac{1}{C_2R_2} \\
+  \Rightarrow C_2 &= 15.9 \si{\pico\farad} 
+\end{align*}
+
 
 \section{2.100}
 A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
@@ -410,14 +429,23 @@ Consider an inverting summer with two inputs $V_1$ and $V_2$ and with $V_O = -(V
 Obviously $V_O / V_1 = V_O / V_2$.
 Set $V_2 = 0$, We have $I_3 = I_1 - I_2 = (V_1 - V_3) / R - V_3 / R$, so $-AV_3 = V_O = V_3 - (V_1 - V_3 - V_3) = 3V_3 - V_1 \; \Rightarrow \; V_O = -1 / (1 + 3 / A)$. Substitute $A = A_0 / (1 + \omega / \omega_b)$ yields 
 \[
-  G(\omega) = \frac{-1}{1 + 3(1 + \omega / \omega_b) / A_0} = \frac{-A_0}{A_0 + 3 + 3 \omega / \omega_b}
+  G(\omega) = \frac{-1}{1 + 3(1 + \img \omega / \omega_b) / A_0} = \frac{-A_0}{A_0 + 3 + 3 \img \omega / \omega_b}
 \]
-Notice that $A_0 \gg 3$, so $\omega_{3\sdb} \approx A_0 \omega_b / 3 \approx \omega_t / 3 $.
+Notice that $A_0 \gg 3$, we approximate $G$ to \\
+\[
+  G(\omega) =  \frac{-1}{1 + 3/A_0 + 3 \img \omega / (A_0 \omega_b)}
+  \approx  \frac{-1}{1 + 3 \img \omega / (A_0 \omega_b)}
+\]
+ So $\omega_{3\sdb} \approx A_0 \omega_b / 3 \approx \omega_t / 3 $.
 
 \section{2.104}
 An op amp having a slew rate of $20 \si{V/\micro s}$ is to be used in the unity-gain follower configuration, with input pulses that rise from $0$ to $3\svol$. What is the shortest pulse that can be used while ensuring full-amplitude output? For such a pulse, describe the outputing resulting.
 \Ans
 Easy... $3 / 20 = 0.15 \si{\micro\second}$.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{2_104.pdf}
+\end{figure}
 
 \section{1.78}
 A $p^+n$ junction is one in which the doping concentration in the $p$ region is much greater than that in the $n$ region. In such a junction, the foward current is mostly due to hole injection across the junction. Show that
