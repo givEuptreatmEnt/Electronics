@@ -4,6 +4,7 @@
 \usepackage{amsthm, amssymb, mathtools, yhmath, graphicx}
 \usepackage{fontspec, type1cm, titlesec, titling, fancyhdr, tabularx}
 \usepackage{color, unicode-math, float, siunitx}
+\usepackage{subcaption}
 \usepackage[siunitx]{circuitikz}
 
 \usepackage[CheckSingle, CJKmath]{xeCJK}
@@ -43,7 +44,7 @@
 \newcommand{\img}{\mathrm{i}}
 \newcommand{\dD}{\mathrm{d}}
 \newcommand{\iD}{\:\mathrm{d}}
-\newcommand{\Ans}{{\bf Ans:} \\}
+\newcommand{\Ans}{{\\ \bf Ans:} \\}
 
 \usetikzlibrary{calc, arrows}
 
@@ -115,7 +116,7 @@ The circuit below utilizes an ideal op amp.\\
 \end{tikzpicture}
 \end{figure}
 \begin{enumerate}[label=(\alph*)]
-  \item Find $I_1, I_2, I_3, V_x$\\
+  \item Find $I_1, I_2, I_3, V_x$
     \Ans 
     \begin{align*}
       I_1 &= 1\si{\volt} / 10\si{\kilo\ohm} = 0.1\si{\milli\ampere}\\
@@ -123,7 +124,7 @@ The circuit below utilizes an ideal op amp.\\
       V_x &= 0 - (0.1\si{\milli\ampere})(10\si{\kilo\ohm}) = -1 \si{\volt}\\
       I_3 &= 1 / 100\si{\ohm} = 10\si{\milli\ampere}
     \end{align*}
-  \item If $V_O$ is not to be lower than $-13\si{\volt}$, find the maximum allowed value of $R_L$\\
+  \item If $V_O$ is not to be lower than $-13\si{\volt}$, find the maximum allowed value of $R_L$
     \Ans 
     \begin{align*}
       V_O &= V_x + R_L I_L = V_x + R_L (I_2 + I_3)\\
@@ -183,7 +184,7 @@ where $R_f$ is in kiloohms. Find the value of $R_f$ so that $v_O$ ranges from $0
   (s3.out 2) node[ground] {}
   (s4.out 2) node[ground] {}
   ;
-\end{circuitikz}\\
+\end{circuitikz}
 \Ans
 Note that 
 \[
@@ -210,7 +211,7 @@ Figure shows a circuit that provides an output voltage $v_o$ whose value can be 
   \draw (3, 0) node[below] {$-15\svol$};
   \draw (3, 9) node[above] {$+15 \svol$};
 
-\end{circuitikz} \\
+\end{circuitikz}
 \Ans
 We have
 \begin{align*}
@@ -242,6 +243,8 @@ CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 60.34\sdb$.
 
 If $2R_1 = 1\skom$, then $A_{Id} \approx \SI{201}{\volt/\volt}$.
 The first stage dominates the difference-mode gain.
+And the common-mode gain doesn't change. So CMRR is
+$20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 80.13\sdb$.
 
 \section{2.65}
 The circuit shown in Fig is intended to supply a voltage to floating loads (those for which both terminals are ungrounded) while making possible use of available power supply.
@@ -262,46 +265,53 @@ The circuit shown in Fig is intended to supply a voltage to floating loads (thos
 \end{circuitikz}
 
 \begin{enumerate}[label=(\alph*)]
-  \item Assuming ideal op amps, sketch the voltage waveforms at nodes B and C for a $1\svol$ peak-to-peak sine wave applied at A. Also sketch $v_O$\\
+  \item Assuming ideal op amps, sketch the voltage waveforms at nodes B and C for a $1\svol$ peak-to-peak sine wave applied at A. Also sketch $v_O$
   \Ans
   \begin{figure}[H]
     \centering
     \includegraphics[width=.6\textwidth]{2_66.pdf}
   \end{figure}
-  \item What is the voltage gain $v_O / v_I$? \\
-    \Ans It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
+\item What is the voltage gain $v_O / v_I$?
+  \Ans It is easy to see that $v_B = 3 v_A, v_C = -3 v_A$, so $v_O / v_I = 6$.
 \end{enumerate}
 
 \section{2.66}
 The two circuits in Fig are intended to function as voltage-to-current converters; that is, they supply the load impedance $Z_L$ with a current proportional to $v_I$ and independent of the value of $Z_L$. Show that this is indeed the case, and find for each circuit $i_o$ as a function of $v_I$. Comment on the differences between the two circuits.
-\begin{circuitikz}[american voltages, american currents]
-  \draw[color=black, thick]
-  (2.5, 0.5) node[op amp](op1){}
-  (2.5, 5.5) node[op amp](op2){}
-  (0, 0) to [short, o-] (op1.+)
-  (op1.out) -| ++(0.5, 1.5) to[short, -*] ++(-3, 0) node[](p1){} |- (op1.-)
-  (p1) to[R, l=$R$,i={\color{red}$i_R$}, -*] ++(0, 2) to[european resistor, l=$Z_L$, i_<=$i_O$] ++(3, 0) |- (op2.out)
-  (p1)+(0, 2) |- (op2.+)
-  ;
-  \draw let \p{A}=(op2.-) in
-  (op2.-) to [short, -o] (0, \y{A}) to[open, v=$v_I$] (0, 0)
-  ;
-
-\end{circuitikz}
-\quad\quad
-\begin{circuitikz}[american voltages, american currents]
-  \draw[color=black, thick]
-  (4.5, 1.5) node[op amp](op1){}
-  (6.5, -2) node[op amp, rotate=180, yscale=-1](op2){}
-  (0, 0) to [R, l=$R_1$, o-*, i={\color{red}$i_2$}] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
-  (op2.out) -| (5, 0)
-  (2.5, 0) |- (op1.+)
-  (0, 2) to [R, l=$R_1$, o-*, i={\color{red}$i_1$}] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(3.5, 0) to [R, l=$R$, -*, i={\color{red}$i_R$}] ++ (0, -4) node[](p1){} -- (op2.+)
-  (2.5, 2) -- (op1.-)
-  (p1) to[short, -o] ++(0, -.5) to[european resistor, l=$Z_L$, i_<=$i_o$] ++(0, -2.5) node[ground] {}
-  (0, 2) to[open, v=$v_1$] (0, 0)
-  ;
-\end{circuitikz} \\
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[american voltages, american currents]
+      \draw[color=black, thick]
+        (2.5, 0.5) node[op amp](op1){}
+        (2.5, 5.5) node[op amp](op2){}
+        (0, 0) to [short, o-] (op1.+)
+        (op1.out) -| ++(0.5, 1.5) to[short, -*] ++(-3, 0) node[](p1){} |- (op1.-)
+        (p1) to[R, l=$R$,i={\color{red}$i_R$}, -*] ++(0, 2) to[european resistor, l=$Z_L$, i_<=$i_O$] ++(3, 0) |- (op2.out)
+        (p1)+(0, 2) |- (op2.+)
+        ;
+      \draw let \p{A}=(op2.-) in
+        (op2.-) to [short, -o] (0, \y{A}) to[open, v=$v_I$] (0, 0)
+        ;
+    \end{circuitikz}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[american voltages, american currents, scale=0.8, transform shape]
+      \draw[color=black, thick]
+        (4.5, 1.5) node[op amp](op1){}
+        (6.5, -2) node[op amp, rotate=180, yscale=-1](op2){}
+        (0, 0) to [R, l=$R_1$, o-*, i={\color{red}$i_2$}] ++(2.5, 0) to[R, l_=$R_1$, -*] ++(2.5, 0) -- ++(3, 0) |- (op2.-)
+        (op2.out) -| (5, 0)
+        (2.5, 0) |- (op1.+)
+        (0, 2) to [R, l=$R_1$, o-*, i={\color{red}$i_1$}] ++(2.5, 0) -- ++(0, 1) to[R, l=$R_1$] ++(3, 0) -|(op1.out) to[short, *-] ++(3.5, 0) to [R, l=$R$, -*, i={\color{red}$i_R$}] ++ (0, -4) node[](p1){} -- (op2.+)
+        (2.5, 2) -- (op1.-)
+        (p1) to[short, -o] ++(0, -.5) to[european resistor, l=$Z_L$, i_<=$i_o$] ++(0, -2.5) node[ground] {}
+        (0, 2) to[open, v=$v_I$] (0, 0)
+        ;
+    \end{circuitikz}
+  \end{subfigure}
+\end{figure}
 \Ans
 For fig 1, $i_O = i_R = v_I / R$ and hence proportional to $v_I$ and independent of $Z_L$.\\
 For fig 2, $i_O = i_R$, note that since the pos/neg terminal of the op amp above is virtual shorted, $v_I - i_1 R_1 = -i_2 R_1$,so $-i_1 R_1 + i_2 R_1 = -v_I$, hence we have
@@ -311,7 +321,7 @@ For fig 2, $i_O = i_R$, note that since the pos/neg terminal of the op amp above
 and hence proportional to $v_I$ and independent of $Z_L$.\\
 Comment: No comment.
 \section{2.69}
-An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?\\
+An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?
 \Ans
 We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) $ , so if $\tau = RC$ is the time constant.
 \[
@@ -330,7 +340,7 @@ Where $\omega_1 = 1/(C_1R_1)$ and $\omega_2 = 1/(C_2R_2)$. Assuming that the cir
   \item $\omega_1 \ll \omega \ll \omega_2$
   \item $\omega \gg \omega_2$
 \end{enumerate}
-Use these approximations to sketch a Bode plot for the magnitude response. Observe that the circuit performs as an amplifier whose gain rolls off at the low-frequency end in the manner of a high-pass STC network, and at the high frequency end in the manner of a low-pass STC network. Design the circuit to provide a gain of $40 \sdb$ in the "middle frequency range," a low-frequency $3\sdb$ point at $100\si{kHz}$, and an input resistance (at $\omega \gg \omega_1$) of $1\skom$. \\
+Use these approximations to sketch a Bode plot for the magnitude response. Observe that the circuit performs as an amplifier whose gain rolls off at the low-frequency end in the manner of a high-pass STC network, and at the high frequency end in the manner of a low-pass STC network. Design the circuit to provide a gain of $40 \sdb$ in the "middle frequency range," a low-frequency $3\sdb$ point at $100\si{kHz}$, and an input resistance (at $\omega \gg \omega_1$) of $1\skom$.
 \begin{circuitikz}[american voltages, american currents]
   \draw[color=black, thick]
   (6, -.5) node[op amp](op1) {}
@@ -339,7 +349,7 @@ Use these approximations to sketch a Bode plot for the magnitude response. Obser
   (p1) to[short] ++(0, 1.5) to [C, l=$C_2$] ++(2.5, 0) to[short] ++(0, -1.5)
   (op1.out) to[short] ($ (p1)+(2.5, -2) $)
   ;
-\end{circuitikz} \\
+\end{circuitikz}
 \Ans
 \begin{align*}
   \frac{V_o}{V_i} &= -\frac{1 / (\img \omega C_2 + 1 / R_2)}{R_1 + 1 / (\img \omega C_1)}\\
@@ -355,7 +365,7 @@ Let the transfer function be $f(\omega)$ and $- R_2 / R_1 = \alpha$
 \end{enumerate}
 
 \section{2.100}
-A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency? \\
+A designer, wanting to achieve a stable gain of $100 \si{V/V}$ at $5 \si{\mega\hertz}$, considers her choice of amplifier topologies. What unity-gain frequency would a single operational amplifier require to satisfy her need? Unfortunately, the best available amplifier has an $f_t$ of $40 \si{\mega\hertz}$. How many such stages would she need to achieve her goal? What is the $3\sdb$ frequency of each stage she can use? What is the overall $3\sdb$ frequency?
 \Ans
 By the single pole model of the op amp. $f_t > 100 \cdot 5 \si{\mega\hertz}$, provided that the low frequency gain is much greater than $100 \si{V/V}$.\\ 
 Let $G(\omega)$ be the gain of the best available amplifier. $G(5\si{\mega\hertz}) = 40 / 5 = 8$. So you will need at least $3$ op amp so that $8^3 = 512 > 100$.\\
@@ -374,18 +384,17 @@ Set $V_2 = 0$, We have $I_3 = I_1 - I_2 = (V_1 - V_3) / R - V_3 / R$, so $-AV_3 
 \]
 Notice that $A_0 \gg 3$, so $\omega_{3\sdb} \approx A_0 \omega_b / 3 \approx \omega_t / 3 $.
 
-
 \section{2.104}
 An op amp having a slew rate of $20 \si{V/\micro s}$ is to be used in the unity-gain follower configuration, with input pulses that rise from $0$ to $3\svol$. What is the shortest pulse that can be used while ensuring full-amplitude output? For such a pulse, describe the outputing resulting.
 \Ans
-Easy... $3 / 20 = 0.15 \si{\micro s}$.
+Easy... $3 / 20 = 0.15 \si{\micro\second}$.
 
 \section{1.78}
 A $p^+n$ junction is one in which the doping concentration in the $p$ region is much greater than that in the $n$ region. In such a junction, the foward current is mostly due to hole injection across the junction. Show that
 \[
   I \approx I_p = Aqn_i^2\frac{D_p}{L_p N_D} \left( e^{V/V_T} - 1 \right)
 \]
-For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$
+For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$.
 \Ans
 We have
 \[
@@ -459,7 +468,6 @@ A short-base diode is one where the widths of the $p$ and $n$ regions are much s
       &= \frac{\tau_T}{V_T} I
     \end{align*}
       
-
   \item if a designer wishes to limit $C_d$ to $8 \si{\pico\farad}$ at $I = 1\smia$, what should $W_n$ be? Assume $D_p = 10 \si{\centi\meter^2/\second}$ 
     \Ans
     \begin{align*}
