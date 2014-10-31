@@ -192,8 +192,14 @@ Note that
 \]
 so
 \[
-  v_O = 0 - R_f I_1 = - R_f \sum_{i=0}^{3} a_i 2^i / 16 (\skv)
+  v_O = 0 - R_f I_1 = - R_f \sum_{i=0}^{3} a_i 2^i / 16.
 \]
+If $v_O$ ranges from \SI{0}{\volt} to \SI{12}{\volt}, then
+\[
+  v_O = -\frac{R_f}{16} \sum_{i=0}^{3} a_i 2^i \Rightarrow
+  0 \ge v_O \ge -\frac{15}{16}R_f.
+\]
+So $R_f = 12.8\skom$.
 
 \section{2.51}
 Figure shows a circuit that provides an output voltage $v_o$ whose value can be varied by turning the wiper of the 100\skom potentiometer. Find the range over which $v_o$ can be varied. If the potentiometer is a "20-turn" device, find the change in $v_o$ corresponding to each turn of the pot.
