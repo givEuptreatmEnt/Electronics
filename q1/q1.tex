@@ -74,7 +74,7 @@ The circuit in Fig below can be can be consider to be an extension of the circui
 
 \begin{enumerate}[label=(\alph*)]
   \item Find the resistance looking into node 1, 2, 3, 4.\\
-    \Ans 
+    \Ans
     \begin{align*}
       R_1 &= R\\
       R_2 &= (R_1 || R) + R / 2 = R\\
@@ -231,7 +231,7 @@ And so the voltage change each turn is $(v_{1, \text{max}} - v_{1, \text{min}}) 
 For an instrumentation amplifier of the type shown in Fig 2.20(b), a designer proposes to make $R_2 = R_3 = R_4 = 100\skom$ and $2R_1 = 10\skom$. For ideal components, what difference-mode gain, common-mode gain, and CMRR result? Reevaluate the worst-case values for these for the situation in which all resistors are specified as $\pm 1\%$ units. Repeat the latter analysis for the case in which $2R_1$ is reduced to $1 \skom$. What do you conclude about the importance of the relative difference gains of the first and second stages?
 \Ans
 For $v_{Icm}$, the first stage has no effect, $v_{O1} = v_{O2} = v_{Icm}$.
-So common-mode gain $A_{Icm} = 1\svol/\svol$. For $v_{Id}$, we have
+So common-mode gain $A_{Icm} = 0\svol/\svol$. For $v_{Id}$, we have
 \[ v_{O1} - v_{O2} = \left(1 + 2\frac{100}{10}\right) v_{Id} = 21 v_{Id}, \]
 and since $R_3 = R_4$, difference-mode gain $ A_{Id} = 21\svol/\svol$.
 CMRR is $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) = \infty$.
@@ -329,16 +329,16 @@ Comment: No comment.
 \section{2.69}
 An op-amp-based inverting integrator is measured at $1 \si{\kilo\hertz}$ to have a voltage gain of $-100\si{V/V}$. At what frequency is its gain reduced to $-1 \si{V/V}$? What is the integrator time constant?
 \Ans
-We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) $ , so if $\tau = RC$ is the time constant.
+We know that $\abs{V_O} / \abs{V_I} = 1 / (\omega RC) = 1 / (2 \pi f R C)$ , so if $\tau = RC$ is the time constant.
 \[
-  \frac{1}{10^3 \tau} = 10^2 \; \Rightarrow \; \tau = 10^{-5}
+  \frac{1}{2 \pi \cdot 10^3 \tau} = 10^2 \; \Rightarrow \; \tau \approx 1.59 \cdot 10^{-6} \si{s}
 \]
 and Hence at $10^5 \shz$, $\abs{V_o}/\abs{V_i} = 1 / (10^5 10^{-5}) = 1$. 
 
 \section{2.79}
 Derive the transfer function of the circuit in Fig and show that it can be written in the form
 \[
-  \frac{\abs{V_o}}{\abs{V_i}} = \frac{-R_2/R_1}{\left(1+(\omega_1/(\img\omega))\right)\left(1+(\omega/(\img\omega_2))\right)}
+  \frac{\abs{V_o}}{\abs{V_i}} = \frac{-R_2/R_1}{\left(1+(\omega_1/(\img\omega))\right)\left(1+(\img\omega/(\omega_2))\right)}
 \]
 Where $\omega_1 = 1/(C_1R_1)$ and $\omega_2 = 1/(C_2R_2)$. Assuming that the circuit is designed such that $\omega_2 \gg \omega_1$, find approximate expressinos for the transfer function in the following frequency regions:
 \begin{enumerate}[label=(\alph*)]
@@ -400,7 +400,7 @@ A $p^+n$ junction is one in which the doping concentration in the $p$ region is 
 \[
   I \approx I_p = Aqn_i^2\frac{D_p}{L_p N_D} \left( e^{V/V_T} - 1 \right)
 \]
-For the specific case in which $N_D = 10^{16} \si{/cm^3}, N_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$.
+For the specific case in which $N_D = 10^{16} \si{/cm^3}, D_p = 10 \si{cm^2/s}, L_p = 10 \si{\micro\meter}, A = 10^4 \si{\micro \meter^2}$. Find $I_S$ and the voltage $V$ obtained when $I = 0.5\smia$. Assume operation at $300 \si{K}$ where $n_i = 1.5 \cdot 10^{10} \si{/cm^3}$.
 \Ans
 We have
 \[
@@ -412,9 +412,12 @@ but since the acceptor dominates, $N_A \gg N_D$, and hence
 \]
 A straight forward calculation yields
 \begin{align*}
-  I_S &= Aqn_i^2\frac{D_p}{L_p} 
+  I_S &= Aqn_i^2\frac{D_p}{L_p}  \\
   &\approx (10^4 \cdot 10^{-8} \si{\centi\meter^3})(1.6 \cdot 10^{-19} \si{C})(1.5\cdot10^{10} \si{/cm^3})^2 (10 \si{cm}) / (10^{-3} \si{cm}) / (10^{16} \si{cm}) \\
-  &\approx 3.6 \cdot 10^{-15} \smia
+  &\approx 3.6 \cdot 10^{-15} \samp \\
+  I &= I_S \left( e^{V/V_T} - 1\right) \\
+  \Rightarrow V &= V_T \ln (I / I_S + 1) \\
+  &\approx 0.662 \si{\milli\volt}
 \end{align*}
 
 \section{1.82}
