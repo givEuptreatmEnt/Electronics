@@ -34,12 +34,12 @@
 % \usepackage{setspace}    % 控制空行
 % \usepackage{mdframed}   % 可以加文字方框
 % \usepackage{multicol}   % 多欄
-\usepackage{siunitx}      % SI unit
+\usepackage{siunitx}[config, abbreviations]      % SI unit
 % \usepackage{dsfont}     % more mathbb
 
 %%%%%%%%%%%%%%%%%%%TikZ%%%%%%%%%%%%%%%%%%%%%%
 % \usepackage{tikz}
-\usepackage{circuitikz}
+\usepackage[siunitx, americanvoltages, americancurrents]{circuitikz}
 
 %%%%%%%%%%%%%%中文 Environment%%%%%%%%%%%%%%%
 \usepackage[CheckSingle, CJKmath]{xeCJK}  % xelatex 中文
@@ -179,6 +179,11 @@
 %% Ans %%
 \newcommand{\Ans}{\noindent{\bf Ans:}}
 
+%% No Indent %%
+\setlength\parindent{0pt}
+
+%% Note that for label to be correct, compile more than 2 times is needed ... %%
+
 
 %%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
 \title{} %標題
@@ -193,7 +198,7 @@
 %%%%%%%%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%%%%%%%%%%%
 % 7: 9
 \section{3.7}
-Assuming that the diodes in the circuits of Fig. are ideal,
+Assuming that the diodes in the circuits of Fig.~\ref{fig:3.7} are ideal,
 find the values of the labeled voltages and currents. \\
 \begin{figure}[H]
   \centering
@@ -216,6 +221,7 @@ find the values of the labeled voltages and currents. \\
     \caption{}
   \end{subfigure}
   \caption{}
+  \label{fig:3.7}
 \end{figure}
 
 \Ans \\
@@ -225,22 +231,68 @@ $$v_1 = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{5}{3} > 0$$
 which leads an contradiction. Hence $D_1$ is on, and $V = v_1 = 0, I = \SI{5}{\siv} / \SI{5}{\siko} - \SI{5}{\siv} / \SI{10}{\siko} = \SI{0.5}{\sima}$.  \\
 In (b), if $D_1$ is on, then $I = \SI{5}{\siv} / \SI{10}{\siko} - \SI{5}{\siv} / \SI{5}{\siko} = \SI{-0.5}{\sima}$, which violates the rule of ideal diode, so $D_1$ is off. 
 $$ 
-V = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{-5}{3} \si{\volt}, I = 0
+V = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{-5}{3} \si{\volt}, \quad I = 0
 $$
 % 18: 23
 \section{3.18}
-The circuit in Fig. utilizes three identical diodes having
+The circuit in Fig.~\ref{fig:3.18} utilizes three identical diodes having
 $I_S = \SI{e-14}{\sia}$. Find the value of the current $I$ required
 to obtain an output voltage $V_O = \SI{2}{\siv}$. If a current of
 \SI{1}{\sima} is drawn away from the output terminal by a load,
 what is the change in output voltage?
 
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}
+    \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\siv}$} to [I, l=$I$, *-*] ++(0, -2.5) node[](n1){} to [Do] ++(0, -1.5) to [Do] ++(0, -1.5) to [Do] ++(0, -1.5) node[ground] {}
+    (n1) to[short, -o] ++(1, 0) node[right] {\color{red} $V_O$};
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.18}
+\end{figure}
+
+\Ans \\
+If $V_O = \SI{2}\V$, the voltage across a single diode would be $v = \SI{2}\V / 3$, and that $I \approx I_s e^{v / V_T}$. Plug in $I_s = \SI{1e-14}\A, V_T = \SI{25}{\mV}$ \footnote{Since it's winter and thus colder now} and $v$ we get $I \approx \SI{3.8}\mV$. \\
+
+If now $\SI{1}\mA$ is drawn away, then $I' = \SI{2.8}\mA$ and we have
+\[
+  \log \frac{I'}{I} = \frac{V' - V}{V_T} \; \Rightarrow \; \Delta V = V' - V = V_T \log \frac{I'}{I} 
+\]
+and plug in the value we get $ \Delta V = \SI{-7.6}\mV $.
+
+
+\clearpage
 % 21: 26
 \section{3.21}
-For the circuit shown in Fig. , both diodes are identical, conducting
+For the circuit shown in Fig.~\ref{fig:3.21}, both diodes are identical, conducting
 \SI{10}{\sima} at \SI{0.7}{\siv} and \SI{100}{\sima}
 at \SI{0.8}{\siv}. Find the value of $R$ for which
 $V = \SI{80}{\simv}$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}
+    \draw[color=black, thick] (0, 0) to [I, l=10<\mA>, *-*] ++(0, -2.5) node[](n1){} to [Do, l_=$D_2$] ++(0, -1.5) node[ground] {}
+    (n1) to[short, i={\color{blue} $i_1$}] ++(1.5, 0) to [Do, -*, l^=$D_1$] ++(0, -1.5) node[](n2){} to [R, l_=$R$] ++(0, -2.5) node[ground]{} 
+    (n2) to [short, -o] ++(1, 0) to [open, v^={\color{red} $V$}] ++(0, -2.5)
+    ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.21}
+\end{figure}
+
+\Ans \\
+Model the diode as$ i = I_s e^{V / V_T} $ and solve $I_S, V_T$ with $(i, V) = (\SI{10}\mA, \SI{0.7}{\V}), (\SI{100}\mA, \SI{0.8}{\V})$. We have
+\[
+\frac{i_2}{i_1} = 10 = e^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \; V_T = \frac{V_2 - V_1}{ \log 10 } = \SI{43.4}\mV \]
+and thus $I_S = \SI{1e-6}{\mA}$. So
+\begin{align*}
+  & V_{D_2} - V_{D_1} = V \\
+  \Leftrightarrow \; &V_T \log \frac{i_2}{i_1} = V \\
+  \Leftrightarrow \; &V_T \log \frac{\SI{10}\mA - i_1}{i_1} = \SI{80}\mV \\
+  \Leftrightarrow \; &i_1 \approx \SI{1.367}{\mA}
+\end{align*}
+Finally $R = V / i_1 \approx \SI{80}\mV / \SI{1.367}\mA = \SI{58.5}\ohm$
 
 % 38: 46
 \section{3.38}
