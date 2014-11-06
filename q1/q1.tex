@@ -105,8 +105,7 @@ The circuit below utilizes an ideal op amp.\\
 \centering
 \begin{tikzpicture}[american voltages, american currents]
 	\draw[color=black, thick]
-  (0, 0) node[ground]{} to [battery1=$1\si{\volt}$] (0, 2) to [R, l=$10\si{\kilo\ohm}$, i>=$I_1$, -*] (3, 2) -- (3, 5) to [R, l=$10\si{\kilo\ohm}$, i>=$I_2$, -*] (6, 5)
-  (6, 5) to [vR, l=$R_L$, i_>=$I_L$] (9, 5) -| (9, 1.5)
+  (0, 0) node[ground]{} to [battery1=$1\si{\volt}$] (0, 2) to [R, l=$10\si{\kilo\ohm}$, i>=$I_1$, -*] (3, 2) -- (3, 5) to [R, l=$10\si{\kilo\ohm}$, i>=$I_2$, -*] (6, 5) (6, 5) to [vR, l=$R_L$, i_>=$I_L$] (9, 5) -| (9, 1.5)
   (4, 1.5) node[op amp](op) {}
   (op.-) to [short] (3, 2)
   (2, 0) node[ground]{} |- (op.+)
@@ -265,9 +264,10 @@ Now if all resistors are specified as $\pm 1\%$ units. First consider the first 
   \approx \SI{1.98e-2}{\volt/\volt}. \]
   The difference-mode gain wouldn't be affect too much by the resistor bias. \\
 At the first stage. In the worse case, the minimize difference-mode gain by let $2R_1 = 10.1\skom, R_2 = 99\skom$.
-\[ A_{d} = \frac{2R_2 + 2R_1}{2R_1}
-  \frac{R_{41}+R_{42}}{R_{31}+R_{32}} \approx \SI{20.6}{\volt/\volt}. \]
-  And the common-mode gain is $0$ in every situation. So the overall CMRR is $20\log\left(\frac{A_{d}}{A_{cm}}\right) \approx 60.34\sdb$. \\
+\[ A_{d} = \frac{2R_2 + 2R_1}{2R_1}\frac{1}{R_{31}}\frac{1}{R_{32}+R_{42}}
+  (R_{31}R_{42}+2R_{41}R_{42}+R_{32}R_{41}) \approx \SI{20.4}{\volt/\volt}.
+\]
+  And the common-mode gain is $0$ in every situation. So the overall CMRR is $20\log\left(\frac{A_{d}}{A_{cm}}\right) \approx 60.26\sdb$. \\
 If $2R_1 = 1\skom$, then By similar calculation, $A_{d} \approx \SI{201}{\volt/\volt}$.  The first stage dominates the difference-mode gain.  And the common-mode gain doesn't change. So CMRR is
 $20\log\left(\frac{A_{Id}}{A_{Icm}}\right) \approx 80.13\sdb$.
 

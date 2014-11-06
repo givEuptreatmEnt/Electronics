@@ -1,0 +1,330 @@
+\documentclass[12pt, a4paper]{article}
+
+%%%%%%%%%%%%%%%紙張大小設定%%%%%%%%%%%%%%%
+% \paperwidth=65cm
+% \paperheight=160cm
+
+%%%%%%%%%%%%%%%引入Package%%%%%%%%%%%%%%%
+\usepackage[margin=3cm]{geometry} % 上下左右距離邊緣2cm
+\usepackage{mathtools,amsthm,amssymb} % 引入 AMS 數學環境
+\usepackage{yhmath}      % math symbol
+\usepackage{graphicx}    % 圖形插入用
+\usepackage{fontspec}    % 加這個就可以設定字體
+\usepackage{type1cm}	 % 設定fontsize用
+\usepackage{titlesec}   % 設定section等的字體
+\usepackage{titling}    % 加強 title 功能
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{tabularx}   % 加強版 table
+\usepackage[square, comma, numbers, super, sort&compress]{natbib}
+% cite加強版
+\usepackage[unicode=true, pdfborder={0 0 0}, bookmarksdepth=-1]{hyperref}
+% ref加強版
+\usepackage[usenames, dvipsnames]{color}  % 可以使用顏色
+\usepackage[shortlabels, inline]{enumitem}  % 加強版enumerate
+\usepackage{xpatch}
+
+% \usepackage{tabto}      % tab
+% \usepackage{soul}       % highlight
+% \usepackage{ulem}       % 字加裝飾
+% \usepackage{wrapfig}     % 文繞圖
+% \usepackage{floatflt}    % 浮動 figure
+% \usepackage{float}       % 浮動環境
+\usepackage{caption}    % caption 增強
+\usepackage{subcaption}    % subfigures
+% \usepackage{setspace}    % 控制空行
+% \usepackage{mdframed}   % 可以加文字方框
+% \usepackage{multicol}   % 多欄
+\usepackage{siunitx}      % SI unit
+% \usepackage{dsfont}     % more mathbb
+
+%%%%%%%%%%%%%%%%%%%TikZ%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{tikz}
+\usepackage{circuitikz}
+
+%%%%%%%%%%%%%%中文 Environment%%%%%%%%%%%%%%%
+\usepackage[CheckSingle, CJKmath]{xeCJK}  % xelatex 中文
+\usepackage{CJKulem}	% 中文字裝飾
+\setCJKmainfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+\setCJKsansfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+\setCJKmonofont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
+% 設定中文為系統上的字型，而英文不去更動，使用原TeX字型
+
+% \XeTeXlinebreaklocale "zh"             %這兩行一定要加，中文才能自動換行
+% \XeTeXlinebreakskip = 0pt plus 1pt     %這兩行一定要加，中文才能自動換行
+
+%%%%%%%%%%%%%%%字體大小設定%%%%%%%%%%%%%%%
+% \def\normalsize{\fontsize{10}{15}\selectfont}
+% \def\large{\fontsize{40}{60}\selectfont}
+% \def\Large{\fontsize{50}{75}\selectfont}
+% \def\LARGE{\fontsize{90}{20}\selectfont}
+% \def\huge{\fontsize{34}{51}\selectfont}
+% \def\Huge{\fontsize{38}{57}\selectfont}
+
+%%%%%%%%%%%%%%%Theme Input%%%%%%%%%%%%%%%%
+% \input{themes/chapter/neat}
+% \input{themes/env/problist}
+
+%%%%%%%%%%%titlesec settings%%%%%%%%%%%%%%
+% \titleformat{\chapter}{\bf\Huge}
+            % {\arabic{section}}{0em}{}
+% \titleformat{\section}{\centering\Large}
+            % {\arabic{section}}{0em}{}
+% \titleformat{\subsection}{\large}
+            % {\arabic{subsection}}{0em}{}
+% \titleformat{\subsubsection}{\bf\normalsize}
+            % {\arabic{subsubsection}}{0em}{}
+% \titleformat{command}[shape]{format}{label}
+            % {編號與標題距離}{before}[after]
+
+%%%%%%%%%%%%variable settings%%%%%%%%%%%%%%
+% \numberwithin{equation}{section}
+% \setcounter{secnumdepth}{4}  %章節標號深度
+% \setcounter{tocdepth}{1}  %目錄深度
+% \graphicspath{{images/}}  % 搜尋圖片目錄
+
+%%%%%%%%%%%%%%%頁面設定%%%%%%%%%%%%%%%
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\setlength{\headheight}{15pt}  %with titling
+\setlength{\droptitle}{-1.5cm} %title 與上緣的間距
+% \posttitle{\par\end{center}} % title 與內文的間距
+\parindent=24pt %設定縮排的距離
+% \parskip=1ex  %設定行距
+% \pagestyle{empty}  % empty: 無頁碼
+% \pagestyle{fancy}  % fancy: fancyhdr
+
+% use with fancygdr
+% \lhead{\leftmark}
+% \chead{}
+% \rhead{}
+% \lfoot{}
+% \cfoot{}
+% \rfoot{\thepage}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+
+% \fancypagestyle{firststyle}
+% {
+  % \fancyhf{}
+  % \fancyfoot[C]{\footnotesize Page \thepage\ of \pageref{LastPage}}
+  % \renewcommand{\headrule}{\rule{\textwidth}{\headrulewidth}}
+% }
+
+%%%%%%%%%%%%%%%重定義一些command%%%%%%%%%%%%%%%
+\renewcommand{\contentsname}{目錄}  %設定目錄的標題名稱
+\renewcommand{\refname}{參考資料}  %設定參考資料的標題名稱
+\renewcommand{\abstractname}{\LARGE Abstract} %設定摘要的標題名稱
+
+%%%%%%%%%%%%%%%特殊功能函數符號設定%%%%%%%%%%%%%%%
+% \newcommand{\citet}[1]{\textsuperscript{\cite{#1}}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inpd}{\langle}{\rangle} % inner product
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+\newcommand{\np}[1]{\\[{#1}] \indent}
+\newcommand{\transpose}[1]{{#1}^\mathrm{T}}
+%%%% Geometry Symbol %%%%
+\newcommand{\degree}{^\circ}
+\newcommand{\Arc}[1]{\wideparen{{#1}}}
+\newcommand{\Line}[1]{\overleftrightarrow{{#1}}}
+\newcommand{\Ray}[1]{\overrightarrow{{#1}}}
+\newcommand{\Segment}[1]{\overline{{#1}}}
+
+%%%% SI unit short cut %%%%
+\newcommand{\siua}{\micro\ampere}
+\newcommand{\sima}{\milli\ampere}
+\newcommand{\simv}{\milli\volt}
+\newcommand{\siko}{\kilo\ohm}
+\newcommand{\sia}{\ampere}
+\newcommand{\siv}{\volt}
+
+%%%%%%%%%%%%%%%證明、結論、定義等等的環境%%%%%%%%%%%%%%%
+\renewcommand{\proofname}{\bf 證明:} %修改Proof 標頭
+\newtheoremstyle{mystyle}% 自定義Style
+  {6pt}{15pt}%       上下間距
+  {}%               內文字體
+  {}%               縮排
+  {\bf}%            標頭字體
+  {.}%              標頭後標點
+  {1em}%            內文與標頭距離
+  {}%               Theorem head spec (can be left empty, meaning 'normal')
+
+% 改用粗體，預設 remark style 是斜體
+\theoremstyle{mystyle}	% 定理環境Style
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定義}
+\newtheorem{formula}{公式}
+\newtheorem{condition}{條件}
+\newtheorem{supposition}{假設}
+\newtheorem{conclusion}{結論}
+\newtheorem{lemma}{引理}
+\newtheorem{property}{性質}
+
+%%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
+\title{} %標題
+\author{} %作者
+\date{} %日期
+
+\begin{document}
+% \maketitle %製作tilte page
+% \thispagestyle{empty}  %去除頁碼
+% \thispagestyle{fancy}  %使用fancyhdr
+% \tableofcontents %目錄
+%%%%%%%%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%%%%%%%%%%%
+% 7: 9
+\section{3.7}
+Assuming that the diodes in the circuits of Fig. are ideal,
+find the values of the labeled voltages and currents.
+
+% 18: 23
+\section{3.18}
+The circuit in Fig. utilizes three identical diodes having
+$I_S = \SI{e-14}{\sia}$. Find the value of the current $I$ required
+to obtain an output voltage $V_O = \SI{2}{\siv}$. If a current of
+\SI{1}{\sima} is drawn away from the output terminal by a load,
+what is the change in output voltage?
+
+% 21: 26
+\section{3.21}
+For the circuit shown in Fig. , both diodes are identical, conducting
+\SI{10}{\sima} at \SI{0.7}{\siv} and \SI{100}{\sima}
+at \SI{0.8}{\siv}. Find the value of $R$ for which
+$V = \SI{80}{\simv}$.
+
+% 38: 46
+\section{3.38}
+In the circuit shown in Fig. , $I$ is a dc current and $v_s$ is a
+sinusoidal signal. Capacitors $C_1$ and $C_2$ are very large; their
+function is to couple the signal to and from the diode but block the
+dc current from flowing into the signal source or the load (not shown).
+Use the diode small-signal mdel to show that the signal component of the
+output voltage is
+\[ v_o = v_s \frac{V_T}{V_T + IR_S} \]
+If $v_s = \SI{10}{\simv}$, find $v_o$ for
+$I = \SI{1}{\sima}, \SI{0.1}{\sima}$, and
+\SI{1}{\siua}. Let $R_s = \SI{1}{\siko}$. Assume $n = 2$. At
+what value of $I$ doe $v_o$ become one-half of $v_s$?
+Note that this circuit functions as a signal attenuator with the
+attenuation factor controlled by the value of the dc current $I$.
+
+% 40: 48
+\section{3.40}
+In the capacitor-coupled attenuator circuit shown in Fig. ,
+$I$ is a dc current that varies from \SI{0}{\sima} to
+\SI{1}{\sima}, and $C_1$ and $C_2$ are large coupling capacitors.
+For very small input signals, so that the diodes can be represented by
+their small-signal resistances $r_{d1}$ and $r_{d2}$, show that
+$\displaystyle \frac{v_o}{v_i} = \frac{r_{d2}}{r_{d1}+r_{d2}}$ and hence
+that $\displaystyle \frac{v_o}{v_i}  = I$, where $I$ is in
+\si{\sima}. Find $v_o/v_i$ for $I = \SI{0}{\siua}, \SI{1}{\siua},
+\SI{10}{\siua}, \SI{100}{\siua}, \SI{500}{\siua}, \SI{600}{\siua},
+\SI{900}{\siua}, \SI{990}{\siua}, \SI{1}{\sima}$.
+
+% 45: 53
+\section{3.45}
+Consider the voltage-regulator circuit shown in Fig. under the
+condition that a load current $I_L$ is drawn from the output terminal.
+\begin{enumerate}[(a)]
+  \item If the value of $I_L$ is sufficiently small that the
+    corresponding change in regulator output voltage $\Delta V_O$ is
+    small enough to justify using the diode small-signal model, show
+    that
+    \[ \frac{\Delta V_O}{I_L} = -(r_d \parallel R) \]
+    This quantity is known as the load regulation and is usually
+    expressed in \si{\simv/\sima}.
+  \item If the value of $R$ is selected such that at no load the voltage
+    across the diode is \SI{0.7}{\siv} and the diode current is $I_D$,
+    show that the expression derived in (a) becomes
+    \[ \frac{\Delta V_O}{I_L} =
+      -\frac{nV_T}{I_D}\frac{V^+ -0.7}{V^+ - 0.7 + nV_T} \]
+    Select the lowest possible value for $I_D$ that results in a load
+    regulation $\le \SI{5}{\simv/\sima}$. Assume $n = 2$.
+    If $V^+$ is nominally \SI{10}{\siv}, what value of $R$ is required?
+    Also, specify the diode required in terms of its $I_S$.
+  \item Generalize the expression derived in (b) for the case of $m$
+    diodes connected in series and $R$ adjusted to obtain $V_O =
+    \SI{0.7}{\simv}$ at no load.
+\end{enumerate}
+
+% 48: 56
+\section{3.48}
+A particular design of a voltage regulator is shown in Fig. .
+Diodes $D_1$ and $D_2$ are 10-\si{\sima} units; that is,
+each has a voltage drop of \SI{0.7}{\siv} at a current of
+\SI{10}{\sima}. Use the diode exponential model and iterative
+analysis to answer the follwing questions:
+\begin{enumerate}[(a)]
+  \item What is the regulator output voltage $V_O$ with the
+    150-\si{\ohm} load connected?
+  \item Find $V_O$ with no load.
+  \item With the load connected, to what value can the 5-\si{\siv}
+    supply be lowered while maintaining the loaded output voltage
+    within \SI{0.1}{\siv} of its nominal value?
+  \item What does the loaded output voltage become when the 5-\si{\siv}
+    supply is raised by the same amount as the drop found in (c)?
+  \item For the range of changes explored in (c) and (d), by what
+    percentage does the output voltage change for each percentage
+    change of supply voltage in the worst case?
+\end{enumerate}
+
+% 52: 61
+\section{3.52}
+Design a 7.5-\si{\siv} zener regulator circuit using a 7.5-\si{\siv}
+zener specified at \SI{12}{\sima}. The zener has an incremental
+resistance $r_z = \SI{30}{\ohm}$ and a knee current of \SI{0.5}{\sima}.
+The regulator operates from a 10-\si{\siv} supply and has a
+1.2-\si{\siko} load. What is the value of $R$ you have chosen?
+What is the regulator output voltage when the supply is \SI{10}{\percent}
+high? Is \SI{10}{\percent} low? What is the output voltage when both the
+supply is \SI{10}{\percent} hight and the load is removed? What is
+the smallest possible load resistor that can be ued while the zener
+operates at a current no lower than the knee current while the supply
+is \SI{10}{\percent} low? What is the load voltage in this case?
+
+% 53: 63
+\section{3.53}
+A zener shunt regulator employ a 9.1-\si{\siv} zener diode for which
+$V_Z = \SI{9.1}{\siv}$ at $I_Z = \SI{9}{\sima}$, with $r_Z = \SI{30}{\ohm}$
+and $I_{ZK}=\SI{0.3}{\sima}$. The available supply voltage of \SI{15}{\siv}
+can vary as much as $\pm\SI{10}{\percent}$. For this diode, what is the
+value of $V_{Z0}$? For a nominal load resistance $R_L$ of \SI{1}{\siko}
+and a nominal zener current of \SI{10}{\sima}, what current must flow
+in the supply resistor $R$? For the nominal value of supply voltage,
+select a value for resistor $R$, specified to one significant digit,
+to provide at least that current. What nominal output voltage results?
+For a $\pm\SI{10}{\percent}$ change in the supply voltage, what variation
+in output voltage results? If the load current is reduced by
+\SI{50}{\percent}, what increase in $V_O$ results? What is the smallest
+value of load resistance that can be tolerated while maintaining
+regulation when the supply voltage is low? What is the lowest possible
+output voltage that results? Calculate values for the line regulation
+and for the load regulation for this circuit using the numerical results
+obtained in this problem.
+
+% 60: 74
+\section{3.60}
+The circuit in Fig. implements a complementary-output rectifier.
+Sketch and clearly label the waveforms of $v_O^+$ and $v_O^-$.
+Assume a 0.7-\si{\siv} drop across each conducting diode. If the
+magnitude of the average of each output is to be \SI{15}{\siv}, find
+the required amplitude of the sine wave across the entire secondary
+winding. What is the PIV of each diode?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \bibliographystyle{plain}
+% \begin{thebibliography}{99}
+% \bibitem[1]{ex}\url{http://www.example.com/}
+% \end{thebibliography}
+\end{document}
