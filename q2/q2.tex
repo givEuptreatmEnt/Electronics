@@ -34,7 +34,7 @@
 % \usepackage{setspace}    % 控制空行
 % \usepackage{mdframed}   % 可以加文字方框
 % \usepackage{multicol}   % 多欄
-\usepackage{siunitx}[config, abbreviations]      % SI unit
+\usepackage[abbreviations]{siunitx}      % SI unit
 % \usepackage{dsfont}     % more mathbb
 
 %%%%%%%%%%%%%%%%%%%TikZ%%%%%%%%%%%%%%%%%%%%%%
@@ -295,7 +295,7 @@ at \SI{0.8}{\V}. Find the value of $R$ for which $V = \SI{80}{\mV}$.
     (n1) to[short, i={\color{blue} $i_1$}] ++(1.5, 0)
     to [Do, -*, l^=$D_1$] ++(0, -1.5) node[](n2){}
     to [R, l_=$R$] ++(0, -2.5) node[ground]{} 
-    (n2) to [short, -o] ++(1, 0) to [open, v^={\color{red} $V$}] ++(0, -2.5)
+    (n2) to [short, -o] ++(1, 0) to [open, v^={\color{red} $V$}] ++(0, -3)
     ;
   \end{circuitikz}
   \caption{}
@@ -339,7 +339,7 @@ attenuation factor controlled by the value of the dc current $I$.
     \draw[color=black, thick] (0, 0) node[ground]{}
       to [V, l=$v_s$] (0, 3) to [R, l=$R_s$] (3, 3)
       to [C, l=$C_1$, o-*] (6, 3) node[](n1){} to [C, l=$C_2$, -o] (9, 3)
-      to [open, v^=$v_o$] (9, 0)
+      to [open, v^=$v_o$] (9, -0.5)
       (n1) to [Do] (6, 0) node[ground]{}
       (6, 6) node[](Iout){} to [I, l=$I$] (n1)
       ;
@@ -362,20 +362,42 @@ as desired.
 
 % 40: 48
 \section{3.40}
-In the capacitor-coupled attenuator circuit shown in Fig. ,
+In the capacitor-coupled attenuator circuit shown in Fig.~\ref{fig:3.40},
 $I$ is a dc current that varies from \SI{0}{\mA} to
 \SI{1}{\mA}, and $C_1$ and $C_2$ are large coupling capacitors.
 For very small input signals, so that the diodes can be represented by
 their small-signal resistances $r_{d1}$ and $r_{d2}$, show that
-$\displaystyle \frac{v_o}{v_i} = \frac{r_{d2}}{r_{d1}+r_{d2}}$ and hence
-that $\displaystyle \frac{v_o}{v_i}  = I$, where $I$ is in
+$\frac{v_o}{v_i} = \frac{r_{d2}}{r_{d1}+r_{d2}}$ and hence
+that $\frac{v_o}{v_i}  = I$, where $I$ is in
 \si{\mA}. Find $v_o/v_i$ for $I = \SI{0}{\uA}, \SI{1}{\uA},
 \SI{10}{\uA}, \SI{100}{\uA}, \SI{500}{\uA}, \SI{600}{\uA},
 \SI{900}{\uA}, \SI{990}{\uA}, \SI{1}{\mA}$.
 
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[color=black, thick] (0, 0) node[left](vi){$v_i$}
+      to [C, l=$C_1$, o-*] (2, 0) node[](n1){} to [I, l=$I$] (2, -2)
+      (6, 2) node[right](vo){$v_o$} to [C, l_=$C_2$, o-*] (4, 2)
+      to [Do, l=$D_2$] (4, 0) node[ground]{}
+      (3, 4) to [I, l=$\SI{1}{\mA}$, -*] (3, 2) -- (2, 2)
+      to [Do, l=$D_1$] (n1)
+      (3, 2) -- (4, 2)
+      ;
+    \draw[color=black, thick, ->]
+      (2, -1) -- (2, -2.5)
+      ;
+    \draw[color=black, thick, ->]
+      (3, 3.5) -- (3, 4.5)
+      ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.40}
+\end{figure}
+
 % 45: 53
 \section{3.45}
-Consider the voltage-regulator circuit shown in Fig. under the
+Consider the voltage-regulator circuit shown in Fig.~\ref{fig:3.45} under the
 condition that a load current $I_L$ is drawn from the output terminal.
 \begin{enumerate}[(a)]
   \item If the value of $I_L$ is sufficiently small that the
@@ -399,9 +421,24 @@ condition that a load current $I_L$ is drawn from the output terminal.
     \SI{0.7}{\mV}$ at no load.
 \end{enumerate}
 
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[color=black, thick] (0, 0) to [R, l=$R$] (0, -3) node[](n1){}
+      to [Do] (0, -6) node[ground]{}
+      (n1) to[short, *-o] (3, -3) to [open, v^=$V_o$] (3, -6.5)
+      ;
+    \draw[color=black, thick, ->]
+      (0, -1) -- (0, 0.5) node[above](vp){$V^+$}
+      ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.45}
+\end{figure}
+
 % 48: 56
 \section{3.48}
-A particular design of a voltage regulator is shown in Fig. .
+A particular design of a voltage regulator is shown in Fig.~\ref{fig:3.48}.
 Diodes $D_1$ and $D_2$ are 10-\si{\mA} units; that is,
 each has a voltage drop of \SI{0.7}{\V} at a current of
 \SI{10}{\mA}. Use the diode exponential model and iterative
@@ -419,6 +456,24 @@ analysis to answer the follwing questions:
     percentage does the output voltage change for each percentage
     change of supply voltage in the worst case?
 \end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[color=black, thick] (0, 0) to [R, l=$R$] (0, -3) node[](n1){}
+      -- (0, -3.3) to [Do, l_=$D_1$] (0, -4.5) to [Do, l_=$D_2$] (0, -5.8)
+      -- (0, -6) node[ground]{}
+      (n1) to[short, *-o] (1.5, -3) -| (3, -3)
+      to [R, l=$\SI{150}{\ohm}$] (3, -6) node[ground]{}
+      (1.2, -3) to[open, v^=$V_o$] (1.2, -6.5)
+      ;
+    \draw[color=black, thick, ->]
+      (0, -1) -- (0, 0.5) node[above](vp){$V^+$}
+      ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.48}
+\end{figure}
 
 % 52: 61
 \section{3.52}
