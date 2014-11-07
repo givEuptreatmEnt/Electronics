@@ -205,8 +205,12 @@ find the values of the labeled voltages and currents. \\
   \begin{subfigure}[H]{0.45\textwidth}
     \centering
     \begin{circuitikz}
-      \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\siv}$} to [R, l=$\SI{5}{\siko}$, *-*] ++(0, -3) node[](n1){} to [Do, l_=$D_1$, i={\color{red} $I$}] ++(0, -3) node[ground] {}
-      (n1) node[left]{\color{blue} $v_1$} to[short] ++(1.5, 0) to [Do, -*, l^=$D_2$] ++(0, -3) node[](n2){} to[R, l=$\SI{10}{\siko}$, -*] ++(0, -3) node[below]{$\SI{-5}{\siv}$} 
+      \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\V}$}
+        to [R, l=$\SI{5}{\kohm}$, *-*] ++(0, -3) node[](n1){}
+        to [Do, l_=$D_1$, i={\color{red} $I$}] ++(0, -3) node[ground] {}
+      (n1) node[left]{\color{blue} $v_1$} to[short] ++(1.5, 0)
+      to [Do, -*, l^=$D_2$] ++(0, -3) node[](n2){}
+      to[R, l=$\SI{10}{\kohm}$, -*] ++(0, -3) node[below]{$\SI{-5}{\V}$} 
       (n2) to[short, -o] ++(1, 0) node[right] {\color{red} $V$};
     \end{circuitikz}
     \caption{}
@@ -214,8 +218,12 @@ find the values of the labeled voltages and currents. \\
   \begin{subfigure}[H]{0.45\textwidth}
     \centering
     \begin{circuitikz}
-      \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\siv}$} to [R, l=$\SI{10}{\siko}$, *-*] ++(0, -3) node[](n1){} to [Do, l_=$D_1$, i={\color{red} $I$}] ++(0, -3) node[ground] {}
-      (n1)node[left]{\color{blue} $v_1$} to[short] ++(1.5, 0) to [Do, -*, l^=$D_2$] ++(0, -3) node[](n2){} to[R, l=$\SI{5}{\siko}$, -*] ++(0, -3) node[below]{$\SI{-5}{\siv}$} 
+      \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\V}$}
+        to [R, l=$\SI{10}{\kohm}$, *-*] ++(0, -3) node[](n1){}
+        to [Do, l_=$D_1$, i={\color{red} $I$}] ++(0, -3) node[ground] {}
+      (n1)node[left]{\color{blue} $v_1$} to[short] ++(1.5, 0)
+      to [Do, -*, l^=$D_2$] ++(0, -3) node[](n2){}
+      to[R, l=$\SI{5}{\kohm}$, -*] ++(0, -3) node[below]{$\SI{-5}{\V}$} 
       (n2) to[short, -o] ++(1, 0) node[right] {\color{red} $V$};
     \end{circuitikz}
     \caption{}
@@ -225,26 +233,34 @@ find the values of the labeled voltages and currents. \\
 \end{figure}
 
 \Ans \\
-Notice that no matter how, the voltage of $v_1$ will never be less than $V$, so $D_2$ will be on and eventually $v_1 = V$. \\
+Notice that no matter how, the voltage of $v_1$ will never be less than $V$,
+so $D_2$ will be on and eventually $v_1 = V$. \\
 In (a), if $D_1$ is off, then 
 $$v_1 = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{5}{3} > 0$$
-which leads an contradiction. Hence $D_1$ is on, and $V = v_1 = 0, I = \SI{5}{\siv} / \SI{5}{\siko} - \SI{5}{\siv} / \SI{10}{\siko} = \SI{0.5}{\sima}$.  \\
-In (b), if $D_1$ is on, then $I = \SI{5}{\siv} / \SI{10}{\siko} - \SI{5}{\siv} / \SI{5}{\siko} = \SI{-0.5}{\sima}$, which violates the rule of ideal diode, so $D_1$ is off. 
+which leads an contradiction. Hence $D_1$ is on, and
+$V = v_1 = 0, I = \SI{5}{\V} / \SI{5}{\kohm} - \SI{5}{\V} / \SI{10}{\kohm}
+= \SI{0.5}{\mA}$.  \\
+In (b), if $D_1$ is on, then $I = \SI{5}{\V} / \SI{10}{\kohm} - \SI{5}{\V}
+/ \SI{5}{\kohm} = \SI{-0.5}{\mA}$, which violates the rule of ideal diode,
+so $D_1$ is off. 
 $$ 
-V = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{-5}{3} \si{\volt}, \quad I = 0
+V = \frac{10 \cdot 5 + 5 \cdot (-5)}{10 + 5} = \frac{-5}{3} \si{\volt},
+\quad I = 0
 $$
 % 18: 23
 \section{3.18}
 The circuit in Fig.~\ref{fig:3.18} utilizes three identical diodes having
 $I_S = \SI{e-14}{\sia}$. Find the value of the current $I$ required
-to obtain an output voltage $V_O = \SI{2}{\siv}$. If a current of
-\SI{1}{\sima} is drawn away from the output terminal by a load,
+to obtain an output voltage $V_O = \SI{2}{\V}$. If a current of
+\SI{1}{\mA} is drawn away from the output terminal by a load,
 what is the change in output voltage?
 
 \begin{figure}[H]
   \centering
   \begin{circuitikz}
-    \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\siv}$} to [I, l=$I$, *-*] ++(0, -2.5) node[](n1){} to [Do] ++(0, -1.5) to [Do] ++(0, -1.5) to [Do] ++(0, -1.5) node[ground] {}
+    \draw[color=black, thick] (0, 0)node[above]{$+\SI{5}{\V}$}
+      to [I, l=$I$, *-*] ++(0, -2.5) node[](n1){} to [Do] ++(0, -1.5)
+      to [Do] ++(0, -1.5) to [Do] ++(0, -1.5) node[ground] {}
     (n1) to[short, -o] ++(1, 0) node[right] {\color{red} $V_O$};
   \end{circuitikz}
   \caption{}
@@ -252,28 +268,33 @@ what is the change in output voltage?
 \end{figure}
 
 \Ans \\
-If $V_O = \SI{2}\V$, the voltage across a single diode would be $v = \SI{2}\V / 3$, and that $I \approx I_s e^{v / V_T}$. Plug in $I_s = \SI{1e-14}\A, V_T = \SI{25}{\mV}$ \footnote{Since it's winter and thus colder now} and $v$ we get $I \approx \SI{3.8}\mV$. \\
+If $V_O = \SI{2}{\V}$, the voltage across a single diode would be
+$v = \SI{2}{\V} / 3$, and that $I \approx I_s e^{v / V_T}$. Plug in
+$I_s = \SI{1e-14}{\A}, V_T = \SI{25}{\mV}$
+\footnote{Since it's winter and thus colder now}
+and $v$ we get $I \approx \SI{3.8}{\mV}$. \\
 
-If now $\SI{1}\mA$ is drawn away, then $I' = \SI{2.8}\mA$ and we have
+If now $\SI{1}{\mA}$ is drawn away, then $I' = \SI{2.8}{\mA}$ and we have
 \[
   \log \frac{I'}{I} = \frac{V' - V}{V_T} \; \Rightarrow \; \Delta V = V' - V = V_T \log \frac{I'}{I} 
 \]
-and plug in the value we get $ \Delta V = \SI{-7.6}\mV $.
-
+and plug in the value we get $ \Delta V = \SI{-7.6}{\mV} $.
 
 \clearpage
 % 21: 26
 \section{3.21}
-For the circuit shown in Fig.~\ref{fig:3.21}, both diodes are identical, conducting
-\SI{10}{\sima} at \SI{0.7}{\siv} and \SI{100}{\sima}
-at \SI{0.8}{\siv}. Find the value of $R$ for which
-$V = \SI{80}{\simv}$.
+For the circuit shown in Fig.~\ref{fig:3.21}, both diodes are identical,
+conducting \SI{10}{\mA} at \SI{0.7}{\V} and \SI{100}{\mA}
+at \SI{0.8}{\V}. Find the value of $R$ for which $V = \SI{80}{\mV}$.
 
 \begin{figure}[H]
   \centering
   \begin{circuitikz}
-    \draw[color=black, thick] (0, 0) to [I, l=10<\mA>, *-*] ++(0, -2.5) node[](n1){} to [Do, l_=$D_2$] ++(0, -1.5) node[ground] {}
-    (n1) to[short, i={\color{blue} $i_1$}] ++(1.5, 0) to [Do, -*, l^=$D_1$] ++(0, -1.5) node[](n2){} to [R, l_=$R$] ++(0, -2.5) node[ground]{} 
+    \draw[color=black, thick] (0, 0) to [I, l=10<\mA>, *-*]
+      ++ (0, -2.5) node[](n1){} to [Do, l_=$D_2$] ++(0, -1.5) node[ground] {}
+    (n1) to[short, i={\color{blue} $i_1$}] ++(1.5, 0)
+    to [Do, -*, l^=$D_1$] ++(0, -1.5) node[](n2){}
+    to [R, l_=$R$] ++(0, -2.5) node[ground]{} 
     (n2) to [short, -o] ++(1, 0) to [open, v^={\color{red} $V$}] ++(0, -2.5)
     ;
   \end{circuitikz}
@@ -282,46 +303,75 @@ $V = \SI{80}{\simv}$.
 \end{figure}
 
 \Ans \\
-Model the diode as$ i = I_s e^{V / V_T} $ and solve $I_S, V_T$ with $(i, V) = (\SI{10}\mA, \SI{0.7}{\V}), (\SI{100}\mA, \SI{0.8}{\V})$. We have
+Model the diode as $i = I_s e^{V / V_T}$ and solve $I_S, V_T$ with
+$(i, V) = (\SI{10}{\mA}, \SI{0.7}{\V}), (\SI{100}{\mA}, \SI{0.8}{\V})$.
+We have
 \[
-\frac{i_2}{i_1} = 10 = e^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \; V_T = \frac{V_2 - V_1}{ \log 10 } = \SI{43.4}\mV \]
+\frac{i_2}{i_1} = 10 = e^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \;
+V_T = \frac{V_2 - V_1}{ \log 10 } = \SI{43.4}\mV \]
 and thus $I_S = \SI{1e-6}{\mA}$. So
 \begin{align*}
   & V_{D_2} - V_{D_1} = V \\
   \Leftrightarrow \; &V_T \log \frac{i_2}{i_1} = V \\
-  \Leftrightarrow \; &V_T \log \frac{\SI{10}\mA - i_1}{i_1} = \SI{80}\mV \\
+  \Leftrightarrow \; &V_T \log \frac{\SI{10}{\mA} - i_1}{i_1} = \SI{80}{\mV} \\
   \Leftrightarrow \; &i_1 \approx \SI{1.367}{\mA}
 \end{align*}
-Finally $R = V / i_1 \approx \SI{80}\mV / \SI{1.367}\mA = \SI{58.5}\ohm$
+Finally $R = V / i_1 \approx \SI{80}{\mV} / \SI{1.367}{\mA} = \SI{58.5}{\ohm}$.
 
 % 38: 46
 \section{3.38}
-In the circuit shown in Fig. , $I$ is a dc current and $v_s$ is a
-sinusoidal signal. Capacitors $C_1$ and $C_2$ are very large; their
-function is to couple the signal to and from the diode but block the
+In the circuit shown in Fig.~\ref{fig:3.38}, $I$ is a dc current and
+$v_s$ is a sinusoidal signal. Capacitors $C_1$ and $C_2$ are very large;
+their function is to couple the signal to and from the diode but block the
 dc current from flowing into the signal source or the load (not shown).
-Use the diode small-signal mdel to show that the signal component of the
+Use the diode small-signal model to show that the signal component of the
 output voltage is
-\[ v_o = v_s \frac{V_T}{V_T + IR_S} \]
-If $v_s = \SI{10}{\simv}$, find $v_o$ for
-$I = \SI{1}{\sima}, \SI{0.1}{\sima}$, and
-\SI{1}{\siua}. Let $R_s = \SI{1}{\siko}$. Assume $n = 2$. At
-what value of $I$ doe $v_o$ become one-half of $v_s$?
+\[ v_o = v_s \frac{V_T}{V_T + IR_s} \]
+If $v_s = \SI{10}{\mV}$, find $v_o$ for $I = \SI{1}{\mA}, \SI{0.1}{\mA}$, and
+\SI{1}{\uA}. Let $R_s = \SI{1}{\kohm}$. Assume $n = 2$. At
+what value of $I$ does $v_o$ become one-half of $v_s$?
 Note that this circuit functions as a signal attenuator with the
 attenuation factor controlled by the value of the dc current $I$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45, scale=0.8, transform shape]
+    \draw[color=black, thick] (0, 0) node[ground]{}
+      to [V, l=$v_s$] (0, 3) to [R, l=$R_s$] (3, 3)
+      to [C, l=$C_1$, o-*] (6, 3) node[](n1){} to [C, l=$C_2$, -o] (9, 3)
+      to [open, v^=$v_o$] (9, 0)
+      (n1) to [Do] (6, 0) node[ground]{}
+      (6, 6) node[](Iout){} to [I, l=$I$] (n1)
+      ;
+    \draw[color=black, thick, ->]
+      (6, 5) to (6, 6.5)
+      ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:3.38}
+\end{figure}
+
+\Ans \\
+Since $C_1, C_2$ are lagre, we can assume not dc current flow from source
+or load. Then we can model diode as a resistor for small signal:
+\[ r_d = \frac{V_T}{I} \]
+And for small ac signal, we can treat $C_1, C_2$ as short. So we have
+\[ \frac{v_s}{R_s + r_d} = \frac{v_o}{r_d} \; \Rightarrow \;
+v_o = v_s\frac{V_T}{V_T + IR_s} \]
+as desired.
 
 % 40: 48
 \section{3.40}
 In the capacitor-coupled attenuator circuit shown in Fig. ,
-$I$ is a dc current that varies from \SI{0}{\sima} to
-\SI{1}{\sima}, and $C_1$ and $C_2$ are large coupling capacitors.
+$I$ is a dc current that varies from \SI{0}{\mA} to
+\SI{1}{\mA}, and $C_1$ and $C_2$ are large coupling capacitors.
 For very small input signals, so that the diodes can be represented by
 their small-signal resistances $r_{d1}$ and $r_{d2}$, show that
 $\displaystyle \frac{v_o}{v_i} = \frac{r_{d2}}{r_{d1}+r_{d2}}$ and hence
 that $\displaystyle \frac{v_o}{v_i}  = I$, where $I$ is in
-\si{\sima}. Find $v_o/v_i$ for $I = \SI{0}{\siua}, \SI{1}{\siua},
-\SI{10}{\siua}, \SI{100}{\siua}, \SI{500}{\siua}, \SI{600}{\siua},
-\SI{900}{\siua}, \SI{990}{\siua}, \SI{1}{\sima}$.
+\si{\mA}. Find $v_o/v_i$ for $I = \SI{0}{\uA}, \SI{1}{\uA},
+\SI{10}{\uA}, \SI{100}{\uA}, \SI{500}{\uA}, \SI{600}{\uA},
+\SI{900}{\uA}, \SI{990}{\uA}, \SI{1}{\mA}$.
 
 % 45: 53
 \section{3.45}
@@ -334,36 +384,36 @@ condition that a load current $I_L$ is drawn from the output terminal.
     that
     \[ \frac{\Delta V_O}{I_L} = -(r_d \parallel R) \]
     This quantity is known as the load regulation and is usually
-    expressed in \si{\simv/\sima}.
+    expressed in \si{\mV/\mA}.
   \item If the value of $R$ is selected such that at no load the voltage
-    across the diode is \SI{0.7}{\siv} and the diode current is $I_D$,
+    across the diode is \SI{0.7}{\V} and the diode current is $I_D$,
     show that the expression derived in (a) becomes
     \[ \frac{\Delta V_O}{I_L} =
       -\frac{nV_T}{I_D}\frac{V^+ -0.7}{V^+ - 0.7 + nV_T} \]
     Select the lowest possible value for $I_D$ that results in a load
-    regulation $\le \SI{5}{\simv/\sima}$. Assume $n = 2$.
-    If $V^+$ is nominally \SI{10}{\siv}, what value of $R$ is required?
+    regulation $\le \SI{5}{\mV/\mA}$. Assume $n = 2$.
+    If $V^+$ is nominally \SI{10}{\V}, what value of $R$ is required?
     Also, specify the diode required in terms of its $I_S$.
   \item Generalize the expression derived in (b) for the case of $m$
     diodes connected in series and $R$ adjusted to obtain $V_O =
-    \SI{0.7}{\simv}$ at no load.
+    \SI{0.7}{\mV}$ at no load.
 \end{enumerate}
 
 % 48: 56
 \section{3.48}
 A particular design of a voltage regulator is shown in Fig. .
-Diodes $D_1$ and $D_2$ are 10-\si{\sima} units; that is,
-each has a voltage drop of \SI{0.7}{\siv} at a current of
-\SI{10}{\sima}. Use the diode exponential model and iterative
+Diodes $D_1$ and $D_2$ are 10-\si{\mA} units; that is,
+each has a voltage drop of \SI{0.7}{\V} at a current of
+\SI{10}{\mA}. Use the diode exponential model and iterative
 analysis to answer the follwing questions:
 \begin{enumerate}[(a)]
   \item What is the regulator output voltage $V_O$ with the
     150-\si{\ohm} load connected?
   \item Find $V_O$ with no load.
-  \item With the load connected, to what value can the 5-\si{\siv}
+  \item With the load connected, to what value can the 5-\si{\V}
     supply be lowered while maintaining the loaded output voltage
-    within \SI{0.1}{\siv} of its nominal value?
-  \item What does the loaded output voltage become when the 5-\si{\siv}
+    within \SI{0.1}{\V} of its nominal value?
+  \item What does the loaded output voltage become when the 5-\si{\V}
     supply is raised by the same amount as the drop found in (c)?
   \item For the range of changes explored in (c) and (d), by what
     percentage does the output voltage change for each percentage
@@ -372,11 +422,11 @@ analysis to answer the follwing questions:
 
 % 52: 61
 \section{3.52}
-Design a 7.5-\si{\siv} zener regulator circuit using a 7.5-\si{\siv}
-zener specified at \SI{12}{\sima}. The zener has an incremental
-resistance $r_z = \SI{30}{\ohm}$ and a knee current of \SI{0.5}{\sima}.
-The regulator operates from a 10-\si{\siv} supply and has a
-1.2-\si{\siko} load. What is the value of $R$ you have chosen?
+Design a 7.5-\si{\V} zener regulator circuit using a 7.5-\si{\V}
+zener specified at \SI{12}{\mA}. The zener has an incremental
+resistance $r_z = \SI{30}{\ohm}$ and a knee current of \SI{0.5}{\mA}.
+The regulator operates from a 10-\si{\V} supply and has a
+1.2-\si{\kohm} load. What is the value of $R$ you have chosen?
 What is the regulator output voltage when the supply is \SI{10}{\percent}
 high? Is \SI{10}{\percent} low? What is the output voltage when both the
 supply is \SI{10}{\percent} hight and the load is removed? What is
@@ -386,12 +436,12 @@ is \SI{10}{\percent} low? What is the load voltage in this case?
 
 % 53: 63
 \section{3.53}
-A zener shunt regulator employ a 9.1-\si{\siv} zener diode for which
-$V_Z = \SI{9.1}{\siv}$ at $I_Z = \SI{9}{\sima}$, with $r_Z = \SI{30}{\ohm}$
-and $I_{ZK}=\SI{0.3}{\sima}$. The available supply voltage of \SI{15}{\siv}
+A zener shunt regulator employ a 9.1-\si{\V} zener diode for which
+$V_Z = \SI{9.1}{\V}$ at $I_Z = \SI{9}{\mA}$, with $r_Z = \SI{30}{\ohm}$
+and $I_{ZK}=\SI{0.3}{\mA}$. The available supply voltage of \SI{15}{\V}
 can vary as much as $\pm\SI{10}{\percent}$. For this diode, what is the
-value of $V_{Z0}$? For a nominal load resistance $R_L$ of \SI{1}{\siko}
-and a nominal zener current of \SI{10}{\sima}, what current must flow
+value of $V_{Z0}$? For a nominal load resistance $R_L$ of \SI{1}{\kohm}
+and a nominal zener current of \SI{10}{\mA}, what current must flow
 in the supply resistor $R$? For the nominal value of supply voltage,
 select a value for resistor $R$, specified to one significant digit,
 to provide at least that current. What nominal output voltage results?
@@ -408,8 +458,8 @@ obtained in this problem.
 \section{3.60}
 The circuit in Fig. implements a complementary-output rectifier.
 Sketch and clearly label the waveforms of $v_O^+$ and $v_O^-$.
-Assume a 0.7-\si{\siv} drop across each conducting diode. If the
-magnitude of the average of each output is to be \SI{15}{\siv}, find
+Assume a 0.7-\si{\V} drop across each conducting diode. If the
+magnitude of the average of each output is to be \SI{15}{\V}, find
 the required amplitude of the sine wave across the entire secondary
 winding. What is the PIV of each diode?
 
