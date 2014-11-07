@@ -1,0 +1,415 @@
+.PS 
+scale = 1
+# cct_init Version 7.9: TikZ PGF m4 macro settings.
+  
+  # gen_init Version 7.9: TikZ PGF m4 macro settings.
+  
+
+  define rpoint__ {
+    rp_wid = last line.end.x-last line.start.x
+    rp_ht = last line.end.y-last line.start.y
+    rp_len = sqrt((rp_wid)^2+(rp_ht)^2); move to last line.start
+        rp_ang = atan2(rp_ht,rp_wid) }
+
+  rp_ang = 0;  right
+  rtod_ = 57.295779513082323
+  dtor_ = 0.017453292519943295
+  twopi_ = 6.2831853071795862
+  pi_ = (twopi_/2)
+
+  linethick = 0.8
+  arrowwid = 0.05*scale; arrowht = 0.1*scale 
+  
+  
+    # gen_init end
+
+  
+
+# cct_init end
+ 
+Start: [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at Here
+  move to last [].c
+    line right 1
+Re: [ P1: Here
+    move  down 1 
+ P2: Here
+  L1: line invis from P1 to P2
+  rpoint__
+  
+   
+      { line to Here+(((rp_len-6*linewid/16*2)/2)*(cos(rp_ang)),((rp_len-6*linewid/16*2)/2)*(sin(rp_ang)))
+   {line to Here+((-linethick/2 *(scale/72))*((-sin(rp_ang))),(-linethick/2 *(scale/72))*(cos(rp_ang)))};
+   for m4i=1 to 6 do {
+     arc cw from Here to Here+((linewid/16*2)*(cos(rp_ang)),(linewid/16*2)*(sin(rp_ang))) with .c at Here+((linewid/16)*(cos(rp_ang)),(linewid/16)*(sin(rp_ang)))
+     {line to Here+((-linethick/2 *(scale/72))*((-sin(rp_ang))),(-linethick/2 *(scale/72))*(cos(rp_ang)))} }
+   line to Here+(((rp_len-6*linewid/16*2)/2)*(cos(rp_ang)),((rp_len-6*linewid/16*2)/2)*(sin(rp_ang)))} 
+ 
+ {[box invis wid linewid/16+0+0 ht 6*linewid/16*2] \
+   at Here+(((rp_len/2)*(cos(rp_ang))+((linewid/16+0-0)/2)*((-sin(rp_ang)))),((rp_len/2)*(sin(rp_ang))+((linewid/16+0-0)/2)*(cos(rp_ang))))}
+ line to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang))) invis 
+      {M4Core1: line from Here+((-(rp_len/2))*(cos(rp_ang)),(-(rp_len/2))*(sin(rp_ang)))+(((-(max(6*linewid/16*2,(8)*linewid/16*2))/2)*(cos(rp_ang))+(linewid/16+linewid/12)*((-sin(rp_ang)))),((-(max(6*linewid/16*2,(8)*linewid/16*2))/2)*(sin(rp_ang))+(linewid/16+linewid/12)*(cos(rp_ang)))) \
+        to Here+((-(rp_len/2))*(cos(rp_ang)),(-(rp_len/2))*(sin(rp_ang)))+((((max(6*linewid/16*2,(8)*linewid/16*2))/2)*(cos(rp_ang))+(linewid/16+linewid/12)*((-sin(rp_ang)))),(((max(6*linewid/16*2,(8)*linewid/16*2))/2)*(sin(rp_ang))+(linewid/16+linewid/12)*(cos(rp_ang))))
+   M4Core2: line from M4Core1.start+((linewid/8)*((-sin(rp_ang))),(linewid/8)*(cos(rp_ang))) \
+        to M4Core1.end+((linewid/8)*((-sin(rp_ang))),(linewid/8)*(cos(rp_ang)))}
+    move to last line.c+((linewid/16+linewid/12)*((-sin(rp_ang))),(linewid/16+linewid/12)*(cos(rp_ang)))
+ TS: Here
+ S2: Here+(((((8)*linewid/16*2/2))*(cos(rp_ang))+(0 )*((-sin(rp_ang)))),((((8)*linewid/16*2/2))*(sin(rp_ang))+(0 )*(cos(rp_ang))))
+ S1: 2 between S2 and Here
+  L2: line invis from S2 to S1
+  rpoint__
+  
+   
+      { line to Here+(((rp_len-8*linewid/16*2)/2)*(cos(rp_ang)),((rp_len-8*linewid/16*2)/2)*(sin(rp_ang)))
+   {line to Here+((-linethick/2 *(scale/72))*((-sin(rp_ang))),(-linethick/2 *(scale/72))*(cos(rp_ang)))};
+   for m4i=1 to 8 do {
+     arc cw from Here to Here+((linewid/16*2)*(cos(rp_ang)),(linewid/16*2)*(sin(rp_ang))) with .c at Here+((linewid/16)*(cos(rp_ang)),(linewid/16)*(sin(rp_ang)))
+     {line to Here+((-linethick/2 *(scale/72))*((-sin(rp_ang))),(-linethick/2 *(scale/72))*(cos(rp_ang)))} }
+   line to Here+(((rp_len-8*linewid/16*2)/2)*(cos(rp_ang)),((rp_len-8*linewid/16*2)/2)*(sin(rp_ang)))} 
+ 
+ {[box invis wid linewid/16+0+0 ht 8*linewid/16*2] \
+   at Here+(((rp_len/2)*(cos(rp_ang))+((linewid/16+0-0)/2)*((-sin(rp_ang)))),((rp_len/2)*(sin(rp_ang))+((linewid/16+0-0)/2)*(cos(rp_ang))))}
+ line to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang))) invis 
+ TP: 0.5 between P1 and P2; 
+   ] with .P1 at Here
+    line left 1 from Re.P2
+    [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at Here
+  move to last [].c
+
+line invis from Start to Here
+  rpoint__
+  
+   
+  [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at Here
+  move to last [].c; [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at last line.end
+  move to last [].c
+  
+  {[box invis wid 0 ht min(rp_len,(linewid*4/9+rp_len)/3)] at last line.c}
+  
+ {"$ +$" \
+     at last [].n rjust above };  {"$ -$" \
+     at last [].s rjust below }; 
+"$\SI{120}{\volt}$(rms), \SI{60}{\hertz}" at (Start.x, Re.TS.y)
+
+line right 0.4 from Re.TS; box invis ht 0 wid 0 with .c at Here
+    {  m4sd_ang = rp_ang 
+rp_ang = (-90)*(dtor_)  ; 
+  line from last box.c to Here+((linewid/4)*(cos(rp_ang)),(linewid/4)*(sin(rp_ang)))
+  {line from Here+((linewid/6)*((-sin(rp_ang))),(linewid/6)*(cos(rp_ang))) \
+          to Here+((-linewid/6)*((-sin(rp_ang))),(-linewid/6)*(cos(rp_ang)))}
+   {line from Here+(((linewid/16)*(cos(rp_ang))+(linewid/9)*((-sin(rp_ang)))),((linewid/16)*(sin(rp_ang))+(linewid/9)*(cos(rp_ang)))) \
+          to Here+(((linewid/16)*(cos(rp_ang))+(-linewid/9)*((-sin(rp_ang)))),((linewid/16)*(sin(rp_ang))+(-linewid/9)*(cos(rp_ang))))}
+   line from Here+(((2*linewid/16)*(cos(rp_ang))+(linewid/14)*((-sin(rp_ang)))),((2*linewid/16)*(sin(rp_ang))+(linewid/14)*(cos(rp_ang)))) \
+          to Here+(((2*linewid/16)*(cos(rp_ang))+(-linewid/14)*((-sin(rp_ang)))),((2*linewid/16)*(sin(rp_ang))+(-linewid/14)*(cos(rp_ang))))
+    down ; rp_ang = m4sd_ang
+  }   
+line up 0.25 from Re.S1 then right 1.5
+P1: Here; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c 
+line down 0.25 from Re.S2 then right 1.5
+P2: Here; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+ln = (P1.y - P2.y) / 2
+line invis to P1 from (P1.x - ln, P1.y - ln)
+  rpoint__
+  
+     {    M4_s: last line.start; M4_e: last line.end
+     line from M4_s to 0.5 between M4_s and M4_e \
+      chop 0 chop sqrt(3)*linewid/6/2/2
+    
+  
+  
+  
+  
+  
+     
+    { line from Here+(0,0) \
+             to Here+((0+linewid/6/2)*((-sin(rp_ang))),(0+linewid/6/2)*(cos(rp_ang))) \
+        then to Here+((sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(sin(rp_ang))) \
+        then to Here+((0-linewid/6/2)*((-sin(rp_ang))),(0-linewid/6/2)*(cos(rp_ang))) \
+        then to Here+(0,0) }
+    move to Here+((sqrt(3)*linewid/6/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2)*(sin(rp_ang)))
+  
+  
+     {line from Here+((-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang))) \
+            to Here+((linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang)))}
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+       line from 0.5 between M4_s and M4_e to M4_e \
+      chop sqrt(3)*linewid/6/2 /2 chop 0 }
+  
+  
+   { [ box invis wid linewid/6+linethick *(scale/72.27)*sqrt(3) ht sqrt(3)*linewid/6/2+linethick *(scale/72.27) + 0
+     ] at Here+((rp_len/2+0/2)*(cos(rp_ang)),(rp_len/2+0/2)*(sin(rp_ang))) }
+ line invis to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang)));   {"$ D_2$" \
+     at last [].l rjust };  
+P3: (P1.x - ln, P1.y - ln); [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at P3
+  move to last [].c
+line invis from P3 to P2
+  rpoint__
+  
+     {    M4_s: last line.start; M4_e: last line.end
+     line from M4_s to 0.5 between M4_s and M4_e \
+      chop 0 chop sqrt(3)*linewid/6/2/2
+    
+  
+  
+  
+  
+  
+     
+    { line from Here+(0,0) \
+             to Here+((0+linewid/6/2)*((-sin(rp_ang))),(0+linewid/6/2)*(cos(rp_ang))) \
+        then to Here+((sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(sin(rp_ang))) \
+        then to Here+((0-linewid/6/2)*((-sin(rp_ang))),(0-linewid/6/2)*(cos(rp_ang))) \
+        then to Here+(0,0) }
+    move to Here+((sqrt(3)*linewid/6/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2)*(sin(rp_ang)))
+  
+  
+     {line from Here+((-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang))) \
+            to Here+((linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang)))}
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+       line from 0.5 between M4_s and M4_e to M4_e \
+      chop sqrt(3)*linewid/6/2 /2 chop 0 }
+  
+  
+   { [ box invis wid linewid/6+linethick *(scale/72.27)*sqrt(3) ht sqrt(3)*linewid/6/2+linethick *(scale/72.27) + 0
+     ] at Here+((rp_len/2+0/2)*(cos(rp_ang)),(rp_len/2+0/2)*(sin(rp_ang))) }
+ line invis to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang)));   {"$ D_4$" \
+     at last [].l rjust };  
+move to (P1.x + ln, P1.y - ln)
+P4: Here; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+line invis from P1 to P4
+  rpoint__
+  
+     {    M4_s: last line.start; M4_e: last line.end
+     line from M4_s to 0.5 between M4_s and M4_e \
+      chop 0 chop sqrt(3)*linewid/6/2/2
+    
+  
+  
+  
+  
+  
+     
+    { line from Here+(0,0) \
+             to Here+((0+linewid/6/2)*((-sin(rp_ang))),(0+linewid/6/2)*(cos(rp_ang))) \
+        then to Here+((sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(sin(rp_ang))) \
+        then to Here+((0-linewid/6/2)*((-sin(rp_ang))),(0-linewid/6/2)*(cos(rp_ang))) \
+        then to Here+(0,0) }
+    move to Here+((sqrt(3)*linewid/6/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2)*(sin(rp_ang)))
+  
+  
+     {line from Here+((-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang))) \
+            to Here+((linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang)))}
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+       line from 0.5 between M4_s and M4_e to M4_e \
+      chop sqrt(3)*linewid/6/2 /2 chop 0 }
+  
+  
+   { [ box invis wid linewid/6+linethick *(scale/72.27)*sqrt(3) ht sqrt(3)*linewid/6/2+linethick *(scale/72.27) + 0
+     ] at Here+((rp_len/2+0/2)*(cos(rp_ang)),(rp_len/2+0/2)*(sin(rp_ang))) }
+ line invis to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang)));   {"$ D_3$" \
+     at last [].l rjust };  
+line invis from P2 to P4
+  rpoint__
+  
+     {    M4_s: last line.start; M4_e: last line.end
+     line from M4_s to 0.5 between M4_s and M4_e \
+      chop 0 chop sqrt(3)*linewid/6/2/2
+    
+  
+  
+  
+  
+  
+     
+    { line from Here+(0,0) \
+             to Here+((0+linewid/6/2)*((-sin(rp_ang))),(0+linewid/6/2)*(cos(rp_ang))) \
+        then to Here+((sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2-linethick *(scale/72.27)/2)*(sin(rp_ang))) \
+        then to Here+((0-linewid/6/2)*((-sin(rp_ang))),(0-linewid/6/2)*(cos(rp_ang))) \
+        then to Here+(0,0) }
+    move to Here+((sqrt(3)*linewid/6/2)*(cos(rp_ang)),(sqrt(3)*linewid/6/2)*(sin(rp_ang)))
+  
+  
+     {line from Here+((-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(-linewid/6/2-(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang))) \
+            to Here+((linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*((-sin(rp_ang))),(linewid/6/2+(linethick *(scale/72.27))*(sqrt(3)-1)/2)*(cos(rp_ang)))}
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+       line from 0.5 between M4_s and M4_e to M4_e \
+      chop sqrt(3)*linewid/6/2 /2 chop 0 }
+  
+  
+   { [ box invis wid linewid/6+linethick *(scale/72.27)*sqrt(3) ht sqrt(3)*linewid/6/2+linethick *(scale/72.27) + 0
+     ] at Here+((rp_len/2+0/2)*(cos(rp_ang)),(rp_len/2+0/2)*(sin(rp_ang))) }
+ line invis to Here+((rp_len)*(cos(rp_ang)),(rp_len)*(sin(rp_ang)));   {"$ D_1$" \
+     at last [].l rjust };  
+move to P3
+line left 0.25 then down ln*1.5 then right 2.3;
+P5: Here; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+move to P4
+line right 0.25 then up ln;
+line to (P5, Here); [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+{
+    line right 0.5; [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at Here
+  move to last [].c
+    "{\color{red} $V_O^+$}" at (Here.x+0.2, Here.y)
+}
+   line invis from Here to (Here+P5)/2
+  rpoint__
+  
+   
+          if linewid/6/4*6*2 > rp_len then { line invis to Here+((linewid/6/4*6*2)*(cos(rp_ang)),(linewid/6/4*6*2)*(sin(rp_ang)))
+  rpoint__
+  
+    }
+    M4_xyO: last line.c
+    { line from last line.start to M4_xyO+(((linewid/6/4)*(-6))*(cos(rp_ang)),((linewid/6/4)*(-6))*(sin(rp_ang)))\
+       then to M4_xyO+((((linewid/6/4)*(-5))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),(((linewid/6/4)*(-5))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+((((linewid/6/4)*(-3))*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),(((linewid/6/4)*(-3))*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+   then to M4_xyO+(((-(linewid/6/4))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),((-(linewid/6/4))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+(((linewid/6/4)*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),((linewid/6/4)*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+   then to M4_xyO+((((linewid/6/4)*(3))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),(((linewid/6/4)*(3))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+((((linewid/6/4)*(5))*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),(((linewid/6/4)*(5))*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+           then to M4_xyO+(((linewid/6/4)*(6))*(cos(rp_ang)),((linewid/6/4)*(6))*(sin(rp_ang))) \
+         then to last line.end
+      [box invis wid linewid/6/4*2*2 ht linewid/6/4*6*2] at 2nd last line.c
+      }
+  
+  
+  line invis from 2nd last line.start to 2nd last line.end ;  {"$ R$" \
+     at last [].l rjust };  ; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+{
+    line right 0.3; box invis ht 0 wid 0 with .c at Here
+    {  m4sd_ang = rp_ang 
+rp_ang = (-90)*(dtor_)  ; 
+  line from last box.c to Here+((linewid/4)*(cos(rp_ang)),(linewid/4)*(sin(rp_ang)))
+  {line from Here+((linewid/6)*((-sin(rp_ang))),(linewid/6)*(cos(rp_ang))) \
+          to Here+((-linewid/6)*((-sin(rp_ang))),(-linewid/6)*(cos(rp_ang)))}
+   {line from Here+(((linewid/16)*(cos(rp_ang))+(linewid/9)*((-sin(rp_ang)))),((linewid/16)*(sin(rp_ang))+(linewid/9)*(cos(rp_ang)))) \
+          to Here+(((linewid/16)*(cos(rp_ang))+(-linewid/9)*((-sin(rp_ang)))),((linewid/16)*(sin(rp_ang))+(-linewid/9)*(cos(rp_ang))))}
+   line from Here+(((2*linewid/16)*(cos(rp_ang))+(linewid/14)*((-sin(rp_ang)))),((2*linewid/16)*(sin(rp_ang))+(linewid/14)*(cos(rp_ang)))) \
+          to Here+(((2*linewid/16)*(cos(rp_ang))+(-linewid/14)*((-sin(rp_ang)))),((2*linewid/16)*(sin(rp_ang))+(-linewid/14)*(cos(rp_ang))))
+    down ; rp_ang = m4sd_ang
+  } 
+}
+   line invis to P5
+  rpoint__
+  
+   
+          if linewid/6/4*6*2 > rp_len then { line invis to Here+((linewid/6/4*6*2)*(cos(rp_ang)),(linewid/6/4*6*2)*(sin(rp_ang)))
+  rpoint__
+  
+    }
+    M4_xyO: last line.c
+    { line from last line.start to M4_xyO+(((linewid/6/4)*(-6))*(cos(rp_ang)),((linewid/6/4)*(-6))*(sin(rp_ang)))\
+       then to M4_xyO+((((linewid/6/4)*(-5))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),(((linewid/6/4)*(-5))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+((((linewid/6/4)*(-3))*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),(((linewid/6/4)*(-3))*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+   then to M4_xyO+(((-(linewid/6/4))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),((-(linewid/6/4))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+(((linewid/6/4)*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),((linewid/6/4)*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+   then to M4_xyO+((((linewid/6/4)*(3))*(cos(rp_ang))+((linewid/6/4)*((2)))*((-sin(rp_ang)))),(((linewid/6/4)*(3))*(sin(rp_ang))+((linewid/6/4)*((2)))*(cos(rp_ang)))) \
+         then to M4_xyO+((((linewid/6/4)*(5))*(cos(rp_ang))+((linewid/6/4)*((-2)))*((-sin(rp_ang)))),(((linewid/6/4)*(5))*(sin(rp_ang))+((linewid/6/4)*((-2)))*(cos(rp_ang)))) \
+           then to M4_xyO+(((linewid/6/4)*(6))*(cos(rp_ang)),((linewid/6/4)*(6))*(sin(rp_ang))) \
+         then to last line.end
+      [box invis wid linewid/6/4*2*2 ht linewid/6/4*6*2] at 2nd last line.c
+      }
+  
+  
+  line invis from 2nd last line.start to 2nd last line.end ;   {"$ R$" \
+     at last [].l rjust };  ; [  circle rad (0.04*linewid)  fill 0 
+  ] with .c at Here
+  move to last [].c
+line right 0.5; [  circle rad (0.04*linewid)  fill (1) 
+  ] with .c at Here
+  move to last [].c
+"{\color{red} $V_O^-$}" at (Here.x+0.2, Here.y)
+
+line invis from (Re.S1, P1) to Re.TS
+  rpoint__
+  
+   
+  {[box invis wid 0 ht min(rp_len,(linewid*4/9+rp_len)/3)] at last line.c}
+  
+ {"$ +$" \
+     at last [].n ljust above }; {"$v_S$" \
+     at last [].e ljust }; {"$ -$" \
+     at last [].s ljust below }; 
+
+line invis to (Re.S1, P2) from Re.TS
+  rpoint__
+  
+   
+  {[box invis wid 0 ht min(rp_len,(linewid*4/9+rp_len)/3)] at last line.c}
+  
+ {"$ +$" \
+     at last [].n ljust above }; {"$v_S$" \
+     at last [].e ljust }; {"$ -$" \
+     at last [].s ljust below }; 
+
+
+.PE
