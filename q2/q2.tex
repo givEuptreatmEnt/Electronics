@@ -274,10 +274,10 @@ what is the change in output voltage?
 
 \Ans \\
 If $V_O = \SI{2}{\V}$, the voltage across a single diode would be
-$v = \SI{2}{\V} / 3$, and that $I \approx I_s e^{v / V_T}$. Plug in
+$v = \SI{2}{\V} / 3$, and that $I \approx I_s \ex^{v / V_T}$. Plug in
 $I_s = \SI{1e-14}{\A}, V_T = \SI{25}{\mV}$
 \footnote{Since it's winter and thus colder now}
-and $v$ we get $I \approx \SI{3.8}{\mV}$. \\
+and $v$ we get $I \approx \SI{3.8}{\mA}$. \\
 
 If now $\SI{1}{\mA}$ is drawn away, then $I' = \SI{2.8}{\mA}$ and we have
 \[
@@ -308,11 +308,11 @@ at \SI{0.8}{\V}. Find the value of $R$ for which $V = \SI{80}{\mV}$.
 \end{figure}
 
 \Ans \\
-Model the diode as $i = I_s e^{V / V_T}$ and solve $I_S, V_T$ with
+Model the diode as $i = I_s \ex^{V / V_T}$ and solve $I_S, V_T$ with
 $(i, V) = (\SI{10}{\mA}, \SI{0.7}{\V}), (\SI{100}{\mA}, \SI{0.8}{\V})$.
 We have
 \[
-\frac{i_2}{i_1} = 10 = e^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \;
+\frac{i_2}{i_1} = 10 = \ex^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \;
 V_T = \frac{V_2 - V_1}{ \log 10 } = \SI{43.4}\mV \]
 and thus $I_S = \SI{1e-6}{\mA}$. So
 \begin{align*}
@@ -360,7 +360,8 @@ attenuation factor controlled by the value of the dc current $I$.
 Notice that there is no dc current flow between source
 and load. Thus we can model diode as a resistor for small signal:
 \[ r_d = \frac{V_T}{I} \]
-And for small ac signal, since $C_1, C_2$ are large, $Z = 1 / (\img \omega C)$ are small, we can treat $C_1, C_2$ as short. So we have
+And for small ac signal, since $C_1, C_2$ are large, $Z = 1 / (\img \omega C)$
+are small, we can treat $C_1, C_2$ as short. So we have
 \[ \frac{v_s}{R_s + r_d} = \frac{v_o}{r_d} \; \Rightarrow \;
 v_o = v_s\frac{V_T}{V_T + IR_s} \]
 as desired.
@@ -469,11 +470,10 @@ condition that a load current $I_L$ is drawn from the output terminal.
     \end{align*}
     We plugin the requirements and solve for $I_D$ and get $I_D \approx \SI{9.95}\mA$, so $R = V^+ - 0.7 / I_D \approx \SI{935}\ohm$. $I_S = I_D \ex^{-0.7/(nV_T)} \approx \SI{8.27e-9}\A$ 
   \item \Ans \\
-    Now $\Delta V_O / I_L = (R \parallel r_d)$ but luckily, $R, r_d$ remain unchanged, so 
+    Now $\Delta V_O / I_L = (R \parallel m r_d)$ but luckily, $R, r_d$ remain unchanged, so 
     \[
-      \frac{\Delta V_O}{I_L} = (R \parallel r_d) = \frac{mnV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + mnV_T }
+      \frac{\Delta V_O}{I_L} = (R \parallel m r_d) = \frac{mnV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + mnV_T }
     \]
-
 \end{enumerate}
 
 
@@ -519,10 +519,10 @@ analysis to answer the follwing questions:
 
 \begin{enumerate}[(a)]
   \item \Ans \\
-    \[ I_S = \SI{10}\mA \ex^{-0.7 / (2V_T)} \approx \SI{6.9e-15}\A \]
+    \[ I_S = \SI{10}\mA \ex^{-0.7 / V_T} \approx \SI{6.9e-15}\A \]
     We use the nodal analysis at $n_1$ and get
     \begin{align*}
-      I_S \ex^{V_O/V_T} &= \frac{\SI{5}\V}{\SI{180}\ohm} - (1 / (\SI{180}\ohm) + 1 / (\SI{150}\ohm)) V_O \\
+      I_S \ex^{V_O/(2V_T)} &= \frac{\SI{5}\V}{\SI{180}\ohm} - (1 / (\SI{180}\ohm) + 1 / (\SI{150}\ohm)) V_O \\
                         &= \SI{27.8}\mA - (\SI{12.2}\mohm) V_O
     \end{align*}
 
@@ -558,15 +558,37 @@ The regulator operates from a 10-\si{\V} supply and has a
 1.2-\si{\kohm} load. What is the value of $R$ you have chosen?
 What is the regulator output voltage when the supply is \SI{10}{\percent}
 high? Is \SI{10}{\percent} low? What is the output voltage when both the
-supply is \SI{10}{\percent} hight and the load is removed? What is
+supply is \SI{10}{\percent} high and the load is removed? What is
 the smallest possible load resistor that can be ued while the zener
 operates at a current no lower than the knee current while the supply
 is \SI{10}{\percent} low? What is the load voltage in this case?
 
+\Ans \\
+First calculate $V_{Z0} = V_Z - r_z I_Z = \SI{7.14}{\V}$. Now we need to
+choose a value of $R$ such that the current $I_D$ flowing into the zener diode
+is not smaller that the knee current of that diode. We have
+$V_O = I_Dr_z + V_{Z0}$, so
+\[
+  \left((1/\SI{1.2}{\kohm} + (1/R)\right) V_O + I_D - 10/R = 0
+    \quad \text{and} \quad I_D \ge \SI{0.5}{\mA}.
+\]
+We choose $R = \SI{200}{\ohm}$ as an example.
+Now we have an equality:
+\[ \left((1/R_L) + (1/r_z) + (1/R)\right)V_O = V_S/R + V_{Z0}/r_z \]
+where $R_L$ is the load resistance, $V_S$ is the supply.
+When supply is \SI{10}{\percent} high, $V_O \approx \SI{7.48}{\V}$.
+When supply is \SI{10}{\percent} low, $V_O \approx \SI{7.23}{\V}$.
+If supply is \SI{10}{\percent} high and load resistor is removed,
+then $R_L = \infty$, $V_O \approx \SI{7.64}{\V}$.
+Since $I_D = (V_O - V_{Z0})/r_z$ must greater that \SI{0.5}{\mA}, we have
+$V_O \ge \SI{7.155}{\V}$. So the smallest value of $R_L$ when supply is
+\SI{10}{\percent} low is \SI{561}{\ohm} approximately. And the load voltage
+is equal to $V_O \approx \SI{7.155}{\V}$.
+
 % 53: 63
 \section{3.53}
 A zener shunt regulator employ a 9.1-\si{\V} zener diode for which
-$V_Z = \SI{9.1}{\V}$ at $I_Z = \SI{9}{\mA}$, with $r_Z = \SI{30}{\ohm}$
+$V_Z = \SI{9.1}{\V}$ at $I_Z = \SI{9}{\mA}$, with $r_z = \SI{30}{\ohm}$
 and $I_{ZK}=\SI{0.3}{\mA}$. The available supply voltage of \SI{15}{\V}
 can vary as much as $\pm\SI{10}{\percent}$. For this diode, what is the
 value of $V_{Z0}$? For a nominal load resistance $R_L$ of \SI{1}{\kohm}
@@ -583,18 +605,46 @@ output voltage that results? Calculate values for the line regulation
 and for the load regulation for this circuit using the numerical results
 obtained in this problem.
 
+\Ans \\
+$V_{Z0} = V_Z - r_z I_Z = \SI{8.83}{\V}$. If nominal zener current is
+\SI{10}{\mA}, then $V_O = V_{Z0} + \SI{10}{\mA} \cdot r_z = \SI{9.13}{\V}$.
+So the current flowing into $R$ is equal to $V_O/R_L + \SI{10}{\mA} =
+\SI{19.13}{\mA}$. Since $(V_S - V_O)/R \ge \SI{19.13}{\mA}$,
+$R \le \SI{306.8}{\ohm} \Rightarrow R \approx \SI{300}{\ohm}$. And we have
+$V_O \approx \SI{9.14}{\V}$ when $R = \SI{300}{\ohm}$. Also when $V_S$ is
+\SI{10}{\percent} high, $V_O \approx \SI{9.27}{\V}$. When $V_S$ is
+\SI{10}{\percent} low, $V_O \approx \SI{9.01}{\V}$. Now if load current is
+reduced by \SI{50}{\percent}, then we have load current
+$I_L = \SI{4.57}{\mA}$. Thus
+\[ \frac{V_S - V_O}{R} = I_L + \frac{V_O - V_{Z0}}{r_z}
+  \quad \Rightarrow \quad V_O \approx \SI{9.27}{\V}. \]
+The load resistance should not be too small so that $I_D$ is smaller than
+$I_{ZK}$. So we can obtain the inequality:
+\[ \frac{V_O - V_{Z0}}{r_z} \ge I_{ZK} \quad \Rightarrow \quad
+V_O \ge \SI{8.839}{\V}, R_L \ge \SI{436.8}{\ohm}. \]
+Line regulation: $\Delta V_O/ \Delta V_S \approx \SI{8.67}{\percent}$.
+Load regulation: $\Delta V_O/I_L \approx \SI{-27.3}{\mV/\mA}$.
+
 % 60: 74
 \section{3.60}
-The circuit in Fig. implements a complementary-output rectifier.
-Sketch and clearly label the waveforms of $v_O^+$ and $v_O^-$.
+The circuit in Fig.~\ref{fig:3.60} implements a complementary-output
+rectifier. Sketch and clearly label the waveforms of $v_O^+$ and $v_O^-$.
 Assume a 0.7-\si{\V} drop across each conducting diode. If the
 magnitude of the average of each output is to be \SI{15}{\V}, find
 the required amplitude of the sine wave across the entire secondary
 winding. What is the PIV of each diode?
 
 \begin{figure}[H]
-  \input circuit/fig4_74
+  \input{circuit/fig4_74}
+  \caption{}
+  \label{fig:3.60}
 \end{figure}
+
+When $v_S$ is positive, $D_3, D_4$ is on. When $v_S$ is negative, 
+$D_1, D_2$ is on. The average of each output is equal to
+$(2/\pi) v_S - v_D$ approximately, so the amplitude of $v_S$ is equal to
+$\SI{24.66}{\V}$ approximately.
+And the PIV of each diode is $2v_S - v_D \approx \SI{48.6}{\V}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \bibliographystyle{plain}
