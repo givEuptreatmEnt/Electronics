@@ -460,19 +460,27 @@ condition that a load current $I_L$ is drawn from the output terminal.
 
 \begin{enumerate}[(a)]
   \item \Ans \\
-    We could model the diode as a voltage source $v_d$ in series with a resistor $r_d$ in small signal. The circuit is now a linear circuit and we could use supercomposition to turn off $V^+$ and $v_d$, so now $R$ is parellel with $r_d$, and hence $\Delta V_o / I_L = (R \parallel r_d)$
+    We could model the diode as a voltage source $v_d$ in series with
+    a resistor $r_d$ in small signal. The circuit is now a linear circuit
+    and we could use supercomposition to turn off $V^+$ and $v_d$, so now
+    $R$ is parellel with $r_d$, and hence 
+    $\Delta V_o / I_L = -(R \parallel r_d)$.
+    (Note: the direction of $I_L$ is reversed.)
   \item \Ans \\
     Notice now we have
     \begin{align*}
       R &= \frac{V^+ - 0.7}{I_D} \\
       r_d &= \frac{nV_T}{I_D} \\
-      (R \parallel r_d) &= \frac{nV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + nV_T }
+      -(R \parallel r_d) &= -\frac{nV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + nV_T }
     \end{align*}
-    We plugin the requirements and solve for $I_D$ and get $I_D \approx \SI{9.95}\mA$, so $R = V^+ - 0.7 / I_D \approx \SI{935}\ohm$. $I_S = I_D \ex^{-0.7/(nV_T)} \approx \SI{8.27e-9}\A$ 
+    We plug in the requirements and solve for $I_D$ and get
+    $I_D \approx \SI{9.95}\mA$, so $R = V^+ - 0.7 / I_D \approx \SI{935}\ohm$.
+    $I_S = I_D \ex^{-0.7/(nV_T)} \approx \SI{8.27e-9}\A$.
   \item \Ans \\
-    Now $\Delta V_O / I_L = (R \parallel m r_d)$ but luckily, $R, r_d$ remain unchanged, so 
+    Now $\Delta V_O / I_L = -(R \parallel m r_d)$ but luckily, $R, r_d$ remain unchanged, so 
     \[
-      \frac{\Delta V_O}{I_L} = (R \parallel m r_d) = \frac{mnV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + mnV_T }
+      \frac{\Delta V_O}{I_L} = -(R \parallel m r_d) =
+      -\frac{mnV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + mnV_T }
     \]
 \end{enumerate}
 
@@ -522,21 +530,25 @@ analysis to answer the follwing questions:
     \[ I_S = \SI{10}\mA \ex^{-0.7 / V_T} \approx \SI{6.9e-15}\A \]
     We use the nodal analysis at $n_1$ and get
     \begin{align*}
-      I_S \ex^{V_O/(2V_T)} &= \frac{\SI{5}\V}{\SI{180}\ohm} - (1 / (\SI{180}\ohm) + 1 / (\SI{150}\ohm)) V_O \\
+      I_S \ex^{V_O/(2V_T)} &= \frac{\SI{5}\V}{\SI{180}\ohm} -
+      (1 / (\SI{180}\ohm) + 1 / (\SI{150}\ohm)) V_O \\
                         &= \SI{27.8}\mA - (\SI{12.2}\mohm) V_O
     \end{align*}
 
     We begin the iterate at $(v, i) = (0, 0)$ and we get
     \[
-      (0, 0) \rightarrow (0, 0.0278) \rightarrow (1.451, 0.0278) \rightarrow (1.451, 0.010) \rightarrow (1.401, 0.011) 
+      (0, 0) \rightarrow (0, 0.0278) \rightarrow (1.451, 0.0278) \rightarrow
+      (1.451, 0.010) \rightarrow (1.401, 0.011) 
     \]
     and get $V_O \approx 1.401$. (Which the real answer is about $1.403$)
   \item \Ans \\
-    Similarly, $(5 - V_O) / 180 = I_S \ex^{V_O / (2V_T)}$. Solve for $V_O$ and we get $V_O \approx \SI{1.434}\V$.
+    Similarly, $(5 - V_O) / 180 = I_S \ex^{V_O / (2V_T)}$. Solve for $V_O$
+    and we get $V_O \approx \SI{1.434}\V$.
   \item \Ans \\
     We lower $V_O$ to $V_O' \approx 1.303$ and get
     \[
-      V' = 180 \left( I_S \ex^{V'_O / V_T} + \frac{V'_O }{150} \right)  \approx \SI{3.125}\V
+      V' = 180 \left( I_S \ex^{V_O' / (2V_T)} +
+        \frac{V'_O }{150} \right) + V_O' \approx \SI{3.125}{\V}
     \]
   \item \Ans \\
       $V'' = V + (V - V') = \SI{6.875}\V $, and again solve for $V_O$ we get $V_O \approx \SI{1.436}\V$.
@@ -545,7 +557,6 @@ analysis to answer the follwing questions:
       \%\text{Worst}  &= 100\% \cdot \frac{5}{5 - 3.125} \max \left( \abs*{\frac{1.303 - 1.403}{1.403}} , \abs*{\frac{1.436-1.403}{1.403}} \right) \\
       &\approx 19\%
     \end{align*}
-
     
 \end{enumerate}
 
