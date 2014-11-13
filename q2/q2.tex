@@ -281,9 +281,10 @@ and $v$ we get $I \approx \SI{3.8}{\mA}$. \\
 
 If now $\SI{1}{\mA}$ is drawn away, then $I' = \SI{2.8}{\mA}$ and we have
 \[
-  \log \frac{I'}{I} = \frac{V' - V}{V_T} \; \Rightarrow \; \Delta V = V' - V = V_T \log \frac{I'}{I} 
+  \log \frac{I'}{I} = \frac{V'_O - V_O}{3V_T} \; \Rightarrow \;
+  \Delta V_O = V'_O - V_O = 3 V_T \log \frac{I'}{I} 
 \]
-and plug in the value we get $ \Delta V = \SI{-7.6}{\mV} $.
+and plug in the value we get $ \Delta V_O = \SI{-22.8}{\mV} $.
 
 \clearpage
 % 21: 26
@@ -366,7 +367,8 @@ are small, we can treat $C_1, C_2$ as short. So we have
 v_o = v_s\frac{V_T}{V_T + IR_s} \]
 as desired. Plug in the values, we get $v_o(I = \SI{1}\mA) = \SI{0.24}\uV$, $v_o(I = \SI{0.1}\mA) = \SI{2}\mV$ and $v_o(I = \SI{1}\uA) = \SI{9.62}\mV$.
 If now we assume $n = 2$, what we only need is to substitute $V_T \rightarrow n V_T = 2 V_T$. So the formula becomes 
-\[ v_o = v_s\frac{2V_T}{2V_T + IR_s} \] and hence for $v_o = v_s \ 2, nV_T = IR_s \Rightarrow I = 2 (\SI{25}\mV) / (\SI{1}\kohm) =  \SI{50}\uA$
+\[ v_o = v_s\frac{2V_T}{2V_T + IR_s} \] and hence for $v_o = v_s \ 2, nV_T = IR_s \Rightarrow I = 2 (\SI{25}\mV) / (\SI{1}\kohm) =  \SI{50}\uA$.
+
 % 40: 48
 \section{3.40}
 In the capacitor-coupled attenuator circuit shown in Fig.~\ref{fig:3.40},
@@ -417,7 +419,6 @@ Now for small AC signal, since $C_1, C_2$ large, we could assume $C_1, C_2$ to b
 \SI{900}{\uA}, \SI{990}{\uA}, \SI{1}{\mA}$, $v_o / v_i = 0, 10^{-3}, 10^{-2}, 0.1, 0.5, 0.6, 0.9, 0.99, 1$.
 
 
-
 % 45: 53
 \section{3.45}
 Consider the voltage-regulator circuit shown in Fig.~\ref{fig:3.45} under the
@@ -441,7 +442,7 @@ condition that a load current $I_L$ is drawn from the output terminal.
     Also, specify the diode required in terms of its $I_S$.
   \item Generalize the expression derived in (b) for the case of $m$
     diodes connected in series and $R$ adjusted to obtain $V_O =
-    \SI{0.7}{\mV}$ at no load.
+    0.7m\si{\V}$ at no load.
 \end{enumerate}
 
 \begin{figure}[H]
@@ -478,13 +479,13 @@ condition that a load current $I_L$ is drawn from the output terminal.
     $I_D \approx \SI{9.95}\mA$, so $R = V^+ - 0.7 / I_D \approx \SI{935}\ohm$.
     $I_S = I_D \ex^{-0.7/(nV_T)} \approx \SI{8.27e-9}\A$.
   \item \Ans \\
-    Now $\Delta V_O / I_L = -(R \parallel m r_d)$ but luckily, $R, r_d$ remain unchanged, so 
+    Now $\Delta V_O / I_L = -(R \parallel m r_d)$ and
+    $R = (V^+ - 0.7m) / I_D$, $r_d$ remains unchanged, so 
     \[
       \frac{\Delta V_O}{I_L} = -(R \parallel m r_d) =
-      -\frac{mnV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + mnV_T }
+      -\frac{mnV_T}{I_D} \frac{V^+ - 0.7m}{V^+ - 0.7m + mnV_T }
     \]
 \end{enumerate}
-
 
 % 48: 56
 \section{3.48}
