@@ -9,7 +9,9 @@
 \author{} %作者
 \date{} %日期
 
+
 \begin{document}
+\tikzstyle{default}=[thick, color=black]
 % \maketitle %製作tilte page
 % \thispagestyle{empty}  %去除頁碼
 % \thispagestyle{fancy}  %使用fancyhdr
@@ -57,7 +59,7 @@ The table below lists 10 different cases labeled (a) to (j) for operating an NMO
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
     \hline
     & \multicolumn{6}{c|}{Voltage \si\V} & \\ \cline{2-7}
-    Case & $V_S$ & $V_G$ & $V_D$ & $V_{GS}$ & $V_{OV}$ & $V_{DS} & Region of operation \\
+    Case & $V_S$ & $V_G$ & $V_D$ & $V_{GS}$ & $V_{OV}$ & $V_{DS}$ & Region of operation \\
     \hline
     a & $+1.0$ & $+1.0$ & $+2.0$ & $0$ & $0$ & $1.0$ & Cut-off \\
     b & $+1.0$ & $+2.5$ & $+2.0$ & $1.5$ & $0.5$ & $1.0$ & Saturation \\
@@ -112,32 +114,22 @@ and thus $I_S = \SI{1e-6}{\mA}$. So
 Finally $R = V / i_1 \approx \SI{80}{\mV} / \SI{1.367}{\mA} = \SI{58.5}{\ohm}$.
 
 % 38: 46
-\section{3.38}
-In the circuit shown in Fig.~\ref{fig:3.38}, $I$ is a dc current and
-$v_s$ is a sinusoidal signal. Capacitors $C_1$ and $C_2$ are very large;
-their function is to couple the signal to and from the diode but block the
-dc current from flowing into the signal source or the load (not shown).
-Use the diode small-signal model to show that the signal component of the
-output voltage is
-\[ v_o = v_s \frac{V_T}{V_T + IR_s} \]
-If $v_s = \SI{10}{\mV}$, find $v_o$ for $I = \SI{1}{\mA}, \SI{0.1}{\mA}$, and
-\SI{1}{\uA}. Let $R_s = \SI{1}{\kohm}$. Assume $n = 2$. At
-what value of $I$ does $v_o$ become one-half of $v_s$?
-Note that this circuit functions as a signal attenuator with the
-attenuation factor controlled by the value of the dc current $I$.
+\section{5.34}
+The NMOS transistors in the circuit of  Fig.~\ref{fig:3.38} have $V_t = \SI{1}{\V} , \mu_n C_{ox} = \SI{120}{\uA\per\V\squared}, \lambda = 0$ and $L_1 = L_2 = L_3 = \SI{1}{\um} $. Find the required values of gate width for each of $Q_1$, $Q_2$, and $Q_3$ to obtain the voltage and current values indicated.
 
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45, scale=0.8, transform shape]
-    \draw[color=black, thick] (0, 0) node[ground]{}
-      to [V, l=$v_s$] (0, 3) to [R, l=$R_s$] (3, 3)
-      to [C, l=$C_1$, o-*] (6, 3) node[](n1){} to [C, l=$C_2$, -o] (9, 3)
-      to [open, v^=$v_o$] (9, -0.5)
-      (n1) to [Do] (6, 0) node[ground]{}
-      (6, 6) node[](Iout){} to [I, l=$I$] (n1)
-      ;
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default] (0, 1) node[nmos, label={[shift={(0.4, -0.3)}]$Q_1$}](nm1){};
+    \draw[default] (0, 2.5) node[nmos, label={[shift={(0.4, -0.3)}]$Q_2$}](nm2){};
+    \draw[default] (0, 4) node[nmos, label={[shift={(0.4, -0.3)}]$Q_3$}](nm3){};
+    \draw[color=black, thick] let \p1=(nm1) in
+    (0, \x1) node[ground]{} to [short] (nm1.source);
+    \draw[default] (nm1.gate) |- (nm1.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{1.5}{\V}$};
+    \draw[default] (nm2.gate) |- (nm2.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{3.5}{\V}$};
+    \draw[default] (nm3.gate) |- (nm3.drain) to[short, *-, i<_=120<\uA>] ++(0, 0.5);
     \draw[color=black, thick, ->]
-      (6, 5) to (6, 6.5)
+      ($(nm3.drain) + (0, 0.3)$) to ++(0, 0.5) node[above]{$+\SI{5}{\V}$}
       ;
   \end{circuitikz}
   \caption{}
@@ -145,16 +137,12 @@ attenuation factor controlled by the value of the dc current $I$.
 \end{figure}
 
 \Ans \\
-Notice that there is no dc current flow between the source
-and load. Thus we can model diode as a resistor for small signal: \footnote{differentiate $I = I_s e^{v/v_T}$}
-\[ r_d = \frac{V_T}{I} \]
-And for small ac signal, since $C_1, C_2$ are large, $Z = 1 / (\img \omega C)$
-are small, we can treat $C_1, C_2$ as short. So we have
-\[ \frac{v_s}{R_s + r_d} = \frac{v_o}{r_d} \; \Rightarrow \;
-v_o = v_s\frac{V_T}{V_T + IR_s} \]
-as desired. Plug in the values, we get $v_o(I = \SI{1}\mA) = \SI{0.24}\uV$, $v_o(I = \SI{0.1}\mA) = \SI{2}\mV$ and $v_o(I = \SI{1}\uA) = \SI{9.62}\mV$.
-If now we assume $n = 2$, what we only need is to substitute $V_T \rightarrow n V_T = 2 V_T$. So the formula becomes 
-\[ v_o = v_s\frac{2V_T}{2V_T + IR_s} \] and hence for $v_o = v_s \ 2, nV_T = IR_s \Rightarrow I = 2 (\SI{25}\mV) / (\SI{1}\kohm) =  \SI{50}\uA$.
+Notice that every MOS is working on saturation region, since $v_D = v_G$,  hence $v_{DS} > v_{GS} - V_t$. Now for $Q_1, Q_3$, $V_{OV} = v_{GS} - V_t = \SI{0.5}{\V} $ and for $Q_2$, $V_{OV} = \SI{1}{\V} $.
+Hence by solving 
+\[
+  \frac{1}{2} \mu_n C_{ox} \frac{W}{L} V_{OV}^2 = I_D = \SI{120}{\uA} 
+\]
+We get $W_1 = W_3 = \SI{4}{\um} , W_2 = \SI{2}{\um} $
 
 % 40: 48
 \section{3.40}
