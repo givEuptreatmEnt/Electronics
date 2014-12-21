@@ -77,41 +77,7 @@ The table below lists 10 different cases labeled (a) to (j) for operating an NMO
 
 \clearpage
 % 21: 26
-\section{3.21}
-For the circuit shown in Fig.~\ref{fig:3.21}, both diodes are identical,
-conducting \SI{10}{\mA} at \SI{0.7}{\V} and \SI{100}{\mA}
-at \SI{0.8}{\V}. Find the value of $R$ for which $V = \SI{80}{\mV}$.
-
-\begin{figure}[H]
-  \centering
-  \begin{circuitikz}
-    \draw[color=black, thick] (0, 0) to [I, l=10<\mA>, *-*]
-      ++ (0, -2.5) node[](n1){} to [Do, l_=$D_2$] ++(0, -1.5) node[ground] {}
-    (n1) to[short, i={\color{blue} $i_1$}] ++(1.5, 0)
-    to [Do, -*, l^=$D_1$] ++(0, -1.5) node[](n2){}
-    to [R, l_=$R$] ++(0, -2.5) node[ground]{} 
-    (n2) to [short, -o] ++(1, 0) to [open, v^={\color{red} $V$}] ++(0, -3)
-    ;
-  \end{circuitikz}
-  \caption{}
-  \label{fig:3.21}
-\end{figure}
-
-\Ans \\
-Model the diode as $i = I_s \ex^{V / V_T}$ and solve $I_S, V_T$ with
-$(i, V) = (\SI{10}{\mA}, \SI{0.7}{\V}), (\SI{100}{\mA}, \SI{0.8}{\V})$.
-We have
-\[
-\frac{i_2}{i_1} = 10 = \ex^{\frac{V_2 - V_1}{V_T}} \; \Rightarrow \;
-V_T = \frac{V_2 - V_1}{ \log 10 } = \SI{43.4}\mV \]
-and thus $I_S = \SI{1e-6}{\mA}$. So
-\begin{align*}
-  & V_{D_2} - V_{D_1} = V \\
-  \Leftrightarrow \; &V_T \log \frac{i_2}{i_1} = V \\
-  \Leftrightarrow \; &V_T \log \frac{\SI{10}{\mA} - i_1}{i_1} = \SI{80}{\mV} \\
-  \Leftrightarrow \; &i_1 \approx \SI{1.367}{\mA}
-\end{align*}
-Finally $R = V / i_1 \approx \SI{80}{\mV} / \SI{1.367}{\mA} = \SI{58.5}{\ohm}$.
+\section{5.29}
 
 % 38: 46
 \section{5.34}
@@ -145,197 +111,129 @@ Hence by solving
 We get $W_1 = W_3 = \SI{4}{\um} , W_2 = \SI{2}{\um} $
 
 % 40: 48
-\section{3.40}
-In the capacitor-coupled attenuator circuit shown in Fig.~\ref{fig:3.40},
-$I$ is a dc current that varies from \SI{0}{\mA} to
-\SI{1}{\mA}, and $C_1$ and $C_2$ are large coupling capacitors.
-For very small input signals, so that the diodes can be represented by
-their small-signal resistances $r_{d1}$ and $r_{d2}$, show that
-$\dfrac{v_o}{v_i} = \dfrac{r_{d2}}{r_{d1}+r_{d2}}$ and hence
-that $\dfrac{v_o}{v_i}  = I$, where $I$ is in
-\si{\mA}. Find $v_o/v_i$ for $I = \SI{0}{\uA}, \SI{1}{\uA},
-\SI{10}{\uA}, \SI{100}{\uA}, \SI{500}{\uA}, \SI{600}{\uA},
-\SI{900}{\uA}, \SI{990}{\uA}, \SI{1}{\mA}$. \footnote{Seriously ??}
-
+\section{5.41}
+For the devices in the circuits of Figure~\ref{fig:5.41}, $ \abs{V_t} = \SI{1}{V} , \lambda = 0, \mu_n C_{ox} = \SI{50}{\uA\per\V\squared}, L = \SI{1}{\um}$, and $W = \SI{10}{\um}$. Find $V_2$ and $I_2$. How do these values change if $Q_3$ and $Q_4$ are made to have $W = \SI{100}{\um}$?
 \begin{figure}[H]
   \centering
   \begin{circuitikz}[>=triangle 45]
-    \draw[color=black, thick] (0, 0) node[left](vi){$v_i$}
-      to [C, l=$C_1$, o-*] (2, 0) node[](n1){} to [I, l=$I$] (2, -2)
-      (6, 2) node[right](vo){$v_o$} to [C, l_=$C_2$, o-*] (4, 2)
-      to [Do, l=$D_2$, i={\color{blue} $I_2$}] (4, 0) node[ground]{}
-      (3, 4) to [I, l=$\SI{1}{\mA}$, -*] (3, 2) -- (2, 2)
-      to [Do, l=$D_1$] (n1)
-      (3, 2) -- (4, 2)
-      ;
-    \draw[color=black, thick, ->]
-      (2, -1) -- (2, -2.5)
-      ;
-    \draw[color=black, thick, ->]
-      (3, 3.5) -- (3, 4.5)
-      ;
+    \draw[default] (0, 0) node[nmos, xscale=-1] (Q3) {}
+    (Q3.S) node[ground] {}
+    (Q3.D) to[short, i<_=$I_2$] ++(0, 0.5) node[](p1){} to [short, *-o] ++(-0.5, 0) node[left]{$V_2$}
+    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q4){}
+    (Q3.G) to[short] ++(0.5, 0) node[circ](p2){} to[short] ++(0.5, 0) node[nmos, anchor=G](Q1) {}
+    (Q1.S) node[ground]{}
+    (p2) |- ($(Q1.D) + (0, 0.5)$) node[circ](p3){} -- (Q1.D)
+    (p3) to[short, i<^={\color{blue}$I_1$}] ++(0, 0.5) node[nmos, xscale=-1.0, anchor=S](Q2){}
+    (Q1) node[right]{$Q_1$}
+    (Q2) node[left]{$Q_2$}
+    (Q3) node[left]{$Q_3$}
+    (Q4) node[right]{$Q_4$}
+    ($(p2) + (0, 4.5)$) node[]{$+\SI{5}{\V}$}
+    (p3) node[right]{\color{blue}$V_1$}
+    ; 
+    \draw[default, ->] (Q4.D) -- ++(0, 1);
+    \draw[default, ->] (Q4.G) -| ++(-0.2, 1.75);
+    \draw[default, ->] (Q2.D) -- ++(0, 1);
+    \draw[default, ->] (Q2.G) -| ++(0.2, 1.75);
+    \draw[dashed, color=blue] (p1) -- (p3);
   \end{circuitikz}
   \caption{}
-  \label{fig:3.40}
+  \label{fig:5.41}
 \end{figure}
 
-\Ans \\
-Again since $v_i, v_o$ is block by the capasitor, no current flow to the middle part, so $I_2 = \SI{1}\mA - I$, and \[ r_{d1} = \frac{V_T}{I}, \; r_{d2} = \frac{V_T}{I_2} = \frac{V_T}{\SI{1}\mA - I} \]
-and so
-\[ 
-  \frac{r_{d1}}{r_{d2}} = \frac{I_2}{I} 
-\]
-Now for small AC signal, since $C_1, C_2$ large, we could assume $C_1, C_2$ to be short, and hence $D_1, D_2$ are in series with $v_i$, thus
-\[
-  \frac{v_o}{v_i} = \frac{r_{d2}}{r_{d2} + r_{d1}} = \frac{I}{I+I_2} = \frac{I}{\SI{1}\mA}
-\]
-\si{\mA}. For $I = \SI{0}{\uA}, \SI{1}{\uA},
-\SI{10}{\uA}, \SI{100}{\uA}, \SI{500}{\uA}, \SI{600}{\uA},
-\SI{900}{\uA}, \SI{990}{\uA}, \SI{1}{\mA}$, $v_o / v_i = 0, 10^{-3}, 10^{-2}, 0.1, 0.5, 0.6, 0.9, 0.99, 1$.
 
+\Ans \\
+Notice that if we connect the blue dashed line in the figure, the circuit is now symmetric. Moreover, all the MOS are working in saturation region.
+Now $Q_1, Q_2, Q_3, Q_4$ has the same $k_n$, and the current go through $Q_4, Q_2$ is equal to the current that go through $Q_3, Q_1$. So by symmetry, $V_2 = V_1 =  \SI{5}{V} / 2 = \SI{2.5}{\V}$. Notice that there is no currenct go through the blue dashed line, so if we remove the line, the voltage remains unchanged. Hence we know that in the origin circuit, $V_2 = \SI{2.5}{\V}$.
+\begin{align*}
+  k_n &= \mu_n C_{ox} (W / L) = \SI{0.5}{\mA} \\
+  V_2 &= v_{GS} = \SI{2.5}{\V} \\
+  I_2 &= \frac{1}{2} k_n (v_{GS} - V_t) ^2 = \SI{562.5}{\uA}
+\end{align*}
+Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than before, so $I_2 = \SI{5.625}{\mA}$.
 
 % 45: 53
-\section{3.45}
-Consider the voltage-regulator circuit shown in Fig.~\ref{fig:3.45} under the
-condition that a load current $I_L$ is drawn from the output terminal.
-\begin{enumerate}[(a)]
-  \item If the value of $I_L$ is sufficiently small that the
-    corresponding change in regulator output voltage $\Delta V_O$ is
-    small enough to justify using the diode small-signal model, show
-    that
-    \[ \frac{\Delta V_O}{I_L} = -(r_d \parallel R) \]
-    This quantity is known as the load regulation and is usually
-    expressed in \si{\mV/\mA}.
-  \item If the value of $R$ is selected such that at no load the voltage
-    across the diode is \SI{0.7}{\V} and the diode current is $I_D$,
-    show that the expression derived in (a) becomes
-    \[ \frac{\Delta V_O}{I_L} =
-      -\frac{nV_T}{I_D}\frac{V^+ -0.7}{V^+ - 0.7 + nV_T} \]
-    Select the lowest possible value for $I_D$ that results in a load
-    regulation $\le \SI{5}{\mV/\mA}$. Assume $n = 2$.
-    If $V^+$ is nominally \SI{10}{\V}, what value of $R$ is required?
-    Also, specify the diode required in terms of its $I_S$.
-  \item Generalize the expression derived in (b) for the case of $m$
-    diodes connected in series and $R$ adjusted to obtain $V_O =
-    0.7m\si{\V}$ at no load.
-\end{enumerate}
+\section{5.43}
+
+\section{5.46}
+Figure~\ref{fig:5.46} shows an amplifier in which the load resistor $R_D$ has been replaced with another NMOS transistor $Q_1$ connected as a two-terminal device. Note that because $v_{DG}$ of $Q_2$ is zero, it will be operating in saturation at all times, even when $v_I = 0$ and $i_{D2} = i_{D1} = 0$. Note also that the two transistors conduct equal drain currents. Using $i_{D1} = i_{D2}$, show that for the range of $v_I$ over which $Q_1$ is operating in saturation, that is , for
+\[ V_{t1} \leq v_I \leq v_O +V_{t1} \]
+the output voltage will be given by
+\[ v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} }V_t - \sqrt{ \frac{W_1/L_1}{W_2/L_2} }v_I \]
 
 \begin{figure}[H]
   \centering
   \begin{circuitikz}[>=triangle 45]
-    \draw[color=black, thick] (0, 0) to [R, l=$R$] (0, -3) node[](n1){}
-      to [Do] (0, -6) node[ground]{}
-      (n1) to[short, *-o] (3, -3) to [open, v^=$V_o$] (3, -6.5)
+    \draw[default] 
+    (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
+    (Q1.G) to[short, -o] ++(-0.5, 0) node[left]{$v_I$}
+    (Q1.D) to[short, i^<={\color{red}$i_{D1}$}] ++(0, 0.5) node[](p1){} to[short, *-o] ++(0.5, 0) node[right]{$v_O$}
+    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q2){}
+    ($(Q2.D) + (0, 0.5)$) node[circ](p2){} -| (Q2.G)
+    (p2) to[short, i^>={\color{red}$i_{D2}$}] (Q2.D)
+    (Q1) node[right] {$Q_1$}
+    (Q2) node[right] {$Q_2$}
       ;
-    \draw[color=black, thick, ->]
-      (0, -1) -- (0, 0.5) node[above](vp){$V^+$}
-      ;
+      
+    \draw[default, ->] (p2) -- ++(0, 0.5) node[above]{$V_{DD}$};
   \end{circuitikz}
   \caption{}
   \label{fig:3.45}
 \end{figure}
 
-\begin{enumerate}[(a)]
-  \item \Ans \\
-    We could model the diode as a voltage source $v_d$ in series with
-    a resistor $r_d$ in small signal. The circuit is now a linear circuit
-    and we could use supercomposition to turn off $V^+$ and $v_d$, so now
-    $R$ is parellel with $r_d$, and hence 
-    $\Delta V_o / I_L = -(R \parallel r_d)$.
-    (Note: the direction of $I_L$ is reversed.)
-  \item \Ans \\
-    Notice now we have
-    \begin{align*}
-      R &= \frac{V^+ - 0.7}{I_D} \\
-      r_d &= \frac{nV_T}{I_D} \\
-      -(R \parallel r_d) &= -\frac{nV_T}{I_D} \frac{V^+ - 0.7}{V^+ - 0.7 + nV_T }
-    \end{align*}
-    We plug in the requirements and solve for $I_D$ and get
-    $I_D \approx \SI{9.95}\mA$, so $R = V^+ - 0.7 / I_D \approx \SI{935}\ohm$.
-    $I_S = I_D \ex^{-0.7/(nV_T)} \approx \SI{8.27e-9}\A$.
-  \item \Ans \\
-    Now $\Delta V_O / I_L = -(R \parallel m r_d)$ and
-    $R = (V^+ - 0.7m) / I_D$, $r_d$ remains unchanged, so 
-    \[
-      \frac{\Delta V_O}{I_L} = -(R \parallel m r_d) =
-      -\frac{mnV_T}{I_D} \frac{V^+ - 0.7m}{V^+ - 0.7m + mnV_T }
-    \]
-\end{enumerate}
+\Ans
+Since both the MOS is operating in saturation, we have
+\begin{align*}
+  i_{D1} &= \frac{1}{2} k'_n \frac{W_1}{L_1} (v_I - V_t)^2 \\
+  i_{D2} &= \frac{1}{2} k'_n \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 
+\end{align*}
+
+By $i_{D1} = i_{D2}$ we obtain
+\begin{gather*}
+  \frac{W_1}{L_1} (v_I - V_t)^2 = \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 \\
+  \Rightarrow v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} } (V_t - v_I) 
+\end{gather*}
+Which is the desired result.
 
 % 48: 56
-\section{3.48}
-A particular design of a voltage regulator is shown in Fig.~\ref{fig:3.48}.
-Diodes $D_1$ and $D_2$ are 10-\si{\mA} units; that is,
-each has a voltage drop of \SI{0.7}{\V} at a current of
-\SI{10}{\mA}. Use the diode exponential model and iterative
-analysis to answer the follwing questions:
-\begin{enumerate}[(a)]
-  \item What is the regulator output voltage $V_O$ with the
-    150-\si{\ohm} load connected?
-  \item Find $V_O$ with no load.
-  \item With the load connected, to what value can the 5-\si{\V}
-    supply be lowered while maintaining the loaded output voltage
-    within \SI{0.1}{\V} of its nominal value?
-  \item What does the loaded output voltage become when the 5-\si{\V}
-    supply is raised by the same amount as the drop found in (c)?
-  \item For the range of changes explored in (c) and (d), by what
-    percentage does the output voltage change for each percentage
-    change of supply voltage in the worst case?
-\end{enumerate}
+\section{5.50}
+In this problem we investigate an optimum design of the CS amplifier circuit of Figure~\ref{fig:}. First. use the voltage gain expression $A_v = -g_m R_D$ together with Eq(5.57) for $g_m$ to show that
+\[ A_v = -\frac{2I_D R_D}{V_{OV}} = - \frac{2(V_{DD} - V_D)}{V_{OV}} \]
+Next, let the maximum positive input signal be $\hat{v_i}$. To keep the second-harmonic distortion to an acceptable level, we bias the MOSFET to operate at an overdrive voltage $V_{OV} \gg \hat{v_i}$. Let $V_{OV} = m\hat{v_i}$. Now, to maximize the voltage gain $\abs{A_v}$, we design for the lowest possible $V_D$. Show that the minimum $V_D$ that is consistent with allowing a negative signal voltage swing at the drain of $\abs{A_v}\hat{v_i}$ while maintaining saturation-mode operation is given by
+\[
+  V_D = \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i}/V_{OV})}{1 + 2(\hat{v_i}/V_{OV})} 
+\]
+Now, find $V_{OV}, V_D, A_v$, and $\hat{v_o}$ for the case $V_{DD} = \SI{3}{\V}, \hat{v_i} = \SI{20}{\mV}, \text{and } m = 10$. If it is desired to operate this transistor at $I_D = \SI{100}{\uA}$, find the values of $R_D$ and $W/L$, assuming that for this process technology $k'_n = \SI{100}{\uA\per\V\squared}$.
 
-\begin{figure}[H]
-  \centering
-  \begin{circuitikz}[>=triangle 45]
-    \draw[color=black, thick] (0, 0) to [R, l=180<\ohm>] (0, -3) node[](n1){}
-      -- (0, -3.3) to [Do, l_=$D_1$] (0, -4.5) to [Do, l_=$D_2$] (0, -5.8)
-      -- (0, -6) node[ground]{}
-      (n1) to[short, *-o] (1.5, -3) -| (3, -3)
-      to [R, l=$\SI{150}{\ohm}$] (3, -6) node[ground]{}
-      (1.2, -3) to[open, v^=$V_o$] (1.2, -6.5)
-      (n1) node[left]{\color{blue} $n_1$}
-      ;
-    \draw[color=black, thick, ->]
-      (0, -1) -- (0, 0.5) node[above](vp){$+\SI{5}\V$}
-      ;
-  \end{circuitikz}
-  \caption{}
-  \label{fig:3.48}
-\end{figure}
+\Ans\\
+\begin{align*}
+  g_m &= \frac{2I_D}{V_{OV}}\\
+  A_v &= -g_m R_D = -\frac{2 I_D R_D}{V_{OV}}  = -\frac{2 (V_{DD} - V_D)}{V_{OV}} 
+\end{align*}
+Let $v_g = V_G + v_i$ be the total gate voltage, $v_d = V_D + A_v v_i$ be the total drain voltage, the saturation condition required that $v_d \geq v_g - V_t$. so
+\begin{align*}
+  & v_d \geq v_g - V_t \\
+  \Rightarrow & V_D + A_v v_i \geq V_G + v_i - V_t  \\
+  \Rightarrow & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} v_i \geq V_G + v_i - V_t \\
+  \Rightarrow  & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} \hat{v_i} \geq V_G + \hat{v_i} - V_t \quad \footnotemark \\
+  \Rightarrow & \left(1 + \frac{2\hat{v_i}}{V_{OV}}\right) V_D \geq V_G + \hat{v_i} + \frac{2V_{DD}}{V_{OV}} \hat{v_i}  - V_t  \\
+  \Rightarrow & V_D \geq \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} 
+\end{align*}
+\footnotetext{Since $A_v, v_i$ and $v_i$ are in opposite sign, so in the worse case, we shall consider $-A_v \hat{v_i}$ and $\hat{v_i}$}
+Which is the desired result.
+Plug in the value and let $V_D$ be the maximum possible value we found out that
+\begin{alignat*}{3}
+  & V_{OV} &&= m \hat{v_i} && = \SI{200}{\mV} \\
+  & V_{D} &&= \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} && \approx \SI{683}{\mV} \\
+  & A_v &&= -\frac{2(V_{DD} - V_D)}{V_{OV}}  && \approx -23.2 \\
+  & \hat{v_o} &&= \abs{A_v} \hat{v_i} && \approx \SI{464}\mV \\
+\end{alignat*}
+If moreover, $I_D = \SI{100}{\uA}$,
+\begin{alignat*}{3}
+  & R_D &&= \frac{V_{DD} - V_D}{I_D}  && \approx \SI{23.17}{\kohm} \\
+  & \frac{W}{L} &&= I_D / \left(\frac{1}{2} k'_n V_{OV}^2 \right) && = 50
+\end{alignat*}
 
-\begin{enumerate}[(a)]
-  \item \Ans \\
-    \[ I_S = (\SI{10}\mA) \ex^{-0.7 / V_T} \approx \SI{6.9e-15}\A \]
-    We use the nodal analysis at $n_1$. Since the voltage across a diode is $V_O / 2$, we get
-    \begin{align*}
-      I_S \ex^{V_O/(2V_T)} &= \frac{\SI{5}\V}{\SI{180}\ohm} -
-      (1 / (\SI{180}\ohm) + 1 / (\SI{150}\ohm)) V_O \\
-                        &= \SI{27.8}\mA - (\SI{12.2}\mohm) V_O
-    \end{align*}
-
-    We begin the iterate at $(v, i) = (0, 0)$ and obtain
-    \[
-      (0, 0) \rightarrow (0, 0.0278) \rightarrow (1.451, 0.0278) \rightarrow
-      (1.451, 0.010) \rightarrow (1.401, 0.011) 
-    \]
-    and thus $V_O \approx 1.401$. (Which the real answer is about $1.403$)
-  \item \Ans \\
-    Similarly, $(5 - V_O) / 180 = I_S \ex^{V_O / (2V_T)}$. Solve for $V_O$
-    and we get $V_O \approx \SI{1.434}\V$.
-  \item \Ans \\
-    We lower $V_O$ to $V_O' \approx 1.303$ and get
-    \[
-      V' = 180 \left( I_S \ex^{V_O' / (2V_T)} +
-        \frac{V'_O }{150} \right) + V_O' \approx \SI{3.125}{\V}
-    \]
-  \item \Ans \\
-      $V'' = V + (V - V') = \SI{6.875}\V $, and again solve for $V_O$ we get $V_O \approx \SI{1.436}\V$.
-  \item \Ans \\
-    \begin{align*}
-      \%\text{Worst}  &= 100\% \cdot \frac{5}{5 - 3.125} \max \left( \abs*{\frac{1.303 - 1.403}{1.403}} , \abs*{\frac{1.436-1.403}{1.403}} \right) \\
-      &\approx 19\%
-    \end{align*}
-    
-\end{enumerate}
 
 % 52: 61
 \section{3.52}
@@ -428,7 +326,6 @@ the required amplitude of the sine wave across the entire secondary
 winding. What is the PIV of each diode?
 
 \begin{figure}[H]
-  \input{circuit/fig4_74}
   \caption{}
   \label{fig:3.60}
 \end{figure}
