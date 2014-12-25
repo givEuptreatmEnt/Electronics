@@ -237,107 +237,75 @@ If moreover, $I_D = \SI{100}{\uA}$,
 
 % 52: 61
 \section{3.52}
-Design a 7.5-\si{\V} zener regulator circuit using a 7.5-\si{\V}
-zener specified at \SI{12}{\mA}. The zener has an incremental
-resistance $r_z = \SI{30}{\ohm}$ and a knee current of \SI{0.5}{\mA}.
-The regulator operates from a 10-\si{\V} supply and has a
-1.2-\si{\kohm} load. What is the value of $R$ you have chosen?
-What is the regulator output voltage when the supply is \SI{10}{\percent}
-high? Is \SI{10}{\percent} low? What is the output voltage when both the
-supply is \SI{10}{\percent} high and the load is removed? What is
-the smallest possible load resistor that can be ued while the zener
-operates at a current no lower than the knee current while the supply
-is \SI{10}{\percent} low? What is the load voltage in this case?
-
-\Ans \\
-First calculate $V_{Z0} = V_Z - r_z I_Z = \SI{7.14}{\V}$. Now we need to
-choose a value of $R$ such that the current $I_D$ flowing into the zener diode
-is not smaller that the knee current of that diode. We have
-$V_O = I_Dr_z + V_{Z0}$, so
-\[
-  \left((1/(\SI{1.2}{\kohm}) + (1/R)\right) V_O + I_D - 10/R = 0
-    \quad \text{and} \quad I_D \ge \SI{0.5}{\mA}.
-\]
-We choose $R = \SI{200}{\ohm}$ as an example.
-Now we obtain the equality:
-\[ \left((1/R_L) + (1/r_z) + (1/R)\right)V_O = V_S/R + V_{Z0}/r_z \]
-where $R_L$ is the load resistance, $V_S$ is the supply voltage. \\
-When the supply is \SI{10}{\percent} high, $V_O \approx \SI{7.48}{\V}$. \\
-When the supply is \SI{10}{\percent} low, $V_O \approx \SI{7.23}{\V}$. \\
-If supply is \SI{10}{\percent} high and load resistor is removed,
-then $R_L = \infty$, $V_O \approx \SI{7.64}{\V}$.
-Since $I_D = (V_O - V_{Z0})/r_z$ must greater that \SI{0.5}{\mA}, we have
-$V_O \ge \SI{7.155}{\V}$. So the smallest value of $R_L$ when supply is
-\SI{10}{\percent} low is \SI{561}{\ohm} approximately. And the load voltage
-is equal to $V_O \approx \SI{7.155}{\V}$.
 
 % 53: 63
-\section{3.53}
-A zener shunt regulator employ a 9.1-\si{\V} zener diode for which
-$V_Z = \SI{9.1}{\V}$ at $I_Z = \SI{9}{\mA}$, with $r_z = \SI{30}{\ohm}$
-and $I_{ZK}=\SI{0.3}{\mA}$. The available supply voltage of \SI{15}{\V}
-can vary as much as $\pm\SI{10}{\percent}$.
+\section{5.81}
+The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-0.7}{\V}$ and a very large $\abs{V_A}$.
 \begin{enumerate}[(a)]
-  \item For this diode, what is the value of $V_{Z0}$?
-  \item For a nominal load resistance $R_L$ of \SI{1}{\kohm}
-and a nominal zener current of \SI{10}{\mA}, what current must flow
-in the supply resistor $R$?
-  \item For the nominal value of supply voltage, select a value for resistor $R$, specified to one significant digit, to provide at least that current. What nominal output voltage results?
-  \item For a $\pm\SI{10}{\percent}$ change in the supply voltage, what variation
-in output voltage results?
-  \item If the load current is reduced by
-\SI{50}{\percent}, what increase in $V_O$ results?
-  \item What is the smallest value of load resistance that can be tolerated while maintaining
-regulation when the supply voltage is low?  What is the lowest possible output voltage that results? 
-  \item Calculate values for the line regulation
-and for the load regulation for this circuit using the numerical results
-obtained in this problem.
+  \item Select a value for $R_S$ to bias the transistor at $I_D = \SI{0.3}{\mA}$ and $\abs{V_{OV}} = \SI{0.3}{V}$. Assume $v_{sig}$ to have a zero dc component.
+  \item Select a value for $R_D$ that results in $G_v = \SI{10}{\V\per\V}$.
+  \item Find the largest sinusiod $\hat{v_{sig}}$ that the amplifier can handle while remaining in the saturation region. What is the corresponding signal at the output?
+  \item If to obtain reasonably linear operation $\hat{v_{sig}}$ is limited to $\SI{50}{\mV}$, what value can $R_D$ be increased to while maintaining saturation-region operation? What is the new value of $G_v$.
 \end{enumerate}
-
-\Ans \\
-\begin{enumerate}[(a)]
-  \item $V_{Z0} = V_Z - r_z I_Z = \SI{8.83}{\V}$.
-  \item If nominal zener current is \SI{10}{\mA}, then $V_O = V_{Z0} + \SI{10}{\mA} \cdot r_z = \SI{9.13}{\V}$.
-So the current flowing into $R$ is equal to $V_O/R_L + \SI{10}{\mA} =
-\SI{19.13}{\mA}$.
-  \item Since $(V_S - V_O)/R \ge \SI{19.13}{\mA}$,
-$R \le \SI{306.8}{\ohm} \Rightarrow R \approx \SI{300}{\ohm}$. And we have
-$V_O \approx \SI{9.14}{\V}$ when $R = \SI{300}{\ohm}$. 
-  \item When $V_S$ is \SI{10}{\percent} high, $V_O \approx \SI{9.27}{\V}$. When $V_S$ is \SI{10}{\percent} low, $V_O \approx \SI{9.01}{\V}$.
-  \item If load current is reduced by \SI{50}{\percent}, then we have load current
-$I_L = \SI{4.57}{\mA}$. Thus
-\[ \frac{V_S - V_O}{R} = I_L + \frac{V_O - V_{Z0}}{r_z}
-  \; \Rightarrow \; V_O \approx \SI{9.27}{\V}. \]
-  \item The load resistance should not be too small so that $I_D$ is smaller than
-$I_{ZK}$. So we can obtain the inequality:
-\[ \frac{V_O - V_{Z0}}{r_z} \ge I_{ZK} \; \Rightarrow \;
-V_O \ge \SI{8.839}{\V}, R_L \ge \SI{436.8}{\ohm}. \]
-\item Line regulation: $\Delta V_O/ \Delta V_S \approx \SI{8.67}{\percent}$. \\
-Load regulation: $\Delta V_O/I_L \approx \SI{-27.3}{\mV/\mA}$.
-\end{enumerate}
-
-% 60: 74
-\section{3.60}
-The circuit in Fig.~\ref{fig:3.60} implements a complementary-output
-rectifier. Sketch and clearly label the waveforms of $v_O^+$ and $v_O^-$.
-Assume a 0.7-\si{\V} drop across each conducting diode. If the
-magnitude of the average of each output is to be \SI{15}{\V}, find
-the required amplitude of the sine wave across the entire secondary
-winding. What is the PIV of each diode?
 
 \begin{figure}[H]
-  \caption{}
-  \label{fig:3.60}
+  \centering
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default]
+    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 2) to[R, l=$R_{sig}$, -o] ++(3, 0) to[short] ++(0, 1) node[pmos, anchor=G](q1){}
+      (q1.S) to[short, -*] ++(0, 0.5) coordinate(v1) to[R, l=$R_S$] ++(0, 2) coordinate(v2)
+      (q1.D) to[short, -*] ++(0, -0.5) coordinate(v3) to[R, l=$R_D$] ++(0, -2) coordinate(v4)
+      (v1) to[C, l=$C_S$] ++(2, 0) node[ground]{}
+      (v3) to[C, l=$C_C$, -o] ++(2, 0) node[right]{$v_o$}
+    ;
+    \draw[default, ->] (v2) -- ++(0, 0.5) node[above]{$+\SI{2.5}{\V}$};
+    \draw[default, ->] (v4) -- ++(0, -0.5) node[below]{$\SI{-2.5}{\V}$};
+  \end{circuitikz}
 \end{figure}
 
-Let $v_D = \SI{0.7}\V$. When $v_S$ is positive, $D_3, D_4$ is on. When $v_S$ is negative, 
-$D_1, D_2$ is on. The average of each output is equal to
-\[
-  \int\limits_{\substack{0 \leq t \leq T \\ v_s > v_D}} \frac{v_s - v_D}{T} \iD t = \int_{\alpha}^{T-\alpha} \frac{v_s - v_D}{T} \iD t
-\]
-Where $\alpha = \arcsin(v_D/v_s) T / \pi$. But since $v_D \ll v_s$, $\alpha \rightarrow 0$, so the average is $(2/\pi) v_S - v_D$ approximately, so the amplitude of $v_S$ is about to
-$\SI{24.66}{\V}$.
-And the PIV of each diode is $2v_S - v_D \approx \SI{48.6}{\V}$.
+% 60: 74
+\section{5.83}
+\begin{enumerate}[(a)]
+  \item The NMOS transistor in the source-follower circuit of Figure~\ref{fig:5.83a} has $g_m = \SI{5}{\mA\per\V}$
+    and a large $r_o$. Find the open-circuit voltage gain and the output resistance.
+  \item The NMOS transistor in the common-gate amplifier of Figure~\ref{fig:??} has $g_m = \SI{5}{\mA\per\V}$ and
+    a large $r_o$. Find the input resistance and the voltage gain.
+  \item If the output of the source follower in (a) is connected to the input of the common-gate amplifier in (b), use the results of (a) and (b) to obtain the overall voltage gain $v_o/v_i$.
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+      \draw[default]
+      (0, 0) to[R, l={$\SI{10}\kohm$}] ++(0, 2) node[](v1){} to[C, l=$\infty$, *-o] ++(2, 0) node[right]{\color{red}$v_{o1}$}
+      (v1) to[short] ++(0, 1) node[nmos, anchor=S](n1){}
+      (n1.G) to[short, -o] ++(-1, 0) node[left]{\color{red}$v_i$}
+      ;
+      \draw[default, ->] (n1.D) -- ++(0, 1) ;
+      \draw[default, ->] (0, 0) -- ++(0, -1) ;
+        ;
+    \end{circuitikz}
+    \caption{}
+    \label{fig:5.83a}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+      \draw[default]
+      (0, 0) to[R, l=$\SI{10}\kohm$] ++(0, 2) node[](v1){} to[short, -o]  ++(-0.5, 0) node[left]{\color{red}$v_{i2}$}
+      (v1) to[short] ++(0, 0.5) node[nmos, anchor=S, xscale=-1.0](q1){}
+      (q1.G) -| ++(0.3, -0.3) node[ground]{}
+      (q1.D) to[short, -*] ++(0, 0.5) coordinate(v2) to[R, l=5<\kohm>] ++(0, 2)  coordinate(v3)
+      (v2) to[C, l=$\infty$] ++(2.5, 0) coordinate(v4) to[R, l=2<\kohm>] ++(0, -2) node[ground]{}
+      (v4) to[short, *-o] ++(0.5, 0) node[right]{$v_o$}
+      ;
+      \draw[default, ->] (v3) --  ++(0, 0.5);
+      \draw[default, ->] (0, 0) --  ++(0, -0.5);
+    \end{circuitikz}
+    \caption{}
+  \end{subfigure}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \bibliographystyle{plain}
