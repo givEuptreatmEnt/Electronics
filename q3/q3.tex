@@ -236,7 +236,38 @@ If moreover, $I_D = \SI{100}{\uA}$,
 
 
 % 52: 61
-\section{3.52}
+\section{5.80}
+The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
+
+\begin{enumerate}
+  \item Neglecting the Early effect, verify that the MOSFET is operating in saturation with $I_D = \SI{0.5}{\mA}$  and $V_{OV} = \SI{0.3}{\V}$. What must the MOSFET's $k_n$ be? What is the dc voltage at the drain?
+  \item Find $R_{in}$ and $G_v$.
+  \item If $v_{sig}$ is a sinusoid with a peak amplitude $\hat{v}_{sig}$, find the maximum allowable value of $\hat{v}_{sig}$ for which the transistor remains in saturation. What is the corresponding amplitude of the output voltage?
+  \item What is the value of resistance $R_s$ that needs to be inserted in series with capacitor $C_S$ in order to allow us to double the input signal $\hat{v}_{sig}$? What output voltage now results?
+\end{enumerate}
+
+\begin{figure}[H]
+\begin{center}
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default]
+    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=120<\kohm>, -o] ++(2, 0) to[C, l=$C_{C1}$, -*] ++(3, 0) 
+    coordinate(v1) to[R, l=200<\kohm>] ++(0, -3) node[ground]{}
+    (v1) to[R, l=300<\kohm>] ++(0, 3) coordinate(v5)
+    (v1) to[short] ++(1, 0) node[nmos, anchor=G](q1){}
+    (q1.S) to[short] ++(0, -.5) coordinate(v2) to[R, l=2<\kohm>] ++(0, -1.75) node[ground]{}
+    (v2) to[C, l=$C_S$] ++(2, 0) node[ground]{}
+    (q1.D) to[short, -*] ++(.5, 0) coordinate(v3) to[R, l=5<\kohm>] ++(0, 2) coordinate(v4)
+    (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=5<\kohm>] ++(0, -2) node[ground]{} 
+    (v6) to[short, -o] ++(.5, 0) node[right]{$v_o$}
+    ;
+    \draw[default, ->] (v5) -- ++(0, .5) node[right, above]{$+\SI{5}{\V}$};
+    \draw[default, ->] (v4) -- ++(0, .75) ;
+  \end{circuitikz}
+\end{center}
+\caption{}
+\label{fig:}
+\end{figure}
+
 
 % 53: 63
 \section{5.81}
@@ -244,8 +275,8 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
 \begin{enumerate}[(a)]
   \item Select a value for $R_S$ to bias the transistor at $I_D = \SI{0.3}{\mA}$ and $\abs{V_{OV}} = \SI{0.3}{V}$. Assume $v_{sig}$ to have a zero dc component.
   \item Select a value for $R_D$ that results in $G_v = \SI{10}{\V\per\V}$.
-  \item Find the largest sinusiod $\hat{v_{sig}}$ that the amplifier can handle while remaining in the saturation region. What is the corresponding signal at the output?
-  \item If to obtain reasonably linear operation $\hat{v_{sig}}$ is limited to $\SI{50}{\mV}$, what value can $R_D$ be increased to while maintaining saturation-region operation? What is the new value of $G_v$.
+  \item Find the largest sinusiod $\hat{v}_{sig}$ that the amplifier can handle while remaining in the saturation region. What is the corresponding signal at the output?
+  \item If to obtain reasonably linear operation $\hat{v}_{sig}$ is limited to $\SI{50}{\mV}$, what value can $R_D$ be increased to while maintaining saturation-region operation? What is the new value of $G_v$.
 \end{enumerate}
 
 \begin{figure}[H]
