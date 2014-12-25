@@ -78,10 +78,22 @@ The table below lists 10 different cases labeled (a) to (j) for operating an NMO
 \clearpage
 % 21: 26
 \section{5.29}
+All the transistors in te circuits shown in Fig.~\ref{fig:5.29} have the
+same values of $\abs{V_t}, k', W/L$, and $\lambda$. Moreover, $\lambda$ is
+negligibly small. All operate in saturation at $I_D = I$ and $\abs{V_{GS}}
+ = \abs{V_{DS}} = \SI{3}{\V}$. Find the voltages $V_1, V_2, V_3$, and $V_4$.
+If $\abs{V_t} = \SI{1}{\V}$ and $I = \SI{2}{\mA}$, how large a resistor can
+be inesrted in series with each drain connection while maintaining saturation?
+What is the largest resistor that can be placed in series with each gate?
+If the current source $I$ requires at least $\SI{2}{\V}$ between its terminals
+to operate properly, whatis the largest resistor that can be placed in series
+with each MOSFET source while ensuring saturated-mode operation of each
+transistor at $I_D = I$? In the latter limiting situation, what do $V_1, V_2,
+V_3$, and $V_4$ become?
 
 % 38: 46
 \section{5.34}
-The NMOS transistors in the circuit of  Fig.~\ref{fig:3.38} have $V_t = \SI{1}{\V} , \mu_n C_{ox} = \SI{120}{\uA\per\V\squared}, \lambda = 0$ and $L_1 = L_2 = L_3 = \SI{1}{\um} $. Find the required values of gate width for each of $Q_1$, $Q_2$, and $Q_3$ to obtain the voltage and current values indicated.
+The NMOS transistors in the circuit of  Fig.~\ref{fig:5.34} have $V_t = \SI{1}{\V} , \mu_n C_{ox} = \SI{120}{\uA\per\V\squared}, \lambda = 0$ and $L_1 = L_2 = L_3 = \SI{1}{\um} $. Find the required values of gate width for each of $Q_1$, $Q_2$, and $Q_3$ to obtain the voltage and current values indicated.
 
 \begin{figure}[H]
   \centering
@@ -99,7 +111,7 @@ The NMOS transistors in the circuit of  Fig.~\ref{fig:3.38} have $V_t = \SI{1}{\
       ;
   \end{circuitikz}
   \caption{}
-  \label{fig:3.38}
+  \label{fig:5.34}
 \end{figure}
 
 \Ans \\
@@ -108,7 +120,7 @@ Hence by solving
 \[
   \frac{1}{2} \mu_n C_{ox} \frac{W}{L} V_{OV}^2 = I_D = \SI{120}{\uA} 
 \]
-We get $W_1 = W_3 = \SI{4}{\um} , W_2 = \SI{2}{\um} $
+We get $W_1 = W_3 = \SI{8}{\um} , W_2 = \SI{2}{\um} $
 
 % 40: 48
 \section{5.41}
@@ -178,7 +190,7 @@ the output voltage will be given by
     \draw[default, ->] (p2) -- ++(0, 0.5) node[above]{$V_{DD}$};
   \end{circuitikz}
   \caption{}
-  \label{fig:3.45}
+  \label{fig:5.46}
 \end{figure}
 
 \Ans
@@ -234,6 +246,9 @@ If moreover, $I_D = \SI{100}{\uA}$,
   & \frac{W}{L} &&= I_D / \left(\frac{1}{2} k'_n V_{OV}^2 \right) && = 50
 \end{alignat*}
 
+\section{5.56}
+
+\section{5.72}
 
 % 52: 61
 \section{5.80}
