@@ -598,7 +598,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
 \end{figure}
 \begin{enumerate}[(a)]
   \item \Ans \\
-    Since $V_{OV} = \SI{0.3}{\V} \quad \Rightarrow \quad V_S = V_G + V_{nt} + V_{OV} = (0 + 0.7 + 0.3)\si{\V} = \SI{1}{\V}$.
+    Since $V_{OV} = \SI{0.3}{\V} \quad \Rightarrow \quad V_S = V_G + V_{tp} + V_{OV} = (0 + 0.7 + 0.3)\si{\V} = \SI{1}{\V}$.
     \[ R_S = ( \SI{2.5}{\V} - \SI{1}{\V} ) / I_D = \SI{5}{\kohm} \]
   \item \Ans \\
     \[
@@ -606,7 +606,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
     \[
     10 = G = g_m R_D = \SI{2}{\mA\per\V} R_D \quad \Rightarrow \quad R_D = \SI{5}{\kohm} \]
   \item \Ans \\
-    By using small signal approximation, it requires $v_d + V_D \leq v_g + V_G + V_{tn}$ to operate in saturation. Notice that $v_d = v_o, v_g = v_{sig}$, so
+    By using small signal approximation, it requires $v_d + V_D \leq v_g + V_G + V_{tp}$ to operate in saturation. Notice that $v_d = v_o, v_g = v_{sig}$, so
     \begin{align*}
       &V_D + \hat{v}_{o} \leq - \hat{v}_{sig} + V_G - V_{tp} \\
       \Rightarrow & \hat{v}_{sig} + 10 \hat{v}_{sig} \leq V_G - V_D - V_{tp} =  0 - (\SI{-2.5}{\V} - I_D R_D) + \SI{0.7}{\V} \numeq \label{eq:81-1}\\
