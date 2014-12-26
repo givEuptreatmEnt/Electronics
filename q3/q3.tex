@@ -243,12 +243,31 @@ Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than b
 
 % 45: 53
 \section{5.43}
-Consider the CS amplifier of Figure~\ref{fig:5.29a} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
+Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
 \begin{enumerate}[(a)]
-  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure~\ref{fig:5.29b}.
+  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure 5.29(b) (On textbook).
   \item If the amplifier is biased to operate with an overdrive voltage $V_{OV}$ of $\SI{0.5}{\V}$, find the coordinates of the bias point $Q_1$ on the transfer characteristic. Also, find the value of $I_D$ and of the incremental gain $A_v$ at the bias point.
   \item For the situation in (b), and disregarding the distortion caused by the MOSFET's square-law characteristic, what is the largest amplitude of a sine-wave voltage signal that can be applied at the input while the transistor remains in saturation? What is the amplitude of the output voltage signal that results? What gain value does the combination of these amplitudes imply? By what percentage is this gain value different from the incremental gain value calculated above? Why is there a difference?
 \end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[default] 
+    (0, 0) node[ground]{} -- (0, 1.23) node[nmos, anchor=S](Q1){}
+    (Q1.D) to[R, l=$R_D$] ++(0, 3) node[](vdd){}
+    (Q1.G) to[short, o-] ++(-1, 0) node[](v+){}
+    ($(v+) - (0, 1.5)$)node[](p1){} to[V, l=$v_{gs}$] (v+)
+    ($(p1) - (0, 0.5)$)node[ground]{} to[battery1, l=$V_{GS}$] (p1)
+    (Q1.D) to[short, *-o] ++(1, 0) node[right]{$V_{DS}$}
+      ;
+      
+    \draw[default, ->] ($(vdd) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$V_{DD}$};
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.43}
+\end{figure}
+
 
 \begin{enumerate}[(a)]
   \item \Ans \\
@@ -384,7 +403,7 @@ Figure~\ref{fig:5.56} shows a discrete-circuit amplifier. The input signal $v_{s
   \item \Ans \\
     Simply check that 
     \begin{alignat*}{3}
-      V_G &= \frac{10}{10+5} \cdot \SI{15}{\V} &&= \SI{5}{\V} \\
+      V_G &= \frac{5}{10+5} \cdot \SI{15}{\V} &&= \SI{5}{\V} \\
       V_S &= (\SI{3}{\kohm}) I_D &&= \SI{3}{\V} \\
       V_{GS} &= V_{G} - V_{S} &&= \SI{2}{\V} \quad \text{(check)}\\
       V_D &= 15 - \SI{7.5}{\kohm} \cdot I_D &&= \SI{7.5}{\V} \\
@@ -574,7 +593,7 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t 
 
 % 53: 63
 \section{5.81}
-The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-0.7}{\V}$ and a very large $\abs{V_A}$.
+The PMOS transistor in the CS amplifier of Figure~\ref{fig:5.81} has $V_{tp} = \SI{-0.7}{\V}$ and a very large $\abs{V_A}$.
 \begin{enumerate}[(a)]
   \item Select a value for $R_S$ to bias the transistor at $I_D = \SI{0.3}{\mA}$ and $\abs{V_{OV}} = \SI{0.3}{V}$. Assume $v_{sig}$ to have a zero dc component.
   \item Select a value for $R_D$ that results in $G_v = \SI{10}{\V\per\V}$.
@@ -595,6 +614,8 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
     \draw[default, ->] (v2) -- ++(0, 0.5) node[above]{$+\SI{2.5}{\V}$};
     \draw[default, ->] (v4) -- ++(0, -0.5) node[below]{$\SI{-2.5}{\V}$};
   \end{circuitikz}
+  \caption{}
+  \label{fig:5.81}
 \end{figure}
 \begin{enumerate}[(a)]
   \item \Ans \\
