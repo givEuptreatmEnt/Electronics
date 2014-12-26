@@ -554,15 +554,16 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t 
     \[
      \SI{1.2}{\V} = -G'_v \cdot 2\hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.78
     \]
-    if we let $R = R_S \paral \SI{2}{\kohm}$, By using T model we obtain
-    \begin{alignat*}{3}
-      1/g'_m &= (\SI{5}{\kohm} \paral \SI{5}{\kohm} \paral r_o)/(-2G'_v)  && = \SI{685}{\ohm} \\
-      R &= 1/g'_m - 1/g_m && \approx \SI{385}{\ohm}
-    \end{alignat*}
+    if we let $R = R_S \paral \SI{2}{\kohm}$, $R_D = \SI{5}{\kohm} \paral \SI{5}\kohm}$
+    , By using T model we obtain \footnote{a little complicate calculation}
+    \[
+      2G'_v &= -g_m R_D/ (1 + g_mR + (R+R_D)/r_o) \quad \Rightarrow \quad
+      R = \SI{393}{\ohm}
+    \]
     finally,
     \[
-      \frac{\SI{2}{\kohm} \cdot R_S}{\SI{2}{\kohm} + R_S } = \SI{385}{\ohm}
-      \quad \Rightarrow \quad R_S \approx \SI{477}{\ohm}
+      \frac{\SI{2}{\kohm} \cdot R_S}{\SI{2}{\kohm} + R_S } = \SI{393}{\ohm}
+      \quad \Rightarrow \quad R_S \approx \SI{489}{\ohm}
     \]
     \[
       \hat{v}_o = \abs{G'_v} 2\hat{v}_{sig} \approx  \SI{936}{\mV}
