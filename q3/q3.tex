@@ -253,7 +253,7 @@ If moreover, $I_D = \SI{100}{\uA}$,
 \end{alignat*}
 
 \section{5.56}
-Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
+Figure~\ref{fig:5.56} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
 
 \begin{enumerate}[(a)]
   \item If the transistor has $V_t = \SI{1}{\V}$, and $k_n = \SI{2}{\mA\per\V\squared}$, verify that the bias circuit establishes $V_{GS} = \SI{2}{\V}, I_D = \SI{1}{\mA}$, and $V_D = + \SI{7.5}{\V}$. That is, assume these values, and verify that they are consistent with the values of the circuit components and the device parameters.
@@ -275,7 +275,7 @@ Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$
     (q1.D) coordinate(v3) to[R, l=7.5<\kohm>, *-] ++(0, 2) coordinate(v4)
     (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=10<\kohm>] ++(0, -2) node[ground]{} 
     (v6) to[short, -o] ++(.5, 0) node[right]{\color{red}$v_o$}
-    ($(v5)!0.5!(v4)$) node[]{$+\SI{5}{\V}$}
+    ($(v5)!0.5!(v4)$) node[]{$+\SI{15}{\V}$}
     ;
     \draw[default, ->] (v5) -- ++(0, .5) ;
     \draw[default, ->] (v4) -- ++(0, .75) ;
@@ -284,8 +284,31 @@ Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$
   \end{circuitikz}
 \end{center}
 \caption{}
-\label{fig:}
+\label{fig:5.56}
 \end{figure}
+
+\begin{enumerate}[(a)]
+  \item \Ans \\
+    $I_D = \SI{1}{\mA} \Rightarrow V_S = \SI{3}{\V}$, and $V_G = \SI{15}{\V}
+    \cdot 5/(5+10) = \SI{5}{\V}$. So $V_{GS} = V_G - V_S = \SI{2}{\V}$ and
+    $V_D = \SI{15}{\V} - \SI{7.5}{\kohm} \cdot \SI{1}{\mA} = \SI{7.5}{\V}$
+    which is the desired result.
+  \item \Ans \\
+    $V_{OV} = V_{GS} - V_t = \SI{1}{\V}$, so $g_m = k_n V_{OV} = \SI{2}{\mA/\V}$.
+    $r_o = V_A / I_D = \SI{100}{\kohm}$.
+  \item \Ans \\
+    For small-signal we can remove all large capacitor, change the two upper
+    terminals to ground, and use T model to substitute the transistor.
+    (Don't forget $r_o$).
+  \item \Ans \\
+    Since there is no current flowing into the ground of transistor, 
+    $R_{in} = \SI{10}{\mega\ohm} \parallel \SI{5}{\mega\ohm} = \SI{3.33}{\mega\ohm}$.
+    And for small signal, $v_d = 0$, so $v_{gs} = v_g = v_{sig} \cdot
+    R_{in} / (R_{in} + \SI{100}{\kohm}) \Rightarrow v_{gs}/v_{sig} = 0.97$.
+    Notice that $r_o$ connect drain to ground, so we have $v_o/v_{gs} =
+    -g_m (r_o \parallel \SI{7.5}{\kohm} \parallel \SI{10}{\kohm}) = 8.22$.
+    $v_o / v_{sig} = 8.22 \cdot 0.97 = 7.97$.
+\end{enumerate}
 
 \section{5.72}
 The bias circuit of Figure~\ref{fig:} is used in a design with $V_G = \SI{5}{\V}$ and $R_S = \SI{1}{\kohm}$. For an enhancement MOSFET with $k'_n(W/L) = \SI{2}{\mA\per\V\squared}$, the source voltage was measured and found to be $\SI{2}{\V}$. What must $V_t$ be for this device? If a device for which $V_t$ is $\SI{0.5}{\V}$ less is used, what does $V_s$ become? What bias current result?
@@ -322,7 +345,7 @@ If now $V'_t = V_t - \SI{0.5}{\V} = \SI{1.09}{\V}$, We have
 \section{5.80}
 The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
 
-\begin{enumerate}
+\begin{enumerate}[(a)]
   \item Neglecting the Early effect \footnote{Early effect is the same as channel-length modulation, recall that $V_A$ is called Early voltage. (J.M Early is the one to discover this effect)}
     , verify that the MOSFET is operating in saturation with $I_D = \SI{0.5}{\mA}$  and $V_{OV} = \SI{0.3}{\V}$. What must the MOSFET's $k_n$ be? What is the dc voltage at the drain?
   \item Find $R_{in}$ \footnote{It seems that the other problem $R_{in}$ is the resistance looking into from $v_G$ but not $v_{sig}$, so the safest way is to write both the answer}
@@ -404,7 +427,6 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \S
     \[
       \hat{v}_o = 2 \abs{G'_v} \hat{v}_{sig} \approx  \SI{941}{\mV}
     \]
-    
     
 \end{enumerate}
 
@@ -509,7 +531,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
   \caption{}
 \end{figure}
 
-\begin{itemize}[(a)]
+\begin{enumerate}[(a)]
   \item 
     \Ans \\
     We use the  T model \footnote{If you prefered to use hybrid $\pi$, becareful that $v_{GS} = (v_i - v_o) \neq v_i$!} And found out that
@@ -540,7 +562,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
     \[
       G = G_1 \frac{R_i}{R_i + R_o} G_2 \quad \approx 3.50
     \]
-\end{itemize} 
+\end{enumerate} 
 \\
 
 
