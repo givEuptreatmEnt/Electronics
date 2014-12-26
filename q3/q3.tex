@@ -64,7 +64,7 @@ The table below lists 10 different cases labeled (a) to (j) for operating an NMO
     a & $+1.0$ & $+1.0$ & $+2.0$ & $0$ & $0$ & $1.0$ & Cut-off \\
     b & $+1.0$ & $+2.5$ & $+2.0$ & $1.5$ & $0.5$ & $1.0$ & Saturation \\
     c & $+1.0$ & $+2.5$ & $+1.5$ & $1.5$ & $0.5$ & $0.5$ & Boundary of Sat./Tri. \\
-    d & $+1.0$ & $+1.5$ & $+2.0$ & $0.5$ & $0$ & $1.0$ & Cut-off \\
+    d & $+1.0$ & $+1.5$ & $0$ & $0.5$ & $0$ & $-1.0$ & Cut-off \\
     e & $0$ & $+2.5$ & $+1.0$ & $2.5$ & $1.5$ & $1$ & Triode \\
     f & $+1.0$ & $+1.0$ & $+1.0$ & $0$ & $0$ & $0$ & Cut-off \\
     g & $-1.0$ & $0$ & $0$ & $1.0$ & $0$ & $1.0$ & Boundary of Cut./Sat. \\
@@ -255,7 +255,7 @@ Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}
   \begin{circuitikz}[>=triangle 45]
     \draw[default] 
     (0, 0) node[ground]{} -- (0, 1.23) node[nmos, anchor=S](Q1){}
-    (Q1.D) to[R, l=$R_D$] ++(0, 3) node[](vdd){}
+    (Q1.D) to[R, l=$R_D$, i<_={\color{red}$i_D$}] ++(0, 3) node[](vdd){}
     (Q1.G) to[short, o-] ++(-1, 0) node[](v+){}
     ($(v+) - (0, 1.5)$)node[](p1){} to[V, l=$v_{gs}$] (v+)
     ($(p1) - (0, 0.5)$)node[ground]{} to[battery1, l=$V_{GS}$] (p1)
@@ -271,7 +271,7 @@ Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}
 
 \begin{enumerate}[(a)]
   \item \Ans \\
-    At point $A$, $V_{GS} = V_t = \SI{1}{\V}$, $V_{DS} = V_{CC} = \SI{5}{\V}$. At point $B$, 
+    At point $A$, $V_{GS} = V_t = \SI{1}{\V}$, $V_{DS} = V_{DD} = \SI{5}{\V}$. At point $B$, 
     \[ V_{OV} = V_{DD} - R_D \frac{1}{2} k_n V_{OV}^2 \quad \Rightarrow
     \quad V_{OV} \approx \SI{0.605}{\V} \]
     So $V_{GS} \approx \SI{1.605}{\V}, V_{DS} = V_{GS} - V_t \approx \SI{0.605}{\V}$.
@@ -327,7 +327,7 @@ Which is the desired result.
 
 % 48: 56
 \section{5.50}
-In this problem we investigate an optimum design of the CS amplifier circuit of Figure~\ref{fig:}. First. use the voltage gain expression $A_v = -g_m R_D$ together with Eq(5.57) for $g_m$ to show that
+In this problem we investigate an optimum design of the CS amplifier circuit of Figure~\ref{fig:5.43}. First. use the voltage gain expression $A_v = -g_m R_D$ together with Eq(5.57) for $g_m$ to show that
 \[ A_v = -\frac{2I_D R_D}{V_{OV}} = - \frac{2(V_{DD} - V_D)}{V_{OV}} \]
 Next, let the maximum positive input signal be $\hat{v_i}$. To keep the second-harmonic distortion to an acceptable level, we bias the MOSFET to operate at an overdrive voltage $V_{OV} \gg \hat{v_i}$. Let $V_{OV} = m\hat{v_i}$. Now, to maximize the voltage gain $\abs{A_v}$, we design for the lowest possible $V_D$. Show that the minimum $V_D$ that is consistent with allowing a negative signal voltage swing at the drain of $\abs{A_v}\hat{v_i}$ while maintaining saturation-mode operation is given by
 \[
