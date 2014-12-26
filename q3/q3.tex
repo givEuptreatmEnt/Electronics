@@ -34,7 +34,7 @@ Consider an n-channel MOSFET with $t_{ox} = \SI{20}\nm$, $\mu_{n} = \SI{650}{\cm
     \Ans \\
     Now $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{0.8}{\V} = V_t$, the MOS is working on the boundary of the saturation and the triode region, so 
     \[
-      i_D = \frac{1}{2} k_n (V_{GS} - V_t)^2 \approx \SI{0.806}{\mA} 
+      i_D = \frac{1}{2} k_n (V_{GS} - V_t)^2 \approx \SI{0.81}{\mA} 
     \]
   \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{0.2}{\V} $\\[5pt]
     \Ans \\
@@ -86,10 +86,82 @@ If $\abs{V_t} = \SI{1}{\V}$ and $I = \SI{2}{\mA}$, how large a resistor can
 be inesrted in series with each drain connection while maintaining saturation?
 What is the largest resistor that can be placed in series with each gate?
 If the current source $I$ requires at least $\SI{2}{\V}$ between its terminals
-to operate properly, whatis the largest resistor that can be placed in series
+to operate properly, what is the largest resistor that can be placed in series
 with each MOSFET source while ensuring saturated-mode operation of each
 transistor at $I_D = I$? In the latter limiting situation, what do $V_1, V_2,
 V_3$, and $V_4$ become?
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
+      (Q1.D) -| (Q1.G)
+      (Q1.D) to [short, *-o] ++(1, 0) node[right]{$V_1$}
+      (Q1.D) ++(0, 2)node[](p1){} to[I, l=$I$] (Q1.D)
+      (Q1) node[right] {$Q_1$}
+        ;
+        
+      \draw[default, ->] ($(p1) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29a}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[nmos, anchor=S](Q2){}
+      (Q2) node[right] {$Q_2$}
+      (Q2.S) to[I, l=$I$] ++(0, -2) node[](p2){}
+      (Q2.S) to[short, *-o] ++(1, 0) node[right]{$V_2$}
+        ;
+        
+      \draw[default, ->] (Q2.D) -- ++(0, 0.5) node[above]{$+\SI{1}{\V}$};
+      \draw[default, ->] (Q2.G) -| ++(-0.5, 1.3) node[above]{$+\SI{1}{\V}$};
+      \draw[default, ->] ($(p2) + (0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{9}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29b}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} node[pmos, anchor=D](Q3){}
+      (Q3) node[right]{$Q_3$}
+      (Q3.G) -| ++ (-0.5, 0) node[ground]{}
+      (Q3.S)++(0, 2) node[](p3){} to[I, l=$I$] (Q3.S) to[short, *-o] ++(1, 0) node[right]{$V_3$}
+        ;
+        
+      \draw[default, ->] ($(p3) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[pmos](Q4){}
+      (Q4) node[right]{$Q_4$}
+      (Q4.D) -| (Q4.G)
+      (Q4.D) to [short, *-o] ++(1, 0) node[right]{$V_4$}
+      (Q4.D)++(0, -2)node[](p4){}
+      (Q4.D) to[I, l=$I$] (p4)
+        ;
+        
+      \draw[default, ->] ($(p4) +(0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{5}{\V}$};
+      \draw[default, ->] (Q4.S) -- ++(0, 0.5) node[above]{$+\SI{5}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29d}
+  \end{subfigure}
+  \caption{}
+  \label{fig:5.29}
+\end{figure}
 
 \Ans \\
 For (a), $V_1 = \SI{3}{\V}$. For (b), $V_2 = \SI{-2}{\V}$. For (c), $V_3 = \SI{3}{\V}$. For (d), $V_4 = \SI{2}{\V}$.  \\
@@ -171,9 +243,9 @@ Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than b
 
 % 45: 53
 \section{5.43}
-Consider the CS amplifier of Figure~\ref{fig:} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
+Consider the CS amplifier of Figure~\ref{fig:5.29a} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
 \begin{enumerate}[(a)]
-  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure~\ref{fig:}.
+  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure~\ref{fig:5.29b}.
   \item If the amplifier is biased to operate with an overdrive voltage $V_{OV}$ of $\SI{0.5}{\V}$, find the coordinates of the bias point $Q_1$ on the transfer characteristic. Also, find the value of $I_D$ and of the incremental gain $A_v$ at the bias point.
   \item For the situation in (b), and disregarding the distortion caused by the MOSFET's square-law characteristic, what is the largest amplitude of a sine-wave voltage signal that can be applied at the input while the transistor remains in saturation? What is the amplitude of the output voltage signal that results? What gain value does the combination of these amplitudes imply? By what percentage is this gain value different from the incremental gain value calculated above? Why is there a difference?
 \end{enumerate}
@@ -274,7 +346,7 @@ If moreover, $I_D = \SI{100}{\uA}$,
 \end{alignat*}
 
 \section{5.56}
-Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
+Figure~\ref{fig:5.56} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
 
 \begin{enumerate}[(a)]
   \item If the transistor has $V_t = \SI{1}{\V}$, and $k_n = \SI{2}{\mA\per\V\squared}$, verify that the bias circuit establishes $V_{GS} = \SI{2}{\V}, I_D = \SI{1}{\mA}$, and $V_D = + \SI{7.5}{\V}$. That is, assume these values, and verify that they are consistent with the values of the circuit components and the device parameters.
@@ -305,7 +377,7 @@ Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$
   \end{circuitikz}
 \end{center}
 \caption{}
-\label{fig:}
+\label{fig:5.56}
 \end{figure}
 
 \begin{enumerate}[(a)]
@@ -351,16 +423,40 @@ Figure~\ref{fig:} shows a discrete-circuit amplifier. The input signal $v_{sig}$
       \frac{v_{o}}{v_{gs}}  &= g_m (\SI{7.5}{\kohm} \paral \SI{10}{\kohm} \paral r_o) && \approx 8.22 \\
       \frac{v_{o}}{v_{sig}} &= \frac{v_{gs}}{v_{sig}} \frac{v_{o}}{v_{gs}} \approx 7.97
     \end{alignat*}
+
+\end{enumerate}
+
+Another solution \\
+\begin{enumerate}[(a)]
+  \item \Ans \\$I_D = \SI{1}{\mA} \Rightarrow V_S = \SI{3}{\V}$, and $V_G = \SI{15}{\V}
+    \cdot 5/(5+10) = \SI{5}{\V}$. So $V_{GS} = V_G - V_S = \SI{2}{\V}$ and
+    $V_D = \SI{15}{\V} - \SI{7.5}{\kohm} \cdot \SI{1}{\mA} = \SI{7.5}{\V}$
+    which is the desired result.
+  \item \Ans \\
+    $V_{OV} = V_{GS} - V_t = \SI{1}{\V}$, so $g_m = k_n V_{OV} = \SI{2}{\mA/\V}$.
+    $r_o = V_A / I_D = \SI{100}{\kohm}$.
+  \item \Ans \\
+    For small-signal we can remove all large capacitor, change the two upper
+    terminals to ground, and use T model to substitute the transistor.
+    (Don't forget $r_o$).
+  \item \Ans \\
+    Since there is no current flowing into the gate of transistor, 
+    $R_{in} = \SI{10}{\mega\ohm} \parallel \SI{5}{\mega\ohm} = \SI{3.33}{\mega\ohm}$.
+    And for small signal, $v_d = 0$, so $v_{gs} = v_g = v_{sig} \cdot
+    R_{in} / (R_{in} + \SI{100}{\kohm}) \Rightarrow v_{gs}/v_{sig} = 0.97$.
+    Notice that $r_o$ connect drain to ground, so we have $v_o/v_{gs} =
+    -g_m (r_o \parallel \SI{7.5}{\kohm} \parallel \SI{10}{\kohm}) = 8.22$.
+    $v_o / v_{sig} = 8.22 \cdot 0.97 = 7.97$.
 \end{enumerate}
 
 \section{5.72}
-The bias circuit of Figure~\ref{fig:} is used in a design with $V_G = \SI{5}{\V}$ and $R_S = \SI{1}{\kohm}$. For an enhancement MOSFET with $k'_n(W/L) = \SI{2}{\mA\per\V\squared}$, the source voltage was measured and found to be $\SI{2}{\V}$. What must $V_t$ be for this device? If a device for which $V_t$ is $\SI{0.5}{\V}$ less is used, what does $V_s$ become? What bias current result?
+The bias circuit of Figure~\ref{fig:5.72} is used in a design with $V_G = \SI{5}{\V}$ and $R_S = \SI{1}{\kohm}$. For an enhancement MOSFET with $k'_n(W/L) = \SI{2}{\mA\per\V\squared}$, the source voltage was measured and found to be $\SI{2}{\V}$. What must $V_t$ be for this device? If a device for which $V_t$ is $\SI{0.5}{\V}$ less is used, what does $V_s$ become? What bias current result?
 \begin{figure}[H]
   \centering
   \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
     \draw[default]
     (0, 0) node[ground]{} to[R] (0, 3) to[R] (0, 6) 
-    (3, 0) node[ground] to[R, l=$R_S$, -*] (3, 2.23) node[right]{$V_S$} node[nmos, anchor=S](q1){}
+    (3, 0) node[ground]{} to[R, l=$R_S$, -*] (3, 2.23) node[right]{$V_S$} node[nmos, anchor=S](q1){}
     (0, 3) to[short, -*] (q1.G) node[above left]{$V_G$}
     (q1.D) to[R] (3, 6)
     (1.5, 7) node[]{$V_{DD}$}
@@ -368,6 +464,8 @@ The bias circuit of Figure~\ref{fig:} is used in a design with $V_G = \SI{5}{\V}
     \draw[default, ->] (0, 6) -- (0, 6.5);
     \draw[default, ->] (3, 6) -- (3, 6.5);
   \end{circuitikz}
+  \caption{}
+  \label{fig:5.72}
 \end{figure}
 \Ans \\
 Since $I_D = V_S / R_S = \SI{2}{\V} / \SI{1}{\kohm} = \SI{2}{\mA}$, so
@@ -386,9 +484,9 @@ If now $V'_t = V_t - \SI{0.5}{\V} = \SI{1.09}{\V}$, We have
 
 % 52: 61
 \section{5.80}
-The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
+The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
 
-\begin{enumerate}
+\begin{enumerate}[(a)]
   \item Neglecting the Early effect \footnote{Early effect is the same as channel-length modulation, recall that $V_A$ is called Early voltage. (J.M Early is the one to discover this effect)}
     , verify that the MOSFET is operating in saturation with $I_D = \SI{0.5}{\mA}$  and $V_{OV} = \SI{0.3}{\V}$. What must the MOSFET's $k_n$ be? What is the dc voltage at the drain?
   \item Find $R_{in}$ \footnote{It seems that the other problem $R_{in}$ is the resistance looking into from $v_G$ but not $v_{sig}$, so the safest way is to write both the answer}
@@ -418,7 +516,7 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \S
   \end{circuitikz}
 \end{center}
 \caption{}
-\label{fig:}
+\label{fig:5.80}
 \end{figure}
 \begin{enumerate}[(a)]
   \item \Ans \\
@@ -432,45 +530,43 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:} has $V_t = \S
       k_n = \frac{2 I_D}{V_{OV}^2} = \SI{11.11}{\mA\per\V\squared}
     \]
   \item \Ans \\
-    Because $r_o = V_A / I_D = \SI{100}{\kohm}$ is to large, we shall neglecting on the following calculation.
+    Calculate $r_o = V_A / I_D = \SI{100}{\kohm}$.
     \[
-      R_{in} = \SI{120}{\kohm} + (\SI{300}{\kohm} \paral \SI{200}{\kohm})
-    = \SI{240}{\kohm} \]
+      R_{in} = \SI{300}{\kohm} \paral \SI{200}{\kohm} = \SI{120}{\kohm} \]
     And
     \begin{align*}
-      g_m &= \frac{2 I_D}{V_{OV}} = \SI{3.3}{\mA\per\V} \\
-      v_{i} &= \frac{\SI{300}{\kohm} \paral \SI{200}{\kohm}}{\SI{240}{\kohm}} v_{sig} = \frac{1}{2} v_{sig}  \\
-      G_v &= v_o / v_{sig} = \frac{1}{2} v_o / v_i = -\frac{1}{2} g_m (\SI{5}{\kohm} \paral \SI{5}{\kohm}) \approx \SI{-4.17}{\V\per\V} \\
+      g_m &= \frac{2 I_D}{V_{OV}} = \SI{3.33}{\mA\per\V} \\
+      v_{i} &= \frac{R_{in}}{\SI{120}{\kohm} + R_{in}} v_{sig} = \frac{1}{2} v_{sig}  \\
+      G_v &= v_o / v_{sig} = \frac{1}{2} v_o / v_i = -\frac{1}{2} g_m (\SI{5}{\kohm} \paral \SI{5}{\kohm} \paral r_o) \approx \SI{-4.05}{\V\per\V} \\
     \end{align*}
   \item 
     Remains in saturation requires $v_d + V_D \geq v_g + V_G - V_{t}$. Notice that \\ $v_d = v_o = G_v v_{sig}, \; v_g = \frac{1}{2} v_{sig}$, so
     \[
-      -4.17 \hat{v}_{sig} + \SI{2.5}{\V} = \frac{1}{2} \hat{v}_{sig} + \SI{2}{\V} - \SI{0.7}{\V} \quad \Rightarrow \quad 
-      \hat{v}_{sig} \approx \SI{257}{\mV} \numeq \label{eq:80-1}
+      -4.05 \hat{v}_{sig} + \SI{2.5}{\V} = \frac{1}{2} \hat{v}_{sig} + \SI{2}{\V} - \SI{0.7}{\V} \quad \Rightarrow \quad 
+      \hat{v}_{sig} \approx \SI{263}{\mV} \numeq \label{eq:80-1}
     \]
     \[
       \hat{v}_{o} = \hat{v}_{sig} G_v \approx \SI{1.07}{\V}
     \]
   \item 
-    By modifing Equation \eqref{eq:80-1} (let $-4.17 \rightarrow G'_v$)
+    By modifing Equation \eqref{eq:80-1} (let $-4.05 \rightarrow G'_v$)
     We have
     \[
-     \SI{1.2}{\V} = -G'_v \cdot \hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.83 
+     \SI{1.2}{\V} = -G'_v \cdot 2\hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.78
     \]
     if we let $R = R_S \paral \SI{2}{\kohm}$, By using T model we obtain
     \begin{alignat*}{3}
-      g'_m &= -2G'_v / ( \SI{5}{\kohm} \paral \SI{5}{\kohm}) && = \SI{1.46}{\per\kohm} \\
-      R &= 1/g'_m - 1/g_m && \approx \SI{382}{\ohm}
+      1/g'_m &= (\SI{5}{\kohm} \paral \SI{5}{\kohm} \paral r_o)/(-2G'_v)  && = \SI{685}{\ohm} \\
+      R &= 1/g'_m - 1/g_m && \approx \SI{385}{\ohm}
     \end{alignat*}
     finally,
     \[
-      \frac{\SI{2}{\kohm} + R_S}{\SI{2}{\kohm}R_S } = 382 \quad \Rightarrow
-      \quad R_S \approx \SI{472}{\ohm}
+      \frac{\SI{2}{\kohm} \cdot R_S}{\SI{2}{\kohm} + R_S } = \SI{385}{\ohm}
+      \quad \Rightarrow \quad R_S \approx \SI{477}{\ohm}
     \]
     \[
-      \hat{v}_o = 2 \abs{G'_v} \hat{v}_{sig} \approx  \SI{941}{\mV}
+      \hat{v}_o = \abs{G'_v} 2\hat{v}_{sig} \approx  \SI{936}{\mV}
     \]
-    
     
 \end{enumerate}
 
@@ -575,7 +671,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
   \caption{}
 \end{figure}
 
-\begin{itemize}[(a)]
+\begin{enumerate}[(a)]
   \item 
     \Ans \\
     We use the  T model \footnote{If you prefered to use hybrid $\pi$, becareful that $v_{GS} = (v_i - v_o) \neq v_i$!} And found out that
@@ -588,7 +684,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
           ;
       \end{circuitikz}
       \caption{}
-      \label{fig:5.83a}
+      \label{fig:5.83aa}
     \end{figure}
     \begin{alignat*}{3}
       & v_o/v_i &&= \frac{\SI{10}{\kohm}}{\SI{10}{\kohm} + 1/g_m} && \quad \approx 0.98 \\
@@ -598,7 +694,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
     \Ans \\
     Again by using the T model
     \begin{alignat*}{3}
-      & v_o/v_i &&= -g_m ( \SI{5}{\kohm} \paral \SI{2}{\kohm} ) && \quad \approx 7.14 \\
+      & v_o/v_i &&= g_m ( \SI{5}{\kohm} \paral \SI{2}{\kohm} ) && \quad \approx 7.14 \\
       & R_i &&= (1/g_m) \paral \SI{10}{\kohm} && \quad \approx \SI{197}{\ohm}
     \end{alignat*}
   \item
@@ -606,11 +702,7 @@ The PMOS transistor in the CS amplifier of Figure~\ref{fig:} has $V_{tp} = \SI{-
     \[
       G = G_1 \frac{R_i}{R_i + R_o} G_2 \quad \approx 3.50
     \]
-\end{itemize} 
-
-
-
-
+\end{enumerate} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \bibliographystyle{plain}
 % \begin{thebibliography}{99}
