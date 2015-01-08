@@ -1,0 +1,600 @@
+\documentclass[12pt, a4paper]{article}
+\input{header.tex}
+
+%% Note that for label to be correct, compile more than 2 times is needed ... %%
+
+
+%%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
+\title{} %標題
+\author{} %作者
+\date{} %日期
+
+
+\begin{document}
+\tikzstyle{default}=[thick, color=black]
+% \maketitle %製作tilte page
+% \thispagestyle{empty}  %去除頁碼
+% \thispagestyle{fancy}  %使用fancyhdr
+% \tableofcontents %目錄
+%%%%%%%%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% remote:local
+
+% 20:29
+\section{4.20}
+Consider an n-channel MOSFET with $t_{ox} = \SI{20}\nm$, $\mu_{n} = \SI{650}{\cm\squared\per\V\per\s}$, $V_t = \SI{0.8}\V$ and $W/L = 10$. Find the drain current in the following cases:
+
+\begin{enumerate}[label=(\alph*)]
+  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{1}{\V} $\\[5pt]
+    \Ans \\
+    First we calculate 
+    \[ k_n = \mu_n C_{ox} (W / L) = \mu_n \varepsilon_{ox} (W / L) /  t_{ox} \approx \SI{1.12}{\mA\per\V\squared} \]
+    Since $v_{GS} > V_t$ and $v_{GS} - v_{DS} = \SI{4}{\V} > V_t$, the MOS is working on the triode region, so 
+    \[
+      i_D =  k_n \left(v_{GS} - V_t - \frac{1}{2}v_{DS} \right)v_{DS} \approx \SI{4.14}{\mA} 
+    \]
+  \item $v_{GS} = \SI{2}{\V}$ and $v_{DS} = \SI{1.2}{\V} $\\[5pt]
+    \Ans \\
+    Now $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{0.8}{\V} = V_t$, the MOS is working on the boundary of the saturation and the triode region, so 
+    \[
+      i_D = \frac{1}{2} k_n (V_{GS} - V_t)^2 \approx \SI{0.81}{\mA} 
+    \]
+  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{0.2}{\V} $\\[5pt]
+    \Ans \\
+    Again $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{4.8}{\V} > V_t$, the MOS is working on the triode region, so 
+    \[
+      i_D =  k_n \left(v_{GS} - V_t - \frac{1}{2}v_{DS} \right)v_{DS} \approx \SI{0.92}{\mA} 
+    \]
+  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{5}{\V} $\\[5pt]
+    \Ans \\
+    Finally since $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{0}{\V} < V_t$, the MOS is working on the saturation region, so 
+    \[
+      i_D =  \frac{1}{2} k_n (v_{GS} - V_t)^2 \approx \SI{9.88}{\mA} 
+    \]
+\end{enumerate}
+
+% 25:34
+\section{4.25}
+The table below lists 10 different cases labeled (a) to (j) for operating an NMOS transistor with $V_t = \SI{1}{\V} $. In each case the voltages at the source, gate, and drain (relative to the circuit ground) are specified. You are required to complete the tabel entries. Note that if you encounter a case for which $v_{DS}$ is negative, you should exchange the drain and source before solving the problem. You can do this because the MOSFET is a symmetric device.
+
+
+\Ans \\
+\begin{center}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
+    \hline
+    & \multicolumn{6}{c|}{Voltage \si\V} & \\ \cline{2-7}
+    Case & $V_S$ & $V_G$ & $V_D$ & $V_{GS}$ & $V_{OV}$ & $V_{DS}$ & Region of operation \\
+    \hline
+    a & $+1.0$ & $+1.0$ & $+2.0$ & $0$ & $0$ & $1.0$ & Cut-off \\
+    b & $+1.0$ & $+2.5$ & $+2.0$ & $1.5$ & $0.5$ & $1.0$ & Saturation \\
+    c & $+1.0$ & $+2.5$ & $+1.5$ & $1.5$ & $0.5$ & $0.5$ & Boundary of Sat./Tri. \\
+    d & $+1.0$ & $+1.5$ & $0$ & $0.5$ & $0$ & $-1.0$ & Cut-off \\
+    e & $0$ & $+2.5$ & $+1.0$ & $2.5$ & $1.5$ & $1$ & Triode \\
+    f & $+1.0$ & $+1.0$ & $+1.0$ & $0$ & $0$ & $0$ & Cut-off \\
+    g & $-1.0$ & $0$ & $0$ & $1.0$ & $0$ & $1.0$ & Boundary of Cut./Sat. \\
+    h & $-1.5$ & $0$ & $0$ & $1.5$ & $0.5$ & $1.5$ & Saturation \\
+    i & $-1.0$ & $0$ & $+1.0$ & $1.0$ & $0$ & $2.0$ & Boundary of Cut./Sat. \\
+    j & $+0.5$ & $+2.0$ & $+0.5$ & $1.5$ & $0.5$ & $0$ & Triode \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\clearpage
+% 45:61
+\section{4.45}
+All the transistors in te circuits shown in Fig.~\ref{fig:5.29} have the
+same values of $\abs{V_t}, k', W/L$, and $\lambda$. Moreover, $\lambda$ is
+negligibly small. All operate in saturation at $I_D = I$ and $\abs{V_{GS}}
+ = \abs{V_{DS}} = \SI{3}{\V}$. Find the voltages $V_1, V_2, V_3$, and $V_4$.
+If $\abs{V_t} = \SI{1}{\V}$ and $I = \SI{2}{\mA}$, how large a resistor can
+be inesrted in series with each drain connection while maintaining saturation?
+What is the largest resistor that can be placed in series with each gate?
+If the current source $I$ requires at least $\SI{2}{\V}$ between its terminals
+to operate properly, what is the largest resistor that can be placed in series
+with each MOSFET source while ensuring saturated-mode operation of each
+transistor at $I_D = I$? In the latter limiting situation, what do $V_1, V_2,
+V_3$, and $V_4$ become?
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
+      (Q1.D) -| (Q1.G)
+      (Q1.D) to [short, *-o] ++(1, 0) node[right]{$V_1$}
+      (Q1.D) ++(0, 2)node[](p1){} to[I, l=$I$] (Q1.D)
+      (Q1) node[right] {$Q_1$}
+        ;
+        
+      \draw[default, ->] ($(p1) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29a}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[nmos, anchor=S](Q2){}
+      (Q2) node[right] {$Q_2$}
+      (Q2.S) to[I, l=$I$] ++(0, -2) node[](p2){}
+      (Q2.S) to[short, *-o] ++(1, 0) node[right]{$V_2$}
+        ;
+        
+      \draw[default, ->] (Q2.D) -- ++(0, 0.5) node[above]{$+\SI{1}{\V}$};
+      \draw[default, ->] (Q2.G) -| ++(-0.5, 1.3) node[above]{$+\SI{1}{\V}$};
+      \draw[default, ->] ($(p2) + (0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{9}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29b}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} node[pmos, anchor=D](Q3){}
+      (Q3) node[right]{$Q_3$}
+      (Q3.G) -| ++ (-0.5, 0) node[ground]{}
+      (Q3.S)++(0, 2) node[](p3){} to[I, l=$I$] (Q3.S) to[short, *-o] ++(1, 0) node[right]{$V_3$}
+        ;
+        
+      \draw[default, ->] ($(p3) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \begin{circuitikz}[>=triangle 45]
+      \draw[default] 
+      (0, 0) node[pmos](Q4){}
+      (Q4) node[right]{$Q_4$}
+      (Q4.D) -| (Q4.G)
+      (Q4.D) to [short, *-o] ++(1, 0) node[right]{$V_4$}
+      (Q4.D)++(0, -2)node[](p4){}
+      (Q4.D) to[I, l=$I$] (p4)
+        ;
+        
+      \draw[default, ->] ($(p4) +(0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{5}{\V}$};
+      \draw[default, ->] (Q4.S) -- ++(0, 0.5) node[above]{$+\SI{5}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29d}
+  \end{subfigure}
+  \caption{}
+  \label{fig:5.29}
+\end{figure}
+
+\Ans \\
+For (a), $V_1 = \SI{3}{\V}$. For (b), $V_2 = \SI{-2}{\V}$. For (c), $V_3 = \SI{3}{\V}$. For (d), $V_4 = \SI{2}{\V}$.  \\
+Notice that $V_{GD} = 0$ in each situation, so in order to remain saturation, $V_{GD} \geq V_t = \SI{1}{\V}$ in NMOS and $V_{GD} \leq \SI{-1}{\V}$ in PMOS, so $R_{\text{max}} = \abs{V_t} / I_D = \SI{0.5}{\kohm}$. \\
+Finally, notice that $\abs{V_{CC} - V_{S}} = \SI{10}{\V}$ in each configuration \footnote{the problem is designed quite user-friendly..}, so $\abs{V_{DS} + V_R} = \abs{V_{CC} - V_{S}} - 2 = \SI{8}{\V}$, and since $\abs{V_{DS}} = \SI{3}{\V}$, $V_R = \SI{5}{\V}$, $R = V_R / I_D = \SI{2.5}{\kohm}$.
+
+% 47:63
+\section{4.47}
+The NMOS transistors in the circuit of  Fig.~\ref{fig:5.34} have $V_t = \SI{1}{\V} , \mu_n C_{ox} = \SI{120}{\uA\per\V\squared}, \lambda = 0$ and $L_1 = L_2 = L_3 = \SI{1}{\um} $. Find the required values of gate width for each of $Q_1$, $Q_2$, and $Q_3$ to obtain the voltage and current values indicated.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default] (0, 1) node[nmos, label={[shift={(0.4, -0.3)}]$Q_1$}](nm1){};
+    \draw[default] (0, 2.5) node[nmos, label={[shift={(0.4, -0.3)}]$Q_2$}](nm2){};
+    \draw[default] (0, 4) node[nmos, label={[shift={(0.4, -0.3)}]$Q_3$}](nm3){};
+    \draw[color=black, thick] let \p1=(nm1) in
+    (0, \x1) node[ground]{} to [short] (nm1.source);
+    \draw[default] (nm1.gate) |- (nm1.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{1.5}{\V}$};
+    \draw[default] (nm2.gate) |- (nm2.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{3.5}{\V}$};
+    \draw[default] (nm3.gate) |- (nm3.drain) to[short, *-, i<_=120<\uA>] ++(0, 0.5);
+    \draw[color=black, thick, ->]
+      ($(nm3.drain) + (0, 0.3)$) to ++(0, 0.5) node[above]{$+\SI{5}{\V}$}
+      ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.34}
+\end{figure}
+
+\Ans \\
+Notice that every MOS is working on saturation region, since $v_D = v_G$,  hence $v_{DS} > v_{GS} - V_t$. Now for $Q_1, Q_3$, $V_{OV} = v_{GS} - V_t = \SI{0.5}{\V} $ and for $Q_2$, $V_{OV} = \SI{1}{\V} $.
+Hence by solving 
+\[
+  \frac{1}{2} \mu_n C_{ox} \frac{W}{L} V_{OV}^2 = I_D = \SI{120}{\uA} 
+\]
+We get $W_1 = W_3 = \SI{8}{\um} , W_2 = \SI{2}{\um} $
+
+% 51:68
+\section{4.51}
+For the devices in the circuits of Figure~\ref{fig:5.41}, $ \abs{V_t} = \SI{1}{V} , \lambda = 0, \mu_n C_{ox} = \SI{50}{\uA\per\V\squared}, L = \SI{1}{\um}$, and $W = \SI{10}{\um}$. Find $V_2$ and $I_2$. How do these values change if $Q_3$ and $Q_4$ are made to have $W = \SI{100}{\um}$?
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[default] (0, 0) node[nmos, xscale=-1] (Q3) {}
+    (Q3.S) node[ground] {}
+    (Q3.D) to[short, i<_=$I_2$] ++(0, 0.5) node[](p1){} to [short, *-o] ++(-0.5, 0) node[left]{$V_2$}
+    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q4){}
+    (Q3.G) to[short] ++(0.5, 0) node[circ](p2){} to[short] ++(0.5, 0) node[nmos, anchor=G](Q1) {}
+    (Q1.S) node[ground]{}
+    (p2) |- ($(Q1.D) + (0, 0.5)$) node[circ](p3){} -- (Q1.D)
+    (p3) to[short, i<^={\color{blue}$I_1$}] ++(0, 0.5) node[nmos, xscale=-1.0, anchor=S](Q2){}
+    (Q1) node[right]{$Q_1$}
+    (Q2) node[left]{$Q_2$}
+    (Q3) node[left]{$Q_3$}
+    (Q4) node[right]{$Q_4$}
+    ($(p2) + (0, 4.5)$) node[]{$+\SI{5}{\V}$}
+    (p3) node[right]{\color{blue}$V_1$}
+    ; 
+    \draw[default, ->] (Q4.D) -- ++(0, 1);
+    \draw[default, ->] (Q4.G) -| ++(-0.2, 1.75);
+    \draw[default, ->] (Q2.D) -- ++(0, 1);
+    \draw[default, ->] (Q2.G) -| ++(0.2, 1.75);
+    \draw[dashed, color=blue] (p1) -- (p3);
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.41}
+\end{figure}
+
+
+\Ans \\
+Notice that if we connect the blue dashed line in the figure, the circuit is now symmetric. Moreover, all the MOS are working in saturation region.
+Now $Q_1, Q_2, Q_3, Q_4$ has the same $k_n$, and the current go through $Q_4, Q_2$ is equal to the current that go through $Q_3, Q_1$. So by symmetry, $V_2 = V_1 =  \SI{5}{V} / 2 = \SI{2.5}{\V}$. Notice that there is no currenct go through the blue dashed line, so if we remove the line, the voltage remains unchanged. Hence we know that in the origin circuit, $V_2 = \SI{2.5}{\V}$.
+\begin{align*}
+  k_n &= \mu_n C_{ox} (W / L) = \SI{0.5}{\mA} \\
+  V_2 &= v_{GS} = \SI{2.5}{\V} \\
+  I_2 &= \frac{1}{2} k_n (v_{GS} - V_t) ^2 = \SI{562.5}{\uA}
+\end{align*}
+Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than before, so $I_2 = \SI{5.625}{\mA}$.
+
+% 75:95  7.5\kohm <- 8.2\kohm
+\section{4.75}
+Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
+\begin{enumerate}[(a)]
+  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure 5.29(b) (On textbook).
+  \item If the amplifier is biased to operate with an overdrive voltage $V_{OV}$ of $\SI{0.5}{\V}$, find the coordinates of the bias point $Q_1$ on the transfer characteristic. Also, find the value of $I_D$ and of the incremental gain $A_v$ at the bias point.
+  \item For the situation in (b), and disregarding the distortion caused by the MOSFET's square-law characteristic, what is the largest amplitude of a sine-wave voltage signal that can be applied at the input while the transistor remains in saturation? What is the amplitude of the output voltage signal that results? What gain value does the combination of these amplitudes imply? By what percentage is this gain value different from the incremental gain value calculated above? Why is there a difference?
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[default] 
+    (0, 0) node[ground]{} -- (0, 1.23) node[nmos, anchor=S](Q1){}
+    (Q1.D) to[R, l=$R_D$, i<_={\color{red}$i_D$}] ++(0, 3) node[](vdd){}
+    (Q1.G) to[short, o-] ++(-1, 0) node[](v+){}
+    ($(v+) - (0, 1.5)$)node[](p1){} to[V, l=$v_{gs}$] (v+)
+    ($(p1) - (0, 0.5)$)node[ground]{} to[battery1, l=$V_{GS}$] (p1)
+    (Q1.D) to[short, *-o] ++(1, 0) node[right]{$V_{DS}$}
+      ;
+      
+    \draw[default, ->] ($(vdd) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$V_{DD}$};
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.43}
+\end{figure}
+
+
+\begin{enumerate}[(a)]
+  \item \Ans \\
+    At point $A$, $V_{GS} = V_t = \SI{1}{\V}$, $V_{DS} = V_{DD} = \SI{5}{\V}$. At point $B$, 
+    \[ V_{OV} = V_{DD} - R_D \frac{1}{2} k_n V_{OV}^2 \quad \Rightarrow
+    \quad V_{OV} \approx \SI{0.605}{\V} \]
+    So $V_{GS} \approx \SI{1.605}{\V}, V_{DS} = V_{GS} - V_t \approx \SI{0.605}{\V}$.
+  \item \Ans \\
+    If $V_{OV} = \SI{0.5}{\V}$, $I_D = \frac{1}{2} k_n V_{OV}^2 = \SI{0.125}{\mA}$.$V_{GS} = V_t + V_{OV} = \SI{1.5}{\V}, \; V_{DS} = V_{CC} - R_D I_D = \SI{2}{\V}$.
+    \[
+    A_{v} = -\frac{2 I_D R_D}{V_{OV}} = -\frac{2 (\SI{3}{\V}) }{\SI{0.5}{\V}} =  -\SI{12}{\V\per\V} \]
+  \item \Ans \\
+    By (a), $V_{GS,A} = \SI{1}{\V}, V_{GS, B} \approx \SI{1.605}{\V}$, so the maximum amplitute $\hat{V}_i = \abs{V_{GS, B} - V_{GS, Q}} \approx \SI{0.105}{\V}$.
+    The amplitute of output is $\hat{V}_o \abs{V_{DS, Q} - V_{DS, B}} \approx \SI{1.395}{\V}$. The Gain $G = \hat{V}_o / \hat{V}_i \approx 13.28$. The error $\epsilon = (13.28 - 12)/13.28  \approx 9.6\%$. \\
+    The different appears because the curve is quadratic but not linear.
+\end{enumerate}
+
+% 80:101
+\section{4.80}
+Figure~\ref{fig:5.46} shows an amplifier in which the load resistor $R_D$ has been replaced with another NMOS transistor $Q_1$ connected as a two-terminal device. Note that because $v_{DG}$ of $Q_2$ is zero, it will be operating in saturation at all times, even when $v_I = 0$ and $i_{D2} = i_{D1} = 0$. Note also that the two transistors conduct equal drain currents. Using $i_{D1} = i_{D2}$, show that for the range of $v_I$ over which $Q_1$ is operating in saturation, that is , for
+\[ V_{t1} \leq v_I \leq v_O +V_{t1} \]
+the output voltage will be given by
+\[ v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} }V_t - \sqrt{ \frac{W_1/L_1}{W_2/L_2} }v_I \]
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45]
+    \draw[default] 
+    (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
+    (Q1.G) to[short, -o] ++(-0.5, 0) node[left]{$v_I$}
+    (Q1.D) to[short, i^<={\color{red}$i_{D1}$}] ++(0, 0.5) node[](p1){} to[short, *-o] ++(0.5, 0) node[right]{$v_O$}
+    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q2){}
+    ($(Q2.D) + (0, 0.5)$) node[circ](p2){} -| (Q2.G)
+    (p2) to[short, i^>={\color{red}$i_{D2}$}] (Q2.D)
+    (Q1) node[right] {$Q_1$}
+    (Q2) node[right] {$Q_2$}
+      ;
+      
+    \draw[default, ->] (p2) -- ++(0, 0.5) node[above]{$V_{DD}$};
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.46}
+\end{figure}
+
+\Ans
+Since both the MOS is operating in saturation, we have
+\begin{align*}
+  i_{D1} &= \frac{1}{2} k'_n \frac{W_1}{L_1} (v_I - V_t)^2 \\
+  i_{D2} &= \frac{1}{2} k'_n \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 
+\end{align*}
+
+By $i_{D1} = i_{D2}$ we obtain
+\begin{gather*}
+  \frac{W_1}{L_1} (v_I - V_t)^2 = \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 \\
+  \Rightarrow v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} } (V_t - v_I) 
+\end{gather*}
+Which is the desired result.
+
+% 109:138
+\section{4.109}
+In this problem we investigate an optimum design of the CS amplifier circuit of Figure~\ref{fig:5.43}. First. use the voltage gain expression $A_v = -g_m R_D$ together with Eq(5.57) for $g_m$ to show that
+\[ A_v = -\frac{2I_D R_D}{V_{OV}} = - \frac{2(V_{DD} - V_D)}{V_{OV}} \]
+Next, let the maximum positive input signal be $\hat{v_i}$. To keep the second-harmonic distortion to an acceptable level, we bias the MOSFET to operate at an overdrive voltage $V_{OV} \gg \hat{v_i}$. Let $V_{OV} = m\hat{v_i}$. Now, to maximize the voltage gain $\abs{A_v}$, we design for the lowest possible $V_D$. Show that the minimum $V_D$ that is consistent with allowing a negative signal voltage swing at the drain of $\abs{A_v}\hat{v_i}$ while maintaining saturation-mode operation is given by
+\[
+  V_D = \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i}/V_{OV})}{1 + 2(\hat{v_i}/V_{OV})} 
+\]
+Now, find $V_{OV}, V_D, A_v$, and $\hat{v_o}$ for the case $V_{DD} = \SI{3}{\V}, \hat{v_i} = \SI{20}{\mV}, \text{and } m = 10$. If it is desired to operate this transistor at $I_D = \SI{100}{\uA}$, find the values of $R_D$ and $W/L$, assuming that for this process technology $k'_n = \SI{100}{\uA\per\V\squared}$.
+
+\Ans\\
+\begin{align*}
+  g_m &= \frac{2I_D}{V_{OV}}\\
+  A_v &= -g_m R_D = -\frac{2 I_D R_D}{V_{OV}}  = -\frac{2 (V_{DD} - V_D)}{V_{OV}} 
+\end{align*}
+Let $v_g = V_G + v_i$ be the total gate voltage, $v_d = V_D + A_v v_i$ be the total drain voltage, the saturation condition required that $v_d \geq v_g - V_t$. so
+\begin{align*}
+  & v_d \geq v_g - V_t \\
+  \Rightarrow & V_D + A_v v_i \geq V_G + v_i - V_t  \\
+  \Rightarrow & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} v_i \geq V_G + v_i - V_t \\
+  \Rightarrow  & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} \hat{v_i} \geq V_G + \hat{v_i} - V_t \quad \footnotemark \\
+  \Rightarrow & \left(1 + \frac{2\hat{v_i}}{V_{OV}}\right) V_D \geq V_G + \hat{v_i} + \frac{2V_{DD}}{V_{OV}} \hat{v_i}  - V_t  \\
+  \Rightarrow & V_D \geq \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} 
+\end{align*}
+\footnotetext{Since $A_v, v_i$ and $v_i$ are in opposite sign, so in the worse case, we shall consider $-A_v \hat{v_i}$ and $\hat{v_i}$}
+Which is the desired result.
+Plug in the value and let $V_D$ be the maximum possible value we found out that
+\begin{alignat*}{3}
+  & V_{OV} &&= m \hat{v_i} && = \SI{200}{\mV} \\
+  & V_{D} &&= \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} && \approx \SI{683}{\mV} \\
+  & A_v &&= -\frac{2(V_{DD} - V_D)}{V_{OV}}  && \approx -23.2 \\
+  & \hat{v_o} &&= \abs{A_v} \hat{v_i} && \approx \SI{464}\mV \\
+\end{alignat*}
+If moreover, $I_D = \SI{100}{\uA}$,
+\begin{alignat*}{3}
+  & R_D &&= \frac{V_{DD} - V_D}{I_D}  && \approx \SI{23.17}{\kohm} \\
+  & \frac{W}{L} &&= I_D / \left(\frac{1}{2} k'_n V_{OV}^2 \right) && = 50
+\end{alignat*}
+
+% 110:139
+\section{4.110}
+Figure~\ref{fig:5.56} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
+
+\begin{enumerate}[(a)]
+  \item If the transistor has $V_t = \SI{1}{\V}$, and $k_n = \SI{2}{\mA\per\V\squared}$, verify that the bias circuit establishes $V_{GS} = \SI{2}{\V}, I_D = \SI{1}{\mA}$, and $V_D = + \SI{7.5}{\V}$. That is, assume these values, and verify that they are consistent with the values of the circuit components and the device parameters.
+  \item Find $g_m$ and $r_o$ if $V_A = \SI{100}{\V}$.
+  \item Draw a complete small-signal equivalent circuit for the amplifier, assuming all capacitors behave as short circuits at signal frequencies.
+  \item Find $R_{in}, v_{gs}/v_{sig}, v_o/v_{gs}, \text{and } v_o/v_{sig}$.
+\end{enumerate}
+
+\begin{figure}[H]
+\begin{center}
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default]
+    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=100<\kohm>, -o] ++(2, 0) to[C, l=$\infty$, -*] ++(2, 0) to[short, o-] ++(1, 0) 
+    coordinate(v1) to[R, l^=5<\mega\ohm>] ++(0, -3) node[ground]{}
+    (v1) to[R, l=10<\mega\ohm>] ++(0, 3) coordinate(v5)
+    (v1) to[short] ++(1, 0) node[nmos, anchor=G](q1){}
+    (q1.S) to[short] ++(0, -.5) coordinate(v2) to[R, l=3<\kohm>] ++(0, -1.75) node[ground]{}
+    (v2) to[C, l=$\infty$] ++(2, 0) node[ground]{}
+    (q1.D) coordinate(v3) to[R, l=7.5<\kohm>, *-] ++(0, 2) coordinate(v4)
+    (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=10<\kohm>] ++(0, -2) node[ground]{} 
+    (v6) to[short, -o] ++(.5, 0) node[right]{\color{red}$v_o$}
+    ($(v5)!0.5!(v4)$) node[]{$+\SI{15}{\V}$}
+    ;
+    \draw[default, ->] (v5) -- ++(0, .5) ;
+    \draw[default, ->] (v4) -- ++(0, .75) ;
+    \draw[default, ->, red] (3.6, 0) node[below]{$R_{in}$} |- ++(1, 2.5);
+
+  \end{circuitikz}
+\end{center}
+\caption{}
+\label{fig:5.56}
+\end{figure}
+
+\begin{enumerate}[(a)]
+  \item \Ans \\
+    Simply check that 
+    \begin{alignat*}{3}
+      V_G &= \frac{5}{10+5} \cdot \SI{15}{\V} &&= \SI{5}{\V} \\
+      V_S &= (\SI{3}{\kohm}) I_D &&= \SI{3}{\V} \\
+      V_{GS} &= V_{G} - V_{S} &&= \SI{2}{\V} \quad \text{(check)}\\
+      V_D &= 15 - \SI{7.5}{\kohm} \cdot I_D &&= \SI{7.5}{\V} \\
+      V_D & \geq V_G - V_t, V_G \geq V_S + V_t && \quad\text{(check in saturation)} \\
+      k_n &= \frac{2 I_D}{(V_{GS} - V_t)^2} &&= \SI{2}{\mA\per\V\squared}
+      \quad \text{(check)}
+    \end{alignat*}
+  \item \Ans \\
+    \begin{alignat*}{3}
+      g_m &= \frac{2 I_D}{V_{OV}} = \frac{2 I_D}{V_{GS} - V_t} && = \SI{2}{\mA\per\V} \\
+      r_o &= \frac{V_A}{I_D} &&= \SI{100}{\kohm}
+    \end{alignat*}
+  \item 
+    \begin{figure}[H]
+    \begin{center}
+      \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+        \draw[default]
+        (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=100<\kohm>, -o]  ++(3, 0) coordinate(v1) to[R, l_=5<\mega\ohm>] ++(0, -3) node[ground]{}
+        (v1) to[short] ++(1, 0) coordinate(v2) to[R, l=10<\mega\ohm>]  ++(0, -3) node[ground]{}
+        (v2) to[short] ++(2.5, 0) coordinate(v3) to [R, l=$1/g_m$, i=$I$] ++(0, -3) node[ground]{} 
+        (v3)  ++(0, 3) coordinate(uu) to[short] ++(1, 0) coordinate(v4) to[R, l=$r_o$] ++(0, -3) node[ground]{} 
+        (v4) to[short] ++(1.5, 0) coordinate(v5) to[R, l=5<\kohm>] ++(0, -3) node[ground]{}
+        (v5) to[short] ++(2, 0) to[R, l=7.5<\kohm>] ++(0, -3) node[ground]{}
+        (uu) to[cI, l_=$I$] (v3)
+        ;
+
+      \end{circuitikz}
+    \end{center}
+    \caption{}
+    \label{fig:}
+    \end{figure}
+  \item \Ans \\
+    \begin{alignat*}{3}
+      R_{in} &= (\SI{10}{\mega\ohm}) \paral (\SI{5}{\mega\ohm}) &&\approx \SI{3.33}{\mega\ohm} \\
+      \frac{v_{gs}}{v_{sig}}  &= \frac{R_{in}}{R_{in} + (\SI{3.33}{\mega\ohm})} && \approx 0.97 \\
+      \frac{v_{o}}{v_{gs}}  &= g_m (\SI{7.5}{\kohm} \paral \SI{10}{\kohm} \paral r_o) && \approx 8.22 \\
+      \frac{v_{o}}{v_{sig}} &= \frac{v_{gs}}{v_{sig}} \frac{v_{o}}{v_{gs}} \approx 7.97
+    \end{alignat*}
+
+\end{enumerate}
+
+Another solution \\
+\begin{enumerate}[(a)]
+  \item \Ans \\$I_D = \SI{1}{\mA} \Rightarrow V_S = \SI{3}{\V}$, and $V_G = \SI{15}{\V}
+    \cdot 5/(5+10) = \SI{5}{\V}$. So $V_{GS} = V_G - V_S = \SI{2}{\V}$ and
+    $V_D = \SI{15}{\V} - \SI{7.5}{\kohm} \cdot \SI{1}{\mA} = \SI{7.5}{\V}$
+    which is the desired result.
+  \item \Ans \\
+    $V_{OV} = V_{GS} - V_t = \SI{1}{\V}$, so $g_m = k_n V_{OV} = \SI{2}{\mA/\V}$.
+    $r_o = V_A / I_D = \SI{100}{\kohm}$.
+  \item \Ans \\
+    For small-signal we can remove all large capacitor, change the two upper
+    terminals to ground, and use T model to substitute the transistor.
+    (Don't forget $r_o$).
+  \item \Ans \\
+    Since there is no current flowing into the gate of transistor, 
+    $R_{in} = \SI{10}{\mega\ohm} \parallel \SI{5}{\mega\ohm} = \SI{3.33}{\mega\ohm}$.
+    And for small signal, $v_d = 0$, so $v_{gs} = v_g = v_{sig} \cdot
+    R_{in} / (R_{in} + \SI{100}{\kohm}) \Rightarrow v_{gs}/v_{sig} = 0.97$.
+    Notice that $r_o$ connect drain to ground, so we have $v_o/v_{gs} =
+    -g_m (r_o \parallel \SI{7.5}{\kohm} \parallel \SI{10}{\kohm}) = 8.22$.
+    $v_o / v_{sig} = 8.22 \cdot 0.97 = 7.97$.
+\end{enumerate}
+
+% 117:147
+\section{4.117}
+The bias circuit of Figure~\ref{fig:5.72} is used in a design with $V_G = \SI{5}{\V}$ and $R_S = \SI{1}{\kohm}$. For an enhancement MOSFET with $k'_n(W/L) = \SI{2}{\mA\per\V\squared}$, the source voltage was measured and found to be $\SI{2}{\V}$. What must $V_t$ be for this device? If a device for which $V_t$ is $\SI{0.5}{\V}$ less is used, what does $V_s$ become? What bias current result?
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default]
+    (0, 0) node[ground]{} to[R] (0, 3) to[R] (0, 6) 
+    (3, 0) node[ground]{} to[R, l=$R_S$, -*] (3, 2.23) node[right]{$V_S$} node[nmos, anchor=S](q1){}
+    (0, 3) to[short, -*] (q1.G) node[above left]{$V_G$}
+    (q1.D) to[R] (3, 6)
+    (1.5, 7) node[]{$V_{DD}$}
+    ;
+    \draw[default, ->] (0, 6) -- (0, 6.5);
+    \draw[default, ->] (3, 6) -- (3, 6.5);
+  \end{circuitikz}
+  \caption{}
+  \label{fig:5.72}
+\end{figure}
+\Ans \\
+Since $I_D = V_S / R_S = \SI{2}{\V} / \SI{1}{\kohm} = \SI{2}{\mA}$, so
+\begin{align*}
+  & \frac{1}{2} k'_n(W/L) (V_G - V_S - V_t)^2 = I_D \\
+  \Rightarrow & (\SI{3} - V_t)^2 = \SI{2}{} \\
+  \Rightarrow & V_t \approx \SI{1.59}{\V} 
+\end{align*} 
+If now $V'_t = V_t - \SI{0.5}{\V} = \SI{1.09}{\V}$, We have
+\begin{align*}
+  & \frac{1}{2} (\SI{2}{\mA\per\V}) ((\SI{5}{\V}) - V_S - (\SI{1.09}{\V}))^2 = V_S / \SI{1}{\kohm}  \\
+  \Rightarrow & V_S \approx \SI{2.37}{\V} \quad \text{ \footnotemark}\\
+  \Rightarrow & I_S = V_S / R_S \approx \SI{2.37}{\mA}
+\end{align*}
+\footnotetext{There are two solutions, but the other one would let $V_S > V_G$.} 
+
+% 122:152
+\section{4.122}
+The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
+
+\begin{enumerate}[(a)]
+  \item Neglecting the Early effect \footnote{Early effect is the same as channel-length modulation, recall that $V_A$ is called Early voltage. (J.M Early is the one to discover this effect)}
+    , verify that the MOSFET is operating in saturation with $I_D = \SI{0.5}{\mA}$  and $V_{OV} = \SI{0.3}{\V}$. What must the MOSFET's $k_n$ be? What is the dc voltage at the drain?
+  \item Find $R_{in}$ \footnote{It seems that the other problem $R_{in}$ is the resistance looking into from $v_G$ but not $v_{sig}$, so the safest way is to write both the answer}
+    and $G_v$.
+  \item If $v_{sig}$ is a sinusoid with a peak amplitude $\hat{v}_{sig}$, find the maximum allowable value of $\hat{v}_{sig}$ for which the transistor remains in saturation. What is the corresponding amplitude of the output voltage?
+  \item What is the value of resistance $R_s$ that needs to be inserted in series with capacitor $C_S$ in order to allow us to double the input signal $\hat{v}_{sig}$? What output voltage now results?
+\end{enumerate}
+
+\begin{figure}[H]
+\begin{center}
+  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+    \draw[default]
+    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=120<\kohm>, -o] ++(2, 0) to[C, l=$C_{C1}$, -*] ++(3, 0) 
+    coordinate(v1) to[R, l=200<\kohm>] ++(0, -3) node[ground]{}
+    (v1) to[R, l=300<\kohm>] ++(0, 3) coordinate(v5)
+    (v1) to[short] ++(1, 0) node[nmos, anchor=G](q1){}
+    (q1.S) to[short] ++(0, -.5) coordinate(v2) to[R, l=2<\kohm>] ++(0, -1.75) node[ground]{}
+    (v2) to[C, l=$C_S$] ++(2, 0) node[ground]{}
+    (q1.D) coordinate(v3) to[R, l=5<\kohm>, *-] ++(0, 2) coordinate(v4)
+    (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=5<\kohm>] ++(0, -2) node[ground]{} 
+    (v6) to[short, -o] ++(.5, 0) node[right]{$v_o$}
+    ($(v5)!0.5!(v4)$) node[]{$+\SI{5}{\V}$}
+    ;
+    \draw[default, ->] (v5) -- ++(0, .5) ;
+    \draw[default, ->] (v4) -- ++(0, .75) ;
+
+  \end{circuitikz}
+\end{center}
+\caption{}
+\label{fig:5.80}
+\end{figure}
+\begin{enumerate}[(a)]
+  \item \Ans \\
+    \begin{alignat*}{3}
+      V_G &= \frac{200}{300+200} (\SI{5}{\V}) &&= \SI{2}{\V} \\
+      V_S &= (\SI{2}{\kohm}) (\SI{0.5}{\mA}) &&= \SI{1}{\V} \\
+      V_D &= \SI{5}{\V} - (\SI{5}{\kohm}) (\SI{0.5}{\mA}) &&= \SI{2.5}{\V} \\
+    \end{alignat*}
+    Since $V_D \geq V_G - V_t, \; V_G \geq V_S + V_t$, the nmos is indeed operate in saturation region.
+    \[
+      k_n = \frac{2 I_D}{V_{OV}^2} = \SI{11.11}{\mA\per\V\squared}
+    \]
+  \item \Ans \\
+    Calculate $r_o = V_A / I_D = \SI{100}{\kohm}$.
+    \[
+      R_{in} = \SI{300}{\kohm} \paral \SI{200}{\kohm} = \SI{120}{\kohm} \]
+    And
+    \begin{align*}
+      g_m &= \frac{2 I_D}{V_{OV}} = \SI{3.33}{\mA\per\V} \\
+      v_{i} &= \frac{R_{in}}{\SI{120}{\kohm} + R_{in}} v_{sig} = \frac{1}{2} v_{sig}  \\
+      G_v &= v_o / v_{sig} = \frac{1}{2} v_o / v_i = -\frac{1}{2} g_m (\SI{5}{\kohm} \paral \SI{5}{\kohm} \paral r_o) \approx \SI{-4.05}{\V\per\V} \\
+    \end{align*}
+  \item 
+    Remains in saturation requires $v_d + V_D \geq v_g + V_G - V_{t}$. Notice that \\ $v_d = v_o = G_v v_{sig}, \; v_g = \frac{1}{2} v_{sig}$, so
+    \[
+      -4.05 \hat{v}_{sig} + \SI{2.5}{\V} = \frac{1}{2} \hat{v}_{sig} + \SI{2}{\V} - \SI{0.7}{\V} \quad \Rightarrow \quad 
+      \hat{v}_{sig} \approx \SI{263}{\mV} \numeq \label{eq:80-1}
+    \]
+    \[
+      \hat{v}_{o} = \hat{v}_{sig} G_v \approx \SI{1.07}{\V}
+    \]
+  \item 
+    By modifing Equation \eqref{eq:80-1} (let $-4.05 \rightarrow G'_v$)
+    We have
+    \[
+     \SI{1.2}{\V} = -G'_v \cdot 2\hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.78
+    \]
+    if we let $R = R_S \paral \SI{2}{\kohm}$, $R_D = \SI{5}{\kohm} \paral \SI{5}\kohm}$
+    , By using T model we obtain \footnote{a little complicate calculation}
+    \[
+      2G'_v &= -g_m R_D/ (1 + g_mR + (R+R_D)/r_o) \quad \Rightarrow \quad
+      R = \SI{393}{\ohm}
+    \]
+    finally,
+    \[
+      \frac{\SI{2}{\kohm} \cdot R_S}{\SI{2}{\kohm} + R_S } = \SI{393}{\ohm}
+      \quad \Rightarrow \quad R_S \approx \SI{489}{\ohm}
+    \]
+    \[
+      \hat{v}_o = \abs{G'_v} 2\hat{v}_{sig} \approx  \SI{936}{\mV}
+    \]
+    
+\end{enumerate}
+
+
