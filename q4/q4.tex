@@ -22,41 +22,90 @@
 
 % 20:29
 \section{4.20}
-Consider an n-channel MOSFET with $t_{ox} = \SI{20}\nm$, $\mu_{n} = \SI{650}{\cm\squared\per\V\per\s}$, $V_t = \SI{0.8}\V$ and $W/L = 10$. Find the drain current in the following cases:
+Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as indicated. Find the value of $\beta$ for each transistor. 
 
-\begin{enumerate}[label=(\alph*)]
-  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{1}{\V} $\\[5pt]
-    \Ans \\
-    First we calculate 
-    \[ k_n = \mu_n C_{ox} (W / L) = \mu_n \varepsilon_{ox} (W / L) /  t_{ox} \approx \SI{1.12}{\mA\per\V\squared} \]
-    Since $v_{GS} > V_t$ and $v_{GS} - v_{DS} = \SI{4}{\V} > V_t$, the MOS is working on the triode region, so 
-    \[
-      i_D =  k_n \left(v_{GS} - V_t - \frac{1}{2}v_{DS} \right)v_{DS} \approx \SI{4.14}{\mA} 
-    \]
-  \item $v_{GS} = \SI{2}{\V}$ and $v_{DS} = \SI{1.2}{\V} $\\[5pt]
-    \Ans \\
-    Now $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{0.8}{\V} = V_t$, the MOS is working on the boundary of the saturation and the triode region, so 
-    \[
-      i_D = \frac{1}{2} k_n (V_{GS} - V_t)^2 \approx \SI{0.81}{\mA} 
-    \]
-  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{0.2}{\V} $\\[5pt]
-    \Ans \\
-    Again $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{4.8}{\V} > V_t$, the MOS is working on the triode region, so 
-    \[
-      i_D =  k_n \left(v_{GS} - V_t - \frac{1}{2}v_{DS} \right)v_{DS} \approx \SI{0.92}{\mA} 
-    \]
-  \item $v_{GS} = \SI{5}{\V}$ and $v_{DS} = \SI{5}{\V} $\\[5pt]
-    \Ans \\
-    Finally since $V_{GS} > V_t$ and $V_{GS} - V_{DS} = \SI{0}{\V} < V_t$, the MOS is working on the saturation region, so 
-    \[
-      i_D =  \frac{1}{2} k_n (v_{GS} - V_t)^2 \approx \SI{9.88}{\mA} 
-    \]
-\end{enumerate}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} to[R, l_=10<\kohm>] ++(0, 3) coordinate(v1) 
+      node [pnp, anchor=C] (h1) {}
+      (h1.B) -- ++ (-0.5, 0) coordinate(v2) to[R, *-, l_=200<\kohm>] ++(0, -3) node[ground]{}
+      (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{4.3}{\V}$}
+      (v1) to[short, -o] ++(.5, 0) node[right]{$+\SI{2}{\V}$}
+        ;
+      \draw[->, default] (h1.E) -- ++(0, 2) node[above]{$+\SI{5}{\V}$};
+        
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29a}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} to[R, l_=230<\ohm>] ++(0, 3) coordinate(v1) 
+      node [pnp, anchor=C] (h1) {}
+      (h1.B) to[short, -*] ++ (-1.5, 0) coordinate(v2) -- ++(0, -.75) to[R, -*, l_=20<\kohm>] (v1)
+      (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{4.3}{\V}$}
+      (v1) to[short, -o] ++(.5, 0) node[right]{$+\SI{2}{\V}$}
+        ;
+      \draw[->, default] (h1.E) -- ++(0, 2) node[above]{$+\SI{5}{\V}$};
+        
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29b}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 0) node[ground]{} to[R, l_=1<\kohm>] ++(0, 3) coordinate(v1) 
+      node [pnp, anchor=C] (h1) {}
+      (h1.B) to[short, -*] ++ (-1.5, 0) coordinate(v2) -- ++(0, -.75) to[R, -*, l_=100<\kohm>] (v1)
+      (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{6.3}{\V}$}
+      (h1.E) to[R, l=1<\kohm>] ++ (0, 2.5) coordinate(v3)
+      (h1.E) to[short, -o] ++(.5, 0) node[right]{$+\SI{7}{\V}$}
+        ;
+        \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{10}{\V}$};
+        
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \caption{}
+  \label{fig:5.29}
+\end{figure}
+
+
 
 % 25:34
 \section{4.25}
-The table below lists 10 different cases labeled (a) to (j) for operating an NMOS transistor with $V_t = \SI{1}{\V} $. In each case the voltages at the source, gate, and drain (relative to the circuit ground) are specified. You are required to complete the tabel entries. Note that if you encounter a case for which $v_{DS}$ is negative, you should exchange the drain and source before solving the problem. You can do this because the MOSFET is a symmetric device.
+Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ and $V_C = \SI{0.5}{\V}$. The transistor exhibits $v_{BE}$ of $\SI{0.7}{V}$ at $i_C = \SI{1}{\mA} \text{, and } \beta = 30$.
 
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+    (0, 0) to[R, l_=$R_E$] ++(0, 3) coordinate(v1) 
+    node [npn, anchor=E] (h1) {}
+    (h1.B) -- ++(-1, 0) node[ground]{}
+    
+    (h1.C) to[R, l_=$R_C$, i<^=$I_C$] ++ (0, 2.5) coordinate(v3)
+    (h1.C) to[short, -o] ++(.5, 0) node[right]{$V_C$}
+      ;
+    \draw[->, default] 
+    (v3) -- ++(0, .5) node[above]{$+\SI{1.5}{\V}$};
+    \draw[->, default] 
+    (0, 0) -- ++(0, -.5) node[below]{$-\SI{1.5}{\V}$};
+      
+  \end{circuitikz}
+  \caption{}
+  \label{fig:4.25}
+\end{figure}
 
 \Ans \\
 \begin{center}
@@ -79,93 +128,33 @@ The table below lists 10 different cases labeled (a) to (j) for operating an NMO
   \end{tabular}
 \end{center}
 
-\clearpage
 % 45:61
 \section{4.45}
-All the transistors in te circuits shown in Fig.~\ref{fig:5.29} have the
-same values of $\abs{V_t}, k', W/L$, and $\lambda$. Moreover, $\lambda$ is
-negligibly small. All operate in saturation at $I_D = I$ and $\abs{V_{GS}}
- = \abs{V_{DS}} = \SI{3}{\V}$. Find the voltages $V_1, V_2, V_3$, and $V_4$.
-If $\abs{V_t} = \SI{1}{\V}$ and $I = \SI{2}{\mA}$, how large a resistor can
-be inesrted in series with each drain connection while maintaining saturation?
-What is the largest resistor that can be placed in series with each gate?
-If the current source $I$ requires at least $\SI{2}{\V}$ between its terminals
-to operate properly, what is the largest resistor that can be placed in series
-with each MOSFET source while ensuring saturated-mode operation of each
-transistor at $I_D = I$? In the latter limiting situation, what do $V_1, V_2,
-V_3$, and $V_4$ become?
+For the circuit in Figure~\ref{fig:}, find $V_B, V_E, \text{ and } V_C$ for $R_B = \SI{100}{\kohm}, \SI{10}{\kohm}, \text{ and } \SI{1}{\kohm}$. Let $\beta = 100$.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \begin{circuitikz}[>=triangle 45]
-      \draw[default] 
-      (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
-      (Q1.D) -| (Q1.G)
-      (Q1.D) to [short, *-o] ++(1, 0) node[right]{$V_1$}
-      (Q1.D) ++(0, 2)node[](p1){} to[I, l=$I$] (Q1.D)
-      (Q1) node[right] {$Q_1$}
-        ;
-        
-      \draw[default, ->] ($(p1) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
-    \end{circuitikz}
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+    (0, 0) node[ground]{} to[R, l_=1<\kohm>] ++(0, 3) coordinate(v1) 
+    node [npn, anchor=E] (h1) {}
+    (h1.B) -- ++(-1, 0) to[R, l=$R_B$] ++ (0, 2.5) coordinate(v2)
+    (h1.C) to[R, l_=1<\kohm>] ++ (0, 2.5) coordinate(v3)
+    (h1.C) node[circ]{} ++ (.5, 0) node{\color{red}$V_C$}
+    (h1.E) node[circ]{} ++ (.5, 0) node{\color{red}$V_E$}
+    (h1.B) node[circ]{} ++ (-.5, -.5) node{\color{red}$V_B$}
+      ;
+    \draw[->, default] 
+    (v3) -- ++(0, .5) ;
+    \draw[->, default] 
+    (v2) -- ++(0, 1.25);
+    \node at (-1, 8) {$+\SI{5}{\V}$};
+      
+  \end{circuitikz}
   \caption{}
-  \label{fig:5.29a}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \begin{circuitikz}[>=triangle 45]
-      \draw[default] 
-      (0, 0) node[nmos, anchor=S](Q2){}
-      (Q2) node[right] {$Q_2$}
-      (Q2.S) to[I, l=$I$] ++(0, -2) node[](p2){}
-      (Q2.S) to[short, *-o] ++(1, 0) node[right]{$V_2$}
-        ;
-        
-      \draw[default, ->] (Q2.D) -- ++(0, 0.5) node[above]{$+\SI{1}{\V}$};
-      \draw[default, ->] (Q2.G) -| ++(-0.5, 1.3) node[above]{$+\SI{1}{\V}$};
-      \draw[default, ->] ($(p2) + (0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{9}{\V}$};
-    \end{circuitikz}
-  \caption{}
-  \label{fig:5.29b}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \begin{circuitikz}[>=triangle 45]
-      \draw[default] 
-      (0, 0) node[ground]{} node[pmos, anchor=D](Q3){}
-      (Q3) node[right]{$Q_3$}
-      (Q3.G) -| ++ (-0.5, 0) node[ground]{}
-      (Q3.S)++(0, 2) node[](p3){} to[I, l=$I$] (Q3.S) to[short, *-o] ++(1, 0) node[right]{$V_3$}
-        ;
-        
-      \draw[default, ->] ($(p3) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$+\SI{10}{\V}$};
-    \end{circuitikz}
-  \caption{}
-  \label{fig:5.29c}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \begin{circuitikz}[>=triangle 45]
-      \draw[default] 
-      (0, 0) node[pmos](Q4){}
-      (Q4) node[right]{$Q_4$}
-      (Q4.D) -| (Q4.G)
-      (Q4.D) to [short, *-o] ++(1, 0) node[right]{$V_4$}
-      (Q4.D)++(0, -2)node[](p4){}
-      (Q4.D) to[I, l=$I$] (p4)
-        ;
-        
-      \draw[default, ->] ($(p4) +(0, 0.5)$) -- ++(0, -0.5) node[below]{$-\SI{5}{\V}$};
-      \draw[default, ->] (Q4.S) -- ++(0, 0.5) node[above]{$+\SI{5}{\V}$};
-    \end{circuitikz}
-  \caption{}
-  \label{fig:5.29d}
-  \end{subfigure}
-  \caption{}
-  \label{fig:5.29}
+  \label{fig:4.25}
 \end{figure}
+
 
 \Ans \\
 For (a), $V_1 = \SI{3}{\V}$. For (b), $V_2 = \SI{-2}{\V}$. For (c), $V_3 = \SI{3}{\V}$. For (d), $V_4 = \SI{2}{\V}$.  \\
@@ -174,25 +163,99 @@ Finally, notice that $\abs{V_{CC} - V_{S}} = \SI{10}{\V}$ in each configuration 
 
 % 47:63
 \section{4.47}
-The NMOS transistors in the circuit of  Fig.~\ref{fig:5.34} have $V_t = \SI{1}{\V} , \mu_n C_{ox} = \SI{120}{\uA\per\V\squared}, \lambda = 0$ and $L_1 = L_2 = L_3 = \SI{1}{\um} $. Find the required values of gate width for each of $Q_1$, $Q_2$, and $Q_3$ to obtain the voltage and current values indicated.
+For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node voltages and branch currents. Assume $\beta = 100$.
 
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
-    \draw[default] (0, 1) node[nmos, label={[shift={(0.4, -0.3)}]$Q_1$}](nm1){};
-    \draw[default] (0, 2.5) node[nmos, label={[shift={(0.4, -0.3)}]$Q_2$}](nm2){};
-    \draw[default] (0, 4) node[nmos, label={[shift={(0.4, -0.3)}]$Q_3$}](nm3){};
-    \draw[color=black, thick] let \p1=(nm1) in
-    (0, \x1) node[ground]{} to [short] (nm1.source);
-    \draw[default] (nm1.gate) |- (nm1.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{1.5}{\V}$};
-    \draw[default] (nm2.gate) |- (nm2.drain) to[short, *-o] ++(0.5, 0) node[right]{$+\SI{3.5}{\V}$};
-    \draw[default] (nm3.gate) |- (nm3.drain) to[short, *-, i<_=120<\uA>] ++(0, 0.5);
-    \draw[color=black, thick, ->]
-      ($(nm3.drain) + (0, 0.3)$) to ++(0, 0.5) node[above]{$+\SI{5}{\V}$}
-      ;
-  \end{circuitikz}
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 3) node[npn, anchor=E] (h1) {} to[I, l^=2<\mA>] (0, 0) 
+      (h1.B) -- ++ (-0.5, 0) coordinate(v2) to[R, *-, l_=22<\kohm>] ++(0, -3) node[ground]{}
+      (h1.C) to[R, l=1.6<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_1$}
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_2$}
+        ;
+      \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+      \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{};
+        
+    \end{circuitikz}
   \caption{}
-  \label{fig:5.34}
+  \label{fig:5.29a}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 3) node[npn, anchor=E] (h1) {} to[R, l^=2.2<\kohm>, i>_={\color{red}$I_4$}] (0, 0) 
+      (h1.B) -- ++ (-1, 0) node[ground]{}
+      (h1.C) to[R, l=1.6<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_3$}
+        ;
+      \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+      \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{$\SI{-5}{\V}$};
+        
+    \end{circuitikz}
+    \caption{}
+    \label{fig:5.29b}
+  \end{subfigure}
+  \begin{subfigure}{0.32\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 3) node[npn, anchor=E] (h1) {} to[R, l^=2.2<\kohm>] (0, 0) 
+      (h1.B) -- ++ (-0.5, 0) coordinate(v2) to[R, *-, l_=22<\kohm>] ++(0, -3) node[ground]{}
+      (h1.C) to[R, l=1.6<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_5$}
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_7$}
+      (v2) to[short, -o] ++(-.5, 0) node[left]{\red $V_6$}
+        ;
+      \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+      \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{$-\SI{5}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \begin{subfigure}{0.4\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 3) node[npn, anchor=E] (h1) {} to[R, l^=5.1<\kohm>] (0, 0) 
+      (h1.B) -- ++ (-1.5, 0) coordinate(v2) to[R, *-, l^=56<\kohm>] ++(0, 3) coordinate(v4)
+      (h1.C) to[R, l_=3.3<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_9$}
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_8$}
+        ;
+      \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+      \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{$-\SI{5}{\V}$};
+      \draw[->, default] (v4) -- ++(0, .5) node[above]{$+\SI{1.2}{\V}$};
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \begin{subfigure}{0.4\textwidth}
+    \centering
+    \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+      \draw[default] 
+      (0, 3) node[npn, anchor=E] (h1) {} to[R, l^=5.1<\kohm>] (0, 0) 
+      (h1.B) -- ++ (-1.5, 0) coordinate(v2) to[R, *-, l^=91<\kohm>] ++(0, 3.25) coordinate(v4)
+      (v2) to[R, l_=150<\kohm>] ++(0, -3.75) coordinate(v5)
+      (h1.C) to[R, l_=3.3<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_{12}$}
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_{11}$}
+      (v2) to[short, -o] ++(-.5, 0) node[left]{\red $V_{10}$}
+        ;
+      \draw[->, default] (v3) -- ++(0, .5) node[above, xshift=-1cm]{$+\SI{5}{\V}$};
+      \draw[->, default] (0, 0) -- ++(0, -.5) node[below, xshift=-1cm]{$-\SI{5}{\V}$};
+      \draw[->, default] (v4) -- ++(0, .5);
+      \draw[->, default] (v5) -- ++(0, -.5);
+    \end{circuitikz}
+  \caption{}
+  \label{fig:5.29c}
+  \end{subfigure}
+  \caption{}
+  \label{fig:5.29}
 \end{figure}
 
 \Ans \\
@@ -205,24 +268,18 @@ We get $W_1 = W_3 = \SI{8}{\um} , W_2 = \SI{2}{\um} $
 
 % 51:68
 \section{4.51}
-For the devices in the circuits of Figure~\ref{fig:5.41}, $ \abs{V_t} = \SI{1}{V} , \lambda = 0, \mu_n C_{ox} = \SI{50}{\uA\per\V\squared}, L = \SI{1}{\um}$, and $W = \SI{10}{\um}$. Find $V_2$ and $I_2$. How do these values change if $Q_3$ and $Q_4$ are made to have $W = \SI{100}{\um}$?
+Using $\beta = \infty$, design the circuit shown in Figure~\ref{fig:} so that the bias currents in $Q_1, Q_2, \text{ and } Q_3$ are $\SI{2}{\mA}, \SI{2}{\mA}, \text{ and } \SI{4}{\mA}$, respectively, and $V_3 = 0, V_5 = \SI{-4}{\V}, \text{ and } V_7 = \SI{2}{\V}$. For each resistor, select the nearest standard value utilizing the table of standard values for $5\%$ resistors in Appendix G. Now, for $\beta = 100$, find the values of $V_3, V_4, V_5, V_6, \text{ and } V_7$.
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45]
-    \draw[default] (0, 0) node[nmos, xscale=-1] (Q3) {}
-    (Q3.S) node[ground] {}
-    (Q3.D) to[short, i<_=$I_2$] ++(0, 0.5) node[](p1){} to [short, *-o] ++(-0.5, 0) node[left]{$V_2$}
-    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q4){}
-    (Q3.G) to[short] ++(0.5, 0) node[circ](p2){} to[short] ++(0.5, 0) node[nmos, anchor=G](Q1) {}
-    (Q1.S) node[ground]{}
-    (p2) |- ($(Q1.D) + (0, 0.5)$) node[circ](p3){} -- (Q1.D)
-    (p3) to[short, i<^={\color{blue}$I_1$}] ++(0, 0.5) node[nmos, xscale=-1.0, anchor=S](Q2){}
-    (Q1) node[right]{$Q_1$}
-    (Q2) node[left]{$Q_2$}
-    (Q3) node[left]{$Q_3$}
-    (Q4) node[right]{$Q_4$}
-    ($(p2) + (0, 4.5)$) node[]{$+\SI{5}{\V}$}
-    (p3) node[right]{\color{blue}$V_1$}
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+    (0, 0) to[R, l=$R_1$, -*] ++(0, 2.5) node[npn, anchor=E] (q1){} to[short, -o] ++(.5, 0) node[below right]{\red $V_2$}
+    (q1) node[xshift=.3cm] {$Q_1$}
+    (q1.B) -- ++(-1, 0) node[ground]{}
+    (q1.C) to[R=$R_2$] ++(0, 2.5)
+    (q1.C) to[short, -*] ++(1, 0) node[pnp, anchor=B](q2){} to[short, -o] ++(0, -.5) node[below]{\red $V_3$}
+    (q2.E) to[R=$R_3$] ++(0, 2)
+    (q2.E) to[short, *-o] ++(.5, 0) node[right]{\red $V_4$}
     ; 
     \draw[default, ->] (Q4.D) -- ++(0, 1);
     \draw[default, ->] (Q4.G) -| ++(-0.2, 1.75);
@@ -580,10 +637,10 @@ The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t 
     \[
      \SI{1.2}{\V} = -G'_v \cdot 2\hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.78
     \]
-    if we let $R = R_S \paral \SI{2}{\kohm}$, $R_D = \SI{5}{\kohm} \paral \SI{5}\kohm}$
+    if we let $R = R_S \paral \SI{2}{\kohm}$, $R_D = \SI{5}{\kohm} \paral \SI{5}{\kohm}$
     , By using T model we obtain \footnote{a little complicate calculation}
     \[
-      2G'_v &= -g_m R_D/ (1 + g_mR + (R+R_D)/r_o) \quad \Rightarrow \quad
+      2G'_v = -g_m R_D/ (1 + g_mR + (R+R_D)/r_o) \quad \Rightarrow \quad
       R = \SI{393}{\ohm}
     \]
     finally,
