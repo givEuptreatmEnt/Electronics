@@ -271,21 +271,31 @@ We get $W_1 = W_3 = \SI{8}{\um} , W_2 = \SI{2}{\um} $
 Using $\beta = \infty$, design the circuit shown in Figure~\ref{fig:} so that the bias currents in $Q_1, Q_2, \text{ and } Q_3$ are $\SI{2}{\mA}, \SI{2}{\mA}, \text{ and } \SI{4}{\mA}$, respectively, and $V_3 = 0, V_5 = \SI{-4}{\V}, \text{ and } V_7 = \SI{2}{\V}$. For each resistor, select the nearest standard value utilizing the table of standard values for $5\%$ resistors in Appendix G. Now, for $\beta = 100$, find the values of $V_3, V_4, V_5, V_6, \text{ and } V_7$.
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+  \begin{circuitikz}[>=triangle 45]
     \draw[default] 
     (0, 0) to[R, l=$R_1$, -*] ++(0, 2.5) node[npn, anchor=E] (q1){} to[short, -o] ++(.5, 0) node[below right]{\red $V_2$}
     (q1) node[xshift=.3cm] {$Q_1$}
     (q1.B) -- ++(-1, 0) node[ground]{}
-    (q1.C) to[R=$R_2$] ++(0, 2.5)
+    (q1.C) to[R=$R_2$] ++(0, 2.5) coordinate(o1)
     (q1.C) to[short, -*] ++(1, 0) node[pnp, anchor=B](q2){} to[short, -o] ++(0, -.5) node[below]{\red $V_3$}
-    (q2.E) to[R=$R_3$] ++(0, 2)
+    (q2) node[xshift=.3cm] {$Q_2$}
+    (q2.E) to[R=$R_3$] ++(0, 2) coordinate(o3)
     (q2.E) to[short, *-o] ++(.5, 0) node[right]{\red $V_4$}
+    (q2.C) to[R=$R_4$, *-] ++(0, -2.5) coordinate(o2)
+    (q2.C) to[short] ++(1, 0) node[npn, anchor=B](q3){} to[short, *-o] ++(0, -.5) node[below]{\red $V_5$}
+    (q3) node[xshift=.3cm] {$Q_3$}
+    (q3.E) to[R=$R_6$] ++(0, -2.5) coordinate(o4)
+    (q3.E) to[short, *-o] ++(.5, 0) node[right]{\red $V_6$}
+    (q3.C) to[R=$R_5$] ++(0, 2.5) coordinate(o5)
+    (q3.C) to[short, *-o] ++(.5, 0) node[right]{\red $V_7$}
     ; 
-    \draw[default, ->] (Q4.D) -- ++(0, 1);
-    \draw[default, ->] (Q4.G) -| ++(-0.2, 1.75);
-    \draw[default, ->] (Q2.D) -- ++(0, 1);
-    \draw[default, ->] (Q2.G) -| ++(0.2, 1.75);
-    \draw[dashed, color=blue] (p1) -- (p3);
+    \draw[default, ->] (0, 0) -- ++(0, -.5);
+    \draw[default, ->] (o1) -- ++(0, .5);
+    \draw[default, ->] (o2) -- ++(0, -1.25) node[below] {$\SI{-10}{\V}$};
+    \draw[default, ->] (o3) -- ++(0, .25) node[above] {$+\SI{10}{\V}$};
+    \draw[default, ->] (o4) -- ++(0, -.5);
+    \draw[default, ->] (o5) -- ++(0, .5);
+    
   \end{circuitikz}
   \caption{}
   \label{fig:5.41}
@@ -304,29 +314,27 @@ Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than b
 
 % 75:95  7.5\kohm <- 8.2\kohm
 \section{4.75}
-Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}{\V}, R_D = \SI{24}{\kohm}, k'_n(W/L) = \SI{1}{\mA\per\V\squared},\text{and } V_t = \SI{1}{\V}$.
-\begin{enumerate}[(a)]
-  \item Find the coordinates of the two end points of the saturation-region segment of the amplifier transfer characteristic, that is, points A and B on the sketch of Figure 5.29(b) (On textbook).
-  \item If the amplifier is biased to operate with an overdrive voltage $V_{OV}$ of $\SI{0.5}{\V}$, find the coordinates of the bias point $Q_1$ on the transfer characteristic. Also, find the value of $I_D$ and of the incremental gain $A_v$ at the bias point.
-  \item For the situation in (b), and disregarding the distortion caused by the MOSFET's square-law characteristic, what is the largest amplitude of a sine-wave voltage signal that can be applied at the input while the transistor remains in saturation? What is the amplitude of the output voltage signal that results? What gain value does the combination of these amplitudes imply? By what percentage is this gain value different from the incremental gain value calculated above? Why is there a difference?
-\end{enumerate}
+The transistor amplifier in Figure~\ref{fig:} is biased with a current source $I$ and has a very high $\beta$. find the dc voltage at the collector, $V_C$. Also, find the value of $g_m$. Replace the transistor with the simplified hybrid-$\pi$ model of Figure~\ref{fig:} (note that the dc current source $I$ should be replaced with an open circuit). Hence find the voltage gain $v_c/v_i$. 
 
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45]
+  \begin{circuitikz}[transform shape, >=triangle 45]
     \draw[default] 
-    (0, 0) node[ground]{} -- (0, 1.23) node[nmos, anchor=S](Q1){}
-    (Q1.D) to[R, l=$R_D$, i<_={\color{red}$i_D$}] ++(0, 3) node[](vdd){}
-    (Q1.G) to[short, o-] ++(-1, 0) node[](v+){}
-    ($(v+) - (0, 1.5)$)node[](p1){} to[V, l=$v_{gs}$] (v+)
-    ($(p1) - (0, 0.5)$)node[ground]{} to[battery1, l=$V_{GS}$] (p1)
-    (Q1.D) to[short, *-o] ++(1, 0) node[right]{$V_{DS}$}
+    (0, 2.5) to[I=$\SI{0.5}{\mA}$] (0, 0)
+    (0, 2.5) node [npn, anchor=E, xscale=-1] (h1) {} to[C=$\infty$, *-o] ++(-2.5, 0) coordinate(v1)  ++(0, -2) node[ground]{} to[V, l^=$v_i$] (v1)  
+    (h1.B) -- ++(1, 0) node[ground]{}
+    
+    (h1.C) to[R, l_=$\SI{7.5}{\kohm}$] ++ (0, 2.5) coordinate(v3)
+    (h1.C) to[short, -o] ++(.5, 0) node[right]{\red $V_C + v_c$}
       ;
+    \draw[->, default] 
+    (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+    \draw[->, default] 
+    (0, 0) -- ++(0, -.5) ;
       
-    \draw[default, ->] ($(vdd) -(0, 0.5)$) -- ++(0, 0.5) node[above]{$V_{DD}$};
   \end{circuitikz}
   \caption{}
-  \label{fig:5.43}
+  \label{fig:4.25}
 \end{figure}
 
 
@@ -348,29 +356,26 @@ Consider the CS amplifier of Figure~\ref{fig:5.43} for the case $V_{DD} = \SI{5}
 
 % 80:101
 \section{4.80}
-Figure~\ref{fig:5.46} shows an amplifier in which the load resistor $R_D$ has been replaced with another NMOS transistor $Q_1$ connected as a two-terminal device. Note that because $v_{DG}$ of $Q_2$ is zero, it will be operating in saturation at all times, even when $v_I = 0$ and $i_{D2} = i_{D1} = 0$. Note also that the two transistors conduct equal drain currents. Using $i_{D1} = i_{D2}$, show that for the range of $v_I$ over which $Q_1$ is operating in saturation, that is , for
-\[ V_{t1} \leq v_I \leq v_O +V_{t1} \]
-the output voltage will be given by
-\[ v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} }V_t - \sqrt{ \frac{W_1/L_1}{W_2/L_2} }v_I \]
+In the circuit shown in Figure~\ref{fig:}, the transistor has a $\beta$ of 200. What is the dc voltage at the collector? Find the input resistances $R_{ib}$ and $R_{in}$ and the overall voltage gain $(v_o/v_sig)$. For an output signal of $\pm \SI{0.4}{\V}$, what values of $v_{sig}$ and $v_b$ are required?
 
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45]
+  \begin{circuitikz}[transform shape, >=triangle 45]
     \draw[default] 
-    (0, 0) node[ground]{} node[nmos, anchor=S](Q1){}
-    (Q1.G) to[short, -o] ++(-0.5, 0) node[left]{$v_I$}
-    (Q1.D) to[short, i^<={\color{red}$i_{D1}$}] ++(0, 0.5) node[](p1){} to[short, *-o] ++(0.5, 0) node[right]{$v_O$}
-    (p1) to[short] ++(0, 0.5) node[nmos, anchor=S](Q2){}
-    ($(Q2.D) + (0, 0.5)$) node[circ](p2){} -| (Q2.G)
-    (p2) to[short, i^>={\color{red}$i_{D2}$}] (Q2.D)
-    (Q1) node[right] {$Q_1$}
-    (Q2) node[right] {$Q_2$}
+    (0, 0) to[I=$\SI{10}{\mA}$] ++(0, -2.5) node[pnp, anchor=E] (q1){} to[C, l_=$\infty$, *-] ++(2.5, 0) node[ground]{}
+    (q1.C) to[R=$R_C{=}\SI{100}{\ohm}$] ++(0, -2.5) node[ground]{}
+    (q1.C) to[short, *-o] ++(1, 0) node[right]{\red $v_o$}
+    (q1.B) to[short, -o] ++(-.5, 0) node[above]{\red $v_b$} to[short, -*]  ++(-.5, 0) coordinate(v2) to[C, l_=$\infty$, -o] ++(-2.5, 0) to[R, l_=$R_{sig}{=}\SI{1}{\kohm}$] ++(-2.5, 0) ++(0, -2.5) node[ground]{} to[V=$v_{sig}$] ++(0, 2.5) 
+    (v2) to[R, l^=$\SI{10}{\kohm}$] ++(0, 2.5) coordinate(o1)
       ;
+    \draw[->, default] 
+    (0, 0) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+    \draw[->, default] 
+    (o1) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
       
-    \draw[default, ->] (p2) -- ++(0, 0.5) node[above]{$V_{DD}$};
   \end{circuitikz}
   \caption{}
-  \label{fig:5.46}
+  \label{fig:4.25}
 \end{figure}
 
 \Ans
@@ -389,13 +394,29 @@ Which is the desired result.
 
 % 109:138
 \section{4.109}
-In this problem we investigate an optimum design of the CS amplifier circuit of Figure~\ref{fig:5.43}. First. use the voltage gain expression $A_v = -g_m R_D$ together with Eq(5.57) for $g_m$ to show that
-\[ A_v = -\frac{2I_D R_D}{V_{OV}} = - \frac{2(V_{DD} - V_D)}{V_{OV}} \]
-Next, let the maximum positive input signal be $\hat{v_i}$. To keep the second-harmonic distortion to an acceptable level, we bias the MOSFET to operate at an overdrive voltage $V_{OV} \gg \hat{v_i}$. Let $V_{OV} = m\hat{v_i}$. Now, to maximize the voltage gain $\abs{A_v}$, we design for the lowest possible $V_D$. Show that the minimum $V_D$ that is consistent with allowing a negative signal voltage swing at the drain of $\abs{A_v}\hat{v_i}$ while maintaining saturation-mode operation is given by
+The circuit in Figure~\ref{fig:} provides a constant current $I_O$ as long as the circuit to which the collector is connected maintains the BJT in the active mode. Show that
 \[
-  V_D = \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i}/V_{OV})}{1 + 2(\hat{v_i}/V_{OV})} 
+  I_O = \alpha \frac{V_CC (R_2 / (R_1 + R_2)) - V_{BE}}{R_E + (R_1 \paral R_2) / (\beta + 1)} 
 \]
-Now, find $V_{OV}, V_D, A_v$, and $\hat{v_o}$ for the case $V_{DD} = \SI{3}{\V}, \hat{v_i} = \SI{20}{\mV}, \text{and } m = 10$. If it is desired to operate this transistor at $I_D = \SI{100}{\uA}$, find the values of $R_D$ and $W/L$, assuming that for this process technology $k'_n = \SI{100}{\uA\per\V\squared}$.
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[transform shape, >=triangle 45]
+    \draw[default] 
+    (0, 0) node[ground]{} to[R=$R_2$] ++(0, 3.25) coordinate(v1) to[R=$R_1$] ++(0, 2.5) coordinate(o1)
+    (v1) to[short, *-] ++(2, 0) node[npn, anchor=B] (q1) {}
+    (q1.E) to[R=$R_E$] ++(0, -2.5) node[ground]{}
+    (q1.C) to[short, i<_=$I_O$] ++(0, .5) coordinate(o2)
+      ;
+    \draw[dashed, default] 
+    (o2) -- ++(0, 1);
+    \draw[->, default] 
+    (o1) -- ++(0, .5) node[above]{$V_{CC}$};
+      
+  \end{circuitikz}
+\caption{}
+\label{fig:}
+\end{figure}
+
 
 \Ans\\
 \begin{align*}
@@ -428,7 +449,7 @@ If moreover, $I_D = \SI{100}{\uA}$,
 
 % 110:139
 \section{4.110}
-Figure~\ref{fig:5.56} shows a discrete-circuit amplifier. The input signal $v_{sig}$ is coupled to the gate through a very large capacitor (shown as infinite). The transistor source is conected to ground at signal frequencies via a very large capacitor (shown as infinite). The output voltage signal that develops at the drain is coupled to a load resistance via a very large capacitor(show as infinite).
+The current-source biasing circuit shown in Figure~\ref{fig:} provides a bias current to $Q_1$ that is determined by the current source formed by $Q_2, R_1, R_2, \text{ and } R_E$. The bias current is independent of $R_B$ and nearly independent of $\beta_1$ (as long as both $Q_1$ and $Q_2$ operate in the active mode). It is required to design the circuit using $\pm 5 \si{\V}$ dc supplies to establish $I_{C1} = \SI{0.1}{\mA}$ and $V_{CE1} = \SI{1.5}{\V}$, in the ideal situation of infinite $\beta_1$ and $\beta_2$. In designing the current source, use $\SI{2}{\V}$ dc voltage drop across $R_E$ and impose the requirement that $I_{E2}$ remain within $5\%$ of its ideal value of $\beta_2$ as low as $50$. In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 50$, $V_{CE2}$ is $\SI{2.5}{\V}$. Use standard $5 \%$ resistor values (see Appendix H). What values for $R_1, R_2, R_E, R_B, R_C$ do you choose? What values of $I_{C1} \text{ and } I_{CE1}$ result for $\beta_1 = \beta_2 = 50, 100, \text{ and } , 200$?
 
 \begin{enumerate}[(a)]
   \item If the transistor has $V_t = \SI{1}{\V}$, and $k_n = \SI{2}{\mA\per\V\squared}$, verify that the bias circuit establishes $V_{GS} = \SI{2}{\V}, I_D = \SI{1}{\mA}$, and $V_D = + \SI{7.5}{\V}$. That is, assume these values, and verify that they are consistent with the values of the circuit components and the device parameters.
