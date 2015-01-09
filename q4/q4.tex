@@ -372,6 +372,10 @@ In the circuit shown in Figure~\ref{fig:}, the transistor has a $\beta$ of 200. 
     (0, 0) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
     \draw[->, default] 
     (o1) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+    \draw[red, ->]
+    (-2, -7) node[below]{$R_{ib}$}  |-  ++(1, 3);
+    \draw[red, ->, rounded corner]
+    (-4, -7) node[below]{$R_{in}$} |- ++(1, 3);
       
   \end{circuitikz}
   \caption{}
@@ -449,33 +453,28 @@ If moreover, $I_D = \SI{100}{\uA}$,
 
 % 110:139
 \section{4.110}
-The current-source biasing circuit shown in Figure~\ref{fig:} provides a bias current to $Q_1$ that is determined by the current source formed by $Q_2, R_1, R_2, \text{ and } R_E$. The bias current is independent of $R_B$ and nearly independent of $\beta_1$ (as long as both $Q_1$ and $Q_2$ operate in the active mode). It is required to design the circuit using $\pm 5 \si{\V}$ dc supplies to establish $I_{C1} = \SI{0.1}{\mA}$ and $V_{CE1} = \SI{1.5}{\V}$, in the ideal situation of infinite $\beta_1$ and $\beta_2$. In designing the current source, use $\SI{2}{\V}$ dc voltage drop across $R_E$ and impose the requirement that $I_{E2}$ remain within $5\%$ of its ideal value of $\beta_2$ as low as $50$. In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 50$, $V_{CE2}$ is $\SI{2.5}{\V}$. Use standard $5 \%$ resistor values (see Appendix H). What values for $R_1, R_2, R_E, R_B, R_C$ do you choose? What values of $I_{C1} \text{ and } I_{CE1}$ result for $\beta_1 = \beta_2 = 50, 100, \text{ and } , 200$?
-
-\begin{enumerate}[(a)]
-  \item If the transistor has $V_t = \SI{1}{\V}$, and $k_n = \SI{2}{\mA\per\V\squared}$, verify that the bias circuit establishes $V_{GS} = \SI{2}{\V}, I_D = \SI{1}{\mA}$, and $V_D = + \SI{7.5}{\V}$. That is, assume these values, and verify that they are consistent with the values of the circuit components and the device parameters.
-  \item Find $g_m$ and $r_o$ if $V_A = \SI{100}{\V}$.
-  \item Draw a complete small-signal equivalent circuit for the amplifier, assuming all capacitors behave as short circuits at signal frequencies.
-  \item Find $R_{in}, v_{gs}/v_{sig}, v_o/v_{gs}, \text{and } v_o/v_{sig}$.
-\end{enumerate}
+The current-source biasing circuit shown in Figure~\ref{fig:} provides a bias current to $Q_1$ that is determined by the current source formed by $Q_2, R_1, R_2, \text{ and } R_E$. The bias current is independent of $R_B$ and nearly independent of $\beta_1$ (as long as both $Q_1$ and $Q_2$ operate in the active mode).
+It is required to design the circuit using $\pm 5 \si{\V}$ dc supplies to establish $I_{C1} = \SI{0.1}{\mA}$ and $V_{CE1} = \SI{1.5}{\V}$, in the ideal situation of infinite $\beta_1$ and $\beta_2$. In designing the current source, use $\SI{2}{\V}$ dc voltage drop across $R_E$ and impose the requirement that $I_{E2}$ remain within $5\%$ of its ideal value of $\beta_2$ as low as $50$. 
+In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 50$, $V_{CE2}$ is $\SI{2.5}{\V}$. Use standard $5 \%$ resistor values (see Appendix H). What values for $R_1, R_2, R_E, R_B, R_C$ do you choose? What values of $I_{C1} \text{ and } I_{CE1}$ result for $\beta_1 = \beta_2 = 50, 100, \text{ and } , 200$?
 
 \begin{figure}[H]
 \begin{center}
   \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
     \draw[default]
-    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=100<\kohm>, -o] ++(2, 0) to[C, l=$\infty$, -*] ++(2, 0) to[short, o-] ++(1, 0) 
-    coordinate(v1) to[R, l^=5<\mega\ohm>] ++(0, -3) node[ground]{}
-    (v1) to[R, l=10<\mega\ohm>] ++(0, 3) coordinate(v5)
-    (v1) to[short] ++(1, 0) node[nmos, anchor=G](q1){}
-    (q1.S) to[short] ++(0, -.5) coordinate(v2) to[R, l=3<\kohm>] ++(0, -1.75) node[ground]{}
-    (v2) to[C, l=$\infty$] ++(2, 0) node[ground]{}
-    (q1.D) coordinate(v3) to[R, l=7.5<\kohm>, *-] ++(0, 2) coordinate(v4)
-    (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=10<\kohm>] ++(0, -2) node[ground]{} 
-    (v6) to[short, -o] ++(.5, 0) node[right]{\color{red}$v_o$}
-    ($(v5)!0.5!(v4)$) node[]{$+\SI{15}{\V}$}
+    (0, 0) to[R=$R_E$] ++(0, 2.5) node[npn, anchor=E] (q2) {}
+    ($(q2.E) !.5! (q2.C)$) node[right] {$Q_2$}
+    (q2.B) to[short, -*] ++ (-1, 0) coordinate(v1) to[R=$R_1$, -*] ++(0, 2.5) 
+    coordinate(v2) to[R=$R_B$] ++(0, 2) to[short, *-] ++(1, 0) node[npn, anchor=B](q1){}
+    ($(q1.E) !.5! (q1.C)$) node[right] {$Q_2$}
+    (v1) to[R=$R_2$] ++(0, -2.5) coordinate(o1)
+    (v2) -- ++(-.5, 0) node[ground]{}
+    (q1.E) -- (q2.C)
+    (q1.C) to[R=$R_C$] ++(0, 2.5) coordinate(o2)
     ;
-    \draw[default, ->] (v5) -- ++(0, .5) ;
-    \draw[default, ->] (v4) -- ++(0, .75) ;
-    \draw[default, ->, red] (3.6, 0) node[below]{$R_{in}$} |- ++(1, 2.5);
+    \draw[default, ->] (0, 0) -- ++(0, -.5);
+    \draw[default, ->] (o1) -- ++(0, -1.25);
+    \draw[default, ->] (o2) -- ++(0, .5);
+    \node[below] at (-1, -.5) {$-V_{EE}$};
 
   \end{circuitikz}
 \end{center}
@@ -554,19 +553,51 @@ Another solution \\
 
 % 117:147
 \section{4.117}
-The bias circuit of Figure~\ref{fig:5.72} is used in a design with $V_G = \SI{5}{\V}$ and $R_S = \SI{1}{\kohm}$. For an enhancement MOSFET with $k'_n(W/L) = \SI{2}{\mA\per\V\squared}$, the source voltage was measured and found to be $\SI{2}{\V}$. What must $V_t$ be for this device? If a device for which $V_t$ is $\SI{0.5}{\V}$ less is used, what does $V_s$ become? What bias current result?
+The amplifier of Figure~\ref{fig:} consists of two identical common-emitter amplifiers connected in cascade. Observe that the input resistance of the second stage, $R_{in2}$, constitutes the load resistance of the first stage.
+
+\begin{enumerate}[(a)]
+  \item For $V_{CC} = \SI{15}{\V}, R_1 = \SI{100}{\kohm}, R_2 = \SI{47}{\kohm}, R_E = \SI{3.9}{\kohm}, R_C = \SI{6.8}{\kohm}, \text{ and } \beta = 100$, determine the dc collector current and dc collector voltage of each transistor.
+  \item Draw the small-signal equivalent circuit of the entire amplifier and give the values of all its components. Neglect $r_{o1} \text{ and } r_{o2}$.
+  \item Find $R_{in1}$ and $v_{b1}/v_{sig}$ for $R_{sig} = \SI{5}{\kohm}$.
+  \item Find $R_{in2}$ and $v_{b2}/v_{b1}$.
+  \item For $R_L = \SI{2}{\kohm}$, find $v_o / v_{b2}$.
+  \item Find the overall voltage gain $v_o / v_{sig}$.
+\end{enumerate}
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+  \begin{circuitikz}[>=triangle 45, scale=.8, transform shape]
     \draw[default]
-    (0, 0) node[ground]{} to[R] (0, 3) to[R] (0, 6) 
-    (3, 0) node[ground]{} to[R, l=$R_S$, -*] (3, 2.23) node[right]{$V_S$} node[nmos, anchor=S](q1){}
-    (0, 3) to[short, -*] (q1.G) node[above left]{$V_G$}
-    (q1.D) to[R] (3, 6)
-    (1.5, 7) node[]{$V_{DD}$}
+    (0, 0) node[ground]{} to[V=$v_{sig}$] ++(0, 3) to[R=$R_{sig}$] ++(2.5, 0) to[C=$\infty$, o-*] ++(2.5, 0) coordinate(v1) to[short] ++(.5, 0) node[npn, anchor=B](q1){}
+    (v1) to[R, l^=$R_1$] ++(0, 3) coordinate(o1)
+    (v1) to[R, l_=$R_2$] ++(0, -3) node[ground]{}
+    ($(q1.C) !.5! (q1.E)$) node[right]{$Q_1$}
+    (q1.E) to[R, l_=$R_E$, *-] ++(0, -2.25) node[ground]{}
+    (q1.E) -- ++(1, 0) to[C=$\infty$] ++(0, -2.25) node[ground]{}
+    (q1.C) to[R, l_=$R_C$] ++(0, 2.25) coordinate(o2)
+    (q1.C) to[C=$\infty$] ++(4, 0) to[short] ++(0, -.75) coordinate(v2) to[short, *-o] ++(0, -.5) node[below]{$v_{b2}$}
+    (v2) to[short, -*] ++(.5, 0) coordinate(v3) to[short] ++(.5, 0) node[npn, anchor=B](q2){}
+    ($(q2.C) !.5! (q2.E)$) node[right]{$Q_2$}
+    (v3) to[R=$R_1$] ++(0, 3) coordinate(o3)
+    (v3) to[R, l_=$R_2$] ++(0, -3) node[ground]{}
+    (q2.E) to[R, l_=$R_E$, *-] ++(0, -2.25) node[ground]{}
+    (q2.E) -- ++(1, 0) to[C=$\infty$] ++(0, -2.25) node[ground]{}
+    (q2.C) to[R, l_=$R_C$] ++(0, 2.25) coordinate(o4)
+    (q2.C) to[short] ++(1, 0) to[C=$\infty$] ++(3, 0) coordinate(v4) to[R=$R_L$] ++(0, -3.75) node[ground]{}
+    (v4) to[short, *-o] ++(.5, 0)
+    ($(o1) !.5! (o2)$) node[above]{$V_{CC}$} node[yshift=0.8cm] {Stage 1}
+    ($(o3) !.5! (o4)$) node[above]{$V_{CC}$} node[yshift=0.8cm] {Stage 2}
+    (.5, 6.8) node{Source}
+    (16, 6.8) node{Load}
     ;
-    \draw[default, ->] (0, 6) -- (0, 6.5);
-    \draw[default, ->] (3, 6) -- (3, 6.5);
+    \draw[default, ->] (o1) -- ++(0, .2);
+    \draw[default, ->] (o2) -- ++(0, .2);
+    \draw[default, ->] (o3) -- ++(0, .2);
+    \draw[default, ->] (o4) -- ++(0, .2);
+    \draw[dashed] (2.2, -.5) -- (2.2, 6.5);
+    \draw[dashed] (9, -.5) -- (9, 6.5);
+    \draw[dashed] (14.3, -.5) -- (14.3, 6.5);
+    \draw[red, ->] (1.8, -.5) node[below]{$R_{in1}$} |- ++(1, 2.7);
+    \draw[red, ->] (8.8, -.5) node[below]{$R_{in2}$} |- ++(1, 2.7);
   \end{circuitikz}
   \caption{}
   \label{fig:5.72}
@@ -588,39 +619,32 @@ If now $V'_t = V_t - \SI{0.5}{\V} = \SI{1.09}{\V}$, We have
 
 % 122:152
 \section{4.122}
-The NMOS transistor in the CS amplifier shown in Figure~\ref{fig:5.80} has $V_t = \SI{0.7}{\V}$ and $V_A = \SI{50}{\V}$.
+For the emitter-follower circuit shown in Figure~\ref{fig:}, the BJT used  is specified to have $\beta$ values in the range of $40 \text{ to } 200$ (a distressing situation for the circuit designer). For the two extreme values of $\beta$ ($\beta = 400$ and $\beta = 200$), find:
 
-\begin{enumerate}[(a)]
-  \item Neglecting the Early effect \footnote{Early effect is the same as channel-length modulation, recall that $V_A$ is called Early voltage. (J.M Early is the one to discover this effect)}
-    , verify that the MOSFET is operating in saturation with $I_D = \SI{0.5}{\mA}$  and $V_{OV} = \SI{0.3}{\V}$. What must the MOSFET's $k_n$ be? What is the dc voltage at the drain?
-  \item Find $R_{in}$ \footnote{It seems that the other problem $R_{in}$ is the resistance looking into from $v_G$ but not $v_{sig}$, so the safest way is to write both the answer}
-    and $G_v$.
-  \item If $v_{sig}$ is a sinusoid with a peak amplitude $\hat{v}_{sig}$, find the maximum allowable value of $\hat{v}_{sig}$ for which the transistor remains in saturation. What is the corresponding amplitude of the output voltage?
-  \item What is the value of resistance $R_s$ that needs to be inserted in series with capacitor $C_S$ in order to allow us to double the input signal $\hat{v}_{sig}$? What output voltage now results?
+\begin{enumerate}
+  \item $I_E, V_E, \text{ and } V_B$.
+  \item the input resistance $R_{in}$.
+  \item the voltage gain $v_o/v_{sig}$.
 \end{enumerate}
 
 \begin{figure}[H]
-\begin{center}
-  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+  \centering
+  \begin{circuitikz}[>=triangle 45, transform shape]
     \draw[default]
-    (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=120<\kohm>, -o] ++(2, 0) to[C, l=$C_{C1}$, -*] ++(3, 0) 
-    coordinate(v1) to[R, l=200<\kohm>] ++(0, -3) node[ground]{}
-    (v1) to[R, l=300<\kohm>] ++(0, 3) coordinate(v5)
-    (v1) to[short] ++(1, 0) node[nmos, anchor=G](q1){}
-    (q1.S) to[short] ++(0, -.5) coordinate(v2) to[R, l=2<\kohm>] ++(0, -1.75) node[ground]{}
-    (v2) to[C, l=$C_S$] ++(2, 0) node[ground]{}
-    (q1.D) coordinate(v3) to[R, l=5<\kohm>, *-] ++(0, 2) coordinate(v4)
-    (v3) to[C, l=$C_{C2}$, -*] ++(3, 0) coordinate(v6) to[R, l=5<\kohm>] ++(0, -2) node[ground]{} 
-    (v6) to[short, -o] ++(.5, 0) node[right]{$v_o$}
-    ($(v5)!0.5!(v4)$) node[]{$+\SI{5}{\V}$}
+    (0, 0) node[ground]{} to[V=$v_{sig}$] ++(0, 3) to[R=$\SI{10}{\kohm}$] ++(2.5, 0) to[C=$\infty$, o-*] ++(2.5, 0) coordinate(v1) to[short] ++(.5, 0) node[npn, anchor=B](q1){}
+    (v1) to[R, l^=$\SI{100}{\kohm}$] ++(0, 3) coordinate(o1)
+    (q1.E) to[R, l^=$\SI{1}{\kohm}$, *-] ++(0, -2.25) node[ground]{}
+    (q1.E) to[C=$\infty$] ++(2.5, 0) coordinate(v2) to[R=$\SI{1}{\kohm}$] ++(0, -2.25) node[ground]{}
+    (q1.C) -- ++(0, 2.25) coordinate(o2)
+    (v2) to[short, *-o] ++(.5, 0) node[right]{\red $v_o$}
+    ($(o1) !.5! (o2)$) node[above]{$+\SI{9}{\V}$}
     ;
-    \draw[default, ->] (v5) -- ++(0, .5) ;
-    \draw[default, ->] (v4) -- ++(0, .75) ;
-
+    \draw[default, ->] (o1) -- ++(0, .2);
+    \draw[default, ->] (o2) -- ++(0, .2);
+    \draw[red, ->] (2.2, -.5) node[below]{$R_{in}$} |- ++(1, 2.7);
   \end{circuitikz}
-\end{center}
-\caption{}
-\label{fig:5.80}
+  \caption{}
+  \label{fig:5.72}
 \end{figure}
 \begin{enumerate}[(a)]
   \item \Ans \\
