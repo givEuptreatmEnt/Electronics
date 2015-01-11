@@ -81,7 +81,7 @@ Measurements on the circuits of Figure~\ref{fig:4.20} produce labeled voltages a
 
 % 25:34
 \section{4.25}
-Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ and $V_C = \SI{0.5}{\V}$. The transistor exhibits $v_{BE}$ of $\SI{0.7}{V}$ at $I_C = \SI{1}{\mA} \text{, and } \beta = 30$.
+Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ and $V_C = \SI{0.5}{\V}$. The transistor exhibits $v_{BE}$ of $\SI{0.7}{V}$ at $i_C = \SI{1}{\mA} \text{, and } \beta = 30$.
 
 \begin{figure}[H]
   \centering
@@ -105,6 +105,12 @@ Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ a
 \end{figure}
 
 \Ans \\
+First we can calculate $V_{BE}$ at $I_C = \SI{0.1}{\mA}$:
+\[ V_{BE} = v_{BE} + \ln \left(\frac{I_C}{i_c}\right) \approx \SI{0.642}{\V}. \]
+$V_C = \SI{0.5}{\V}$ when $I_C = \SI{0.1}{\mA}$, so
+\[ I_C R_C = 1.5 - V_C \Rightarrow R_C = \SI{10}{\kohm}. \]
+And $I_E = \frac{\beta + 1}{\beta} I_C \approx \SI{0.103}{\mA}$, so
+\[ I_E R_E = 1.5 - V_{BE} \Rightarrow R_E \approx \SI{8.303}{\kohm}. \]
 
 % 45:61
 \section{4.45}
