@@ -22,7 +22,7 @@
 
 % 20:29
 \section{4.20}
-Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as indicated. Find the value of $\beta$ for each transistor. 
+Measurements on the circuits of Figure~\ref{fig:5.29} produce labeled voltages as indicated. Find the value of $\beta$ for each transistor. 
 
 \begin{figure}[H]
   \centering
@@ -30,7 +30,7 @@ Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as in
     \centering
     \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
       \draw[default] 
-      (0, 0) node[ground]{} to[R, l_=10<\kohm>] ++(0, 3) coordinate(v1) 
+      (0, 0) node[ground]{} to[R, l_=1<\kohm>] ++(0, 3) coordinate(v1) 
       node [pnp, anchor=C] (h1) {}
       (h1.B) -- ++ (-0.5, 0) coordinate(v2) to[R, *-, l_=200<\kohm>] ++(0, -3) node[ground]{}
       (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{4.3}{\V}$}
@@ -46,11 +46,11 @@ Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as in
     \centering
     \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
       \draw[default] 
-      (0, 0) node[ground]{} to[R, l_=230<\ohm>] ++(0, 3) coordinate(v1) 
+      (0, 0) node[ground]{} to[R, l_=230<\ohm>, i<^={\blue $I_1$}] ++(0, 3) coordinate(v1) 
       node [pnp, anchor=C] (h1) {}
       (h1.B) to[short, -*] ++ (-1.5, 0) coordinate(v2) -- ++(0, -.75) to[R, -*, l_=20<\kohm>] (v1)
       (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{4.3}{\V}$}
-      (v1) to[short, -o] ++(.5, 0) node[right]{$+\SI{2}{\V}$}
+      (v1) to[short, -o] ++(.5, 0) node[right]{$+\SI{2.3}{\V}$}
         ;
       \draw[->, default] (h1.E) -- ++(0, 2) node[above]{$+\SI{5}{\V}$};
         
@@ -62,7 +62,7 @@ Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as in
     \centering
     \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
       \draw[default] 
-      (0, 0) node[ground]{} to[R, l_=1<\kohm>] ++(0, 3) coordinate(v1) 
+      (0, 0) node[ground]{} to[R, l_=1<\kohm>, i<^={\blue $I_1$}] ++(0, 3) coordinate(v1) 
       node [pnp, anchor=C] (h1) {}
       (h1.B) to[short, -*] ++ (-1.5, 0) coordinate(v2) -- ++(0, -.75) to[R, -*, l_=100<\kohm>] (v1)
       (v2) to[short, -o] ++(-0.5, 0) node[left]{$+\SI{6.3}{\V}$}
@@ -79,6 +79,26 @@ Measurements on the circuits of Figure~\ref{fig:} produce labeled voltages as in
   \label{fig:5.29}
 \end{figure}
 
+\Ans \\
+Since $V_{EB} = \SI{0.7}{\V} > \SI{0.5}{\V}$ for all the circuits, so all the pnp are at active mode.
+\begin{enumerate}[(a)]
+  \item  \\
+    \[
+      \beta = \frac{I_C}{I_B} = \frac{ \SI{2}{\V} / \SI{1}{\kohm} }{\SI{4.3}{\V} / \SI{200}{\kohm}} \approx 93.0 
+    \]
+  \item \\
+    Notice that $I_E = I_1$ and $\beta = I_E / I_B - 1$.
+    \[
+      \beta = \frac{I_E}{I_B} - 1 = \frac{ \SI{2.3}{\V} / \SI{0.23}{\kohm} }{(\SI{4.3}{\V} - \SI{2.3}{\V}) / \SI{20}{\kohm}} - 1 = 99
+    \]
+  \item \\
+    Since $I_1 = I_E$, $(10 - 7) / 1 = (V_C - 0)/1 \; \Rightarrow \; V_C = 3$. Then,
+    \[
+      \beta = \frac{I_E}{I_B} - 1 = \frac{ \SI{3}{\V} / \SI{1}{\kohm} }{(\SI{6.3}{\V} - \SI{3}{\V}) / \SI{100}{\kohm}} - 1 = 89.9
+    \]
+
+
+\end{enumerate}
 
 
 % 25:34
@@ -108,29 +128,20 @@ Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ a
 \end{figure}
 
 \Ans \\
-\begin{center}
-  \begin{tabular}{|l|c|c|c|c|c|c|c|}
-    \hline
-    & \multicolumn{6}{c|}{Voltage \si\V} & \\ \cline{2-7}
-    Case & $V_S$ & $V_G$ & $V_D$ & $V_{GS}$ & $V_{OV}$ & $V_{DS}$ & Region of operation \\
-    \hline
-    a & $+1.0$ & $+1.0$ & $+2.0$ & $0$ & $0$ & $1.0$ & Cut-off \\
-    b & $+1.0$ & $+2.5$ & $+2.0$ & $1.5$ & $0.5$ & $1.0$ & Saturation \\
-    c & $+1.0$ & $+2.5$ & $+1.5$ & $1.5$ & $0.5$ & $0.5$ & Boundary of Sat./Tri. \\
-    d & $+1.0$ & $+1.5$ & $0$ & $0.5$ & $0$ & $-1.0$ & Cut-off \\
-    e & $0$ & $+2.5$ & $+1.0$ & $2.5$ & $1.5$ & $1$ & Triode \\
-    f & $+1.0$ & $+1.0$ & $+1.0$ & $0$ & $0$ & $0$ & Cut-off \\
-    g & $-1.0$ & $0$ & $0$ & $1.0$ & $0$ & $1.0$ & Boundary of Cut./Sat. \\
-    h & $-1.5$ & $0$ & $0$ & $1.5$ & $0.5$ & $1.5$ & Saturation \\
-    i & $-1.0$ & $0$ & $+1.0$ & $1.0$ & $0$ & $2.0$ & Boundary of Cut./Sat. \\
-    j & $+0.5$ & $+2.0$ & $+0.5$ & $1.5$ & $0.5$ & $0$ & Triode \\
-    \hline
-  \end{tabular}
-\end{center}
+Since $i = I_S \ex^{v/V_T}$, 
+\[
+  \ln \frac{I_C}{i_C} = \frac{V_{BE} - v_{BE}}{V_T} \quad \Rightarrow \quad V_{BE} \approx \SI{642}{\mV}
+\]
+
+\begin{align*}
+  R_E &= \frac{V_E - \SI{1.5}{\V}}{I_E} = \frac{-V_{BE} - \SI{1.5}\V}{(\beta+1)I_C/\beta} && \approx \SI{8.3}{\kohm} \\
+  R_C &= \frac{\SI{1.5}{\V} - V_C}{I_C} &&=  \SI{10}{\kohm}
+\end{align*}
+
 
 % 45:61
 \section{4.45}
-For the circuit in Figure~\ref{fig:}, find $V_B, V_E, \text{ and } V_C$ for $R_B = \SI{100}{\kohm}, \SI{10}{\kohm}, \text{ and } \SI{1}{\kohm}$. Let $\beta = 100$.
+For the circuit in Figure~\ref{fig:4.45}, find $V_B, V_E, \text{ and } V_C$ for $R_B = \SI{100}{\kohm}, \SI{10}{\kohm}, \text{ and } \SI{1}{\kohm}$. Let $\beta = 100$.
 
 \begin{figure}[H]
   \centering
@@ -152,14 +163,50 @@ For the circuit in Figure~\ref{fig:}, find $V_B, V_E, \text{ and } V_C$ for $R_B
       
   \end{circuitikz}
   \caption{}
-  \label{fig:4.25}
+  \label{fig:4.45}
 \end{figure}
 
 
 \Ans \\
-For (a), $V_1 = \SI{3}{\V}$. For (b), $V_2 = \SI{-2}{\V}$. For (c), $V_3 = \SI{3}{\V}$. For (d), $V_4 = \SI{2}{\V}$.  \\
-Notice that $V_{GD} = 0$ in each situation, so in order to remain saturation, $V_{GD} \geq V_t = \SI{1}{\V}$ in NMOS and $V_{GD} \leq \SI{-1}{\V}$ in PMOS, so $R_{\text{max}} = \abs{V_t} / I_D = \SI{0.5}{\kohm}$. \\
-Finally, notice that $\abs{V_{CC} - V_{S}} = \SI{10}{\V}$ in each configuration \footnote{the problem is designed quite user-friendly..}, so $\abs{V_{DS} + V_R} = \abs{V_{CC} - V_{S}} - 2 = \SI{8}{\V}$, and since $\abs{V_{DS}} = \SI{3}{\V}$, $V_R = \SI{5}{\V}$, $R = V_R / I_D = \SI{2.5}{\kohm}$.
+\begin{enumerate}[1.]
+  \item $R_B = \SI{100}{\kohm}$ \\
+    First we guess that the npn is at active mode. Then $V_{BE} = \SI{0.7}{\V}$. so
+    \[
+    \SI{5}{\V} - R_B \frac{1}{\beta+1} I_E - \SI{0.7}{\V} - (\SI{1}{\kohm}) I_E = 0 \quad \Rightarrow \quad I_E \approx \SI{2.16}{\mA} \]
+    \begin{align*}
+      V_E &= (\SI{1}\kohm) I_E && \approx \SI{2.16}{\V} \\
+      V_B &= V_E + \SI{0.7}\V && \approx \SI{2.86}\V \\
+      V_C &= \SI{5}\V - (\SI{1}\kohm) I_C = \SI{5}{\V} - (\SI{1}\kohm) \frac{\beta}{\beta+1} I_E && \approx \SI{2.86}\V
+    \end{align*}
+    Since $V_{BC} \approx \SI{0}{\V} < \SI{0.4}\V$, the assumption is correct.
+  \item $R_B = \SI{10}\kohm$
+    If we still assume the npn is at active mode, similarly, we would find
+    \[
+    \SI{5}{\V} - R_B \frac{1}{\beta+1} I_E - \SI{0.7}{\V} - (\SI{1}{\kohm}) I_E = 0 \quad \Rightarrow \quad I_E \approx \SI{3.91}{\mA} \]
+    But then 
+    \[ V_{BC} > V_{EC} = ( \SI{1}\kohm ) I_E - (\SI{5}\V - (\SI{1}\kohm) (\beta/(\beta+1)) I_E) \approx \SI{2.79}\V > \SI{0.4}{\V} \]
+    So we change our assumption that the npn is working at saturation, and $V_B = V_C + 0.5 = V_E + 0.7$. Do a nodal analysis at npn yield
+    \[ \frac{V_B - 5}{ R_B } + \frac{V_B - 0.5 - 5}{1} + \frac{V_B - 0.7}{1} = 0 \quad \Rightarrow \quad V_B \approx 3.19 \]
+    \begin{alignat*}{2}
+      V_C &= V_B - 0.5 && \quad \approx 2.69 \\
+      V_E &= V_B - 0.7 && \quad \approx 2.49 \\
+    \end{alignat*}
+    Finally we check that 
+    \[
+    \beta' = \frac{I_C}{I_B} = \frac{(5 - V_C) / 1}{(5 - V_B) / 10} \approx 12.76 < 100 \]
+    And hence the assumption is correct.
+  \item $R_B = \SI{1}\kohm$
+    By previous, We should assume the npn is at saturation mode.
+    \[ \frac{V_B - 5}{ R_B } + \frac{V_B - 0.5 - 5}{1} + \frac{V_B - 0.7}{1} = 0 \quad \Rightarrow \quad V_B \approx 3.73 \]
+    \begin{alignat*}{2}
+      V_C &= V_B - 0.5 && \quad \approx 3.23 \\
+      V_E &= V_B - 0.7 && \quad \approx 3.03 \\
+    \end{alignat*}
+    We check that 
+    \[
+    \beta' = \frac{I_C}{I_B} = \frac{(5 - V_C) / 1}{(5 - V_B) / 1} \approx 1.38 < 100 \]
+    And hence the assumption is correct.
+\end{enumerate}
 
 % 47:63
 \section{4.47}
@@ -182,7 +229,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
         
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29a}
+  \label{fig:4.47a}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
     \centering
@@ -198,7 +245,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
         
     \end{circuitikz}
     \caption{}
-    \label{fig:5.29b}
+    \label{fig:4.47b}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
     \centering
@@ -215,7 +262,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
       \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{$-\SI{5}{\V}$};
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29c}
+  \label{fig:4.47c}
   \end{subfigure}
   \begin{subfigure}{0.4\textwidth}
     \centering
@@ -232,7 +279,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
       \draw[->, default] (v4) -- ++(0, .5) node[above]{$+\SI{1.2}{\V}$};
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29c}
+  \label{fig:4.47d}
   \end{subfigure}
   \begin{subfigure}{0.4\textwidth}
     \centering
@@ -252,19 +299,24 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
       \draw[->, default] (v5) -- ++(0, -.5);
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29c}
+  \label{fig:4.47e}
   \end{subfigure}
   \caption{}
-  \label{fig:5.29}
+  \label{fig:4.47}
 \end{figure}
 
 \Ans \\
-Notice that every MOS is working on saturation region, since $v_D = v_G$,  hence $v_{DS} > v_{GS} - V_t$. Now for $Q_1, Q_3$, $V_{OV} = v_{GS} - V_t = \SI{0.5}{\V} $ and for $Q_2$, $V_{OV} = \SI{1}{\V} $.
-Hence by solving 
-\[
-  \frac{1}{2} \mu_n C_{ox} \frac{W}{L} V_{OV}^2 = I_D = \SI{120}{\uA} 
-\]
-We get $W_1 = W_3 = \SI{8}{\um} , W_2 = \SI{2}{\um} $
+
+\begin{enumerate}
+  \item \\
+    First we assume that it is at active mode.
+    \begin{alignat*}{2}
+      V_B &  = \SI{22}\kohm \frac{\SI{2}\mA}{\beta + 1} && \quad \approx \SI{-0.43}{\V} \\
+      V_1 &  = V_E = V_B - 0.7 &&\approx \SI{-1.13}\V \\
+      V_2 &  = V_C = \SI{5}\V - \SI{1.6}\kohm \frac{\beta}{\beta + 1} \SI{2}\mA &&\approx \SI{1.83}\V
+    \end{alignat*}
+\end{enumerate}
+
 
 % 51:68
 \section{4.51}
