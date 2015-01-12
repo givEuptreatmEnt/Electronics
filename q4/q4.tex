@@ -3,12 +3,10 @@
 
 %% Note that for label to be correct, compile more than 2 times is needed ... %%
 
-
 %%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
 \title{} %標題
 \author{} %作者
 \date{} %日期
-
 
 \begin{document}
 \tikzstyle{default}=[thick, color=black]
@@ -22,7 +20,7 @@
 
 % 20:29
 \section{4.20}
-Measurements on the circuits of Figure~\ref{fig:5.29} produce labeled voltages as indicated. Find the value of $\beta$ for each transistor. 
+Measurements on the circuits of Figure~\ref{fig:4.20} produce labeled voltages as indicated. Find the value of $\beta$ for each transistor. 
 
 \begin{figure}[H]
   \centering
@@ -40,7 +38,7 @@ Measurements on the circuits of Figure~\ref{fig:5.29} produce labeled voltages a
         
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29a}
+  \label{fig:4.20a}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
     \centering
@@ -56,7 +54,7 @@ Measurements on the circuits of Figure~\ref{fig:5.29} produce labeled voltages a
         
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29b}
+  \label{fig:4.20b}
   \end{subfigure}
   \begin{subfigure}{0.32\textwidth}
     \centering
@@ -73,38 +71,19 @@ Measurements on the circuits of Figure~\ref{fig:5.29} produce labeled voltages a
         
     \end{circuitikz}
   \caption{}
-  \label{fig:5.29c}
+  \label{fig:4.20c}
   \end{subfigure}
   \caption{}
-  \label{fig:5.29}
+  \label{fig:4.20}
 \end{figure}
 
 \Ans \\
 Since $V_{EB} = \SI{0.7}{\V} > \SI{0.5}{\V}$ for all the circuits, so all the pnp are at active mode.
 \begin{enumerate}[(a)]
-  \item  \\
-    \[
-      \beta = \frac{I_C}{I_B} = \frac{ \SI{2}{\V} / \SI{1}{\kohm} }{\SI{4.3}{\V} / \SI{200}{\kohm}} \approx 93.0 
-    \]
-  \item \\
-    Notice that $I_E = I_1$ and $\beta = I_E / I_B - 1$.
-    \[
-      \beta = \frac{I_E}{I_B} - 1 = \frac{ \SI{2.3}{\V} / \SI{0.23}{\kohm} }{(\SI{4.3}{\V} - \SI{2.3}{\V}) / \SI{20}{\kohm}} - 1 = 99
-    \]
-  \item \\
-    Since $I_1 = I_E$, $(10 - 7) / 1 = (V_C - 0)/1 \; \Rightarrow \; V_C = 3$. Then,
-    \[
-      \beta = \frac{I_E}{I_B} - 1 = \frac{ \SI{3}{\V} / \SI{1}{\kohm} }{(\SI{6.3}{\V} - \SI{3}{\V}) / \SI{100}{\kohm}} - 1 = 89.9
-    \]
-
-
-\end{enumerate}
-
 
 % 25:34
 \section{4.25}
 Design the circuit in Figure~\ref{fig:4.25} to establish $I_C = \SI{0.1}{\mA}$ and $V_C = \SI{0.5}{\V}$. The transistor exhibits $v_{BE}$ of $\SI{0.7}{V}$ at $i_C = \SI{1}{\mA} \text{, and } \beta = 30$.
-
 
 \begin{figure}[H]
   \centering
@@ -138,6 +117,14 @@ Since $i = I_S \ex^{v/V_T}$,
   R_C &= \frac{\SI{1.5}{\V} - V_C}{I_C} &&=  \SI{10}{\kohm}
 \end{align*}
 
+Another solution:  \\
+
+First we can calculate $V_{BE}$ at $I_C = \SI{0.1}{\mA}$:
+\[ V_{BE} = v_{BE} + \ln \left(\frac{I_C}{i_c}\right) \approx \SI{0.642}{\V}. \]
+$V_C = \SI{0.5}{\V}$ when $I_C = \SI{0.1}{\mA}$, so
+\[ I_C R_C = 1.5 - V_C \Rightarrow R_C = \SI{10}{\kohm}. \]
+And $I_E = \frac{\beta + 1}{\beta} I_C \approx \SI{0.103}{\mA}$, so
+\[ I_E R_E = 1.5 - V_{BE} \Rightarrow R_E \approx \SI{8.303}{\kohm}. \]
 
 % 45:61
 \section{4.45}
@@ -165,7 +152,6 @@ For the circuit in Figure~\ref{fig:4.45}, find $V_B, V_E, \text{ and } V_C$ for 
   \caption{}
   \label{fig:4.45}
 \end{figure}
-
 
 \Ans \\
 \begin{enumerate}[1.]
@@ -320,7 +306,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
 
 % 51:68
 \section{4.51}
-Using $\beta = \infty$, design the circuit shown in Figure~\ref{fig:} so that the bias currents in $Q_1, Q_2, \text{ and } Q_3$ are $\SI{2}{\mA}, \SI{2}{\mA}, \text{ and } \SI{4}{\mA}$, respectively, and $V_3 = 0, V_5 = \SI{-4}{\V}, \text{ and } V_7 = \SI{2}{\V}$. For each resistor, select the nearest standard value utilizing the table of standard values for $5\%$ resistors in Appendix G. Now, for $\beta = 100$, find the values of $V_3, V_4, V_5, V_6, \text{ and } V_7$.
+Using $\beta = \infty$, design the circuit shown in Figure~\ref{fig:4.51} so that the bias currents in $Q_1, Q_2, \text{ and } Q_3$ are $\SI{2}{\mA}, \SI{2}{\mA}, \text{ and } \SI{4}{\mA}$, respectively, and $V_3 = 0, V_5 = \SI{-4}{\V}, \text{ and } V_7 = \SI{2}{\V}$. For each resistor, select the nearest standard value utilizing the table of standard values for $5\%$ resistors in Appendix G. Now, for $\beta = 100$, find the values of $V_3, V_4, V_5, V_6, \text{ and } V_7$.
 \begin{figure}[H]
   \centering
   \begin{circuitikz}[>=triangle 45]
@@ -350,23 +336,14 @@ Using $\beta = \infty$, design the circuit shown in Figure~\ref{fig:} so that th
     
   \end{circuitikz}
   \caption{}
-  \label{fig:5.41}
+  \label{fig:4.51}
 \end{figure}
 
-
 \Ans \\
-Notice that if we connect the blue dashed line in the figure, the circuit is now symmetric. Moreover, all the MOS are working in saturation region.
-Now $Q_1, Q_2, Q_3, Q_4$ has the same $k_n$, and the current go through $Q_4, Q_2$ is equal to the current that go through $Q_3, Q_1$. So by symmetry, $V_2 = V_1 =  \SI{5}{V} / 2 = \SI{2.5}{\V}$. Notice that there is no currenct go through the blue dashed line, so if we remove the line, the voltage remains unchanged. Hence we know that in the origin circuit, $V_2 = \SI{2.5}{\V}$.
-\begin{align*}
-  k_n &= \mu_n C_{ox} (W / L) = \SI{0.5}{\mA} \\
-  V_2 &= v_{GS} = \SI{2.5}{\V} \\
-  I_2 &= \frac{1}{2} k_n (v_{GS} - V_t) ^2 = \SI{562.5}{\uA}
-\end{align*}
-Simmilarly, if now $W_{3,4} = \SI{100}{\um}$, $k_n$ is $10$ times greater than before, so $I_2 = \SI{5.625}{\mA}$.
 
 % 75:95  7.5\kohm <- 8.2\kohm
 \section{4.75}
-The transistor amplifier in Figure~\ref{fig:} is biased with a current source $I$ and has a very high $\beta$. find the dc voltage at the collector, $V_C$. Also, find the value of $g_m$. Replace the transistor with the simplified hybrid-$\pi$ model of Figure~\ref{fig:} (note that the dc current source $I$ should be replaced with an open circuit). Hence find the voltage gain $v_c/v_i$. 
+The transistor amplifier in Figure~\ref{fig:4.75} is biased with a current source $I$ and has a very high $\beta$. find the dc voltage at the collector, $V_C$. Also, find the value of $g_m$. Replace the transistor with the simplified hybrid-$\pi$ model of Figure~\ref{fig:4.75} (note that the dc current source $I$ should be replaced with an open circuit). Hence find the voltage gain $v_c/v_i$. 
 
 \begin{figure}[H]
   \centering
@@ -386,29 +363,14 @@ The transistor amplifier in Figure~\ref{fig:} is biased with a current source $I
       
   \end{circuitikz}
   \caption{}
-  \label{fig:4.25}
+  \label{fig:4.75}
 \end{figure}
 
-
-\begin{enumerate}[(a)]
-  \item \Ans \\
-    At point $A$, $V_{GS} = V_t = \SI{1}{\V}$, $V_{DS} = V_{DD} = \SI{5}{\V}$. At point $B$, 
-    \[ V_{OV} = V_{DD} - R_D \frac{1}{2} k_n V_{OV}^2 \quad \Rightarrow
-    \quad V_{OV} \approx \SI{0.605}{\V} \]
-    So $V_{GS} \approx \SI{1.605}{\V}, V_{DS} = V_{GS} - V_t \approx \SI{0.605}{\V}$.
-  \item \Ans \\
-    If $V_{OV} = \SI{0.5}{\V}$, $I_D = \frac{1}{2} k_n V_{OV}^2 = \SI{0.125}{\mA}$.$V_{GS} = V_t + V_{OV} = \SI{1.5}{\V}, \; V_{DS} = V_{CC} - R_D I_D = \SI{2}{\V}$.
-    \[
-    A_{v} = -\frac{2 I_D R_D}{V_{OV}} = -\frac{2 (\SI{3}{\V}) }{\SI{0.5}{\V}} =  -\SI{12}{\V\per\V} \]
-  \item \Ans \\
-    By (a), $V_{GS,A} = \SI{1}{\V}, V_{GS, B} \approx \SI{1.605}{\V}$, so the maximum amplitute $\hat{V}_i = \abs{V_{GS, B} - V_{GS, Q}} \approx \SI{0.105}{\V}$.
-    The amplitute of output is $\hat{V}_o \abs{V_{DS, Q} - V_{DS, B}} \approx \SI{1.395}{\V}$. The Gain $G = \hat{V}_o / \hat{V}_i \approx 13.28$. The error $\epsilon = (13.28 - 12)/13.28  \approx 9.6\%$. \\
-    The different appears because the curve is quadratic but not linear.
-\end{enumerate}
+\Ans \\
 
 % 80:101
 \section{4.80}
-In the circuit shown in Figure~\ref{fig:}, the transistor has a $\beta$ of 200. What is the dc voltage at the collector? Find the input resistances $R_{ib}$ and $R_{in}$ and the overall voltage gain $(v_o/v_sig)$. For an output signal of $\pm \SI{0.4}{\V}$, what values of $v_{sig}$ and $v_b$ are required?
+In the circuit shown in Figure~\ref{fig:4.80}, the transistor has a $\beta$ of 200. What is the dc voltage at the collector? Find the input resistances $R_{ib}$ and $R_{in}$ and the overall voltage gain $(v_o/v_sig)$. For an output signal of $\pm \SI{0.4}{\V}$, what values of $v_{sig}$ and $v_b$ are required?
 
 \begin{figure}[H]
   \centering
@@ -424,33 +386,21 @@ In the circuit shown in Figure~\ref{fig:}, the transistor has a $\beta$ of 200. 
     (0, 0) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
     \draw[->, default] 
     (o1) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
-    \draw[red, ->]
+    \draw[red, ->, rounded corners]
     (-2, -7) node[below]{$R_{ib}$}  |-  ++(1, 3);
-    \draw[red, ->, rounded corner]
+    \draw[red, ->, rounded corners]
     (-4, -7) node[below]{$R_{in}$} |- ++(1, 3);
       
   \end{circuitikz}
   \caption{}
-  \label{fig:4.25}
+  \label{fig:4.80}
 \end{figure}
 
-\Ans
-Since both the MOS is operating in saturation, we have
-\begin{align*}
-  i_{D1} &= \frac{1}{2} k'_n \frac{W_1}{L_1} (v_I - V_t)^2 \\
-  i_{D2} &= \frac{1}{2} k'_n \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 
-\end{align*}
-
-By $i_{D1} = i_{D2}$ we obtain
-\begin{gather*}
-  \frac{W_1}{L_1} (v_I - V_t)^2 = \frac{W_2}{L_2} (V_{DD} - v_O - V_t)^2 \\
-  \Rightarrow v_O = V_{DD} - V_t + \sqrt{ \frac{W_1/L_1}{W_2/L_2} } (V_t - v_I) 
-\end{gather*}
-Which is the desired result.
+\Ans \\
 
 % 109:138
 \section{4.109}
-The circuit in Figure~\ref{fig:} provides a constant current $I_O$ as long as the circuit to which the collector is connected maintains the BJT in the active mode. Show that
+The circuit in Figure~\ref{fig:4.109} provides a constant current $I_O$ as long as the circuit to which the collector is connected maintains the BJT in the active mode. Show that
 \[
   I_O = \alpha \frac{V_CC (R_2 / (R_1 + R_2)) - V_{BE}}{R_E + (R_1 \paral R_2) / (\beta + 1)} 
 \]
@@ -470,42 +420,14 @@ The circuit in Figure~\ref{fig:} provides a constant current $I_O$ as long as th
       
   \end{circuitikz}
 \caption{}
-\label{fig:}
+\label{fig:4.109}
 \end{figure}
 
-
 \Ans\\
-\begin{align*}
-  g_m &= \frac{2I_D}{V_{OV}}\\
-  A_v &= -g_m R_D = -\frac{2 I_D R_D}{V_{OV}}  = -\frac{2 (V_{DD} - V_D)}{V_{OV}} 
-\end{align*}
-Let $v_g = V_G + v_i$ be the total gate voltage, $v_d = V_D + A_v v_i$ be the total drain voltage, the saturation condition required that $v_d \geq v_g - V_t$. so
-\begin{align*}
-  & v_d \geq v_g - V_t \\
-  \Rightarrow & V_D + A_v v_i \geq V_G + v_i - V_t  \\
-  \Rightarrow & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} v_i \geq V_G + v_i - V_t \\
-  \Rightarrow  & V_D - \frac{2 (V_{DD} - V_D)}{V_{OV}} \hat{v_i} \geq V_G + \hat{v_i} - V_t \quad \footnotemark \\
-  \Rightarrow & \left(1 + \frac{2\hat{v_i}}{V_{OV}}\right) V_D \geq V_G + \hat{v_i} + \frac{2V_{DD}}{V_{OV}} \hat{v_i}  - V_t  \\
-  \Rightarrow & V_D \geq \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} 
-\end{align*}
-\footnotetext{Since $A_v, v_i$ and $v_i$ are in opposite sign, so in the worse case, we shall consider $-A_v \hat{v_i}$ and $\hat{v_i}$}
-Which is the desired result.
-Plug in the value and let $V_D$ be the maximum possible value we found out that
-\begin{alignat*}{3}
-  & V_{OV} &&= m \hat{v_i} && = \SI{200}{\mV} \\
-  & V_{D} &&= \frac{V_{OV} + \hat{v_i} + 2 V_{DD} (\hat{v_i} / V_{OV}) }{1 + 2(\hat{v_i}/V_{OV})} && \approx \SI{683}{\mV} \\
-  & A_v &&= -\frac{2(V_{DD} - V_D)}{V_{OV}}  && \approx -23.2 \\
-  & \hat{v_o} &&= \abs{A_v} \hat{v_i} && \approx \SI{464}\mV \\
-\end{alignat*}
-If moreover, $I_D = \SI{100}{\uA}$,
-\begin{alignat*}{3}
-  & R_D &&= \frac{V_{DD} - V_D}{I_D}  && \approx \SI{23.17}{\kohm} \\
-  & \frac{W}{L} &&= I_D / \left(\frac{1}{2} k'_n V_{OV}^2 \right) && = 50
-\end{alignat*}
 
 % 110:139
 \section{4.110}
-The current-source biasing circuit shown in Figure~\ref{fig:} provides a bias current to $Q_1$ that is determined by the current source formed by $Q_2, R_1, R_2, \text{ and } R_E$. The bias current is independent of $R_B$ and nearly independent of $\beta_1$ (as long as both $Q_1$ and $Q_2$ operate in the active mode).
+The current-source biasing circuit shown in Figure~\ref{fig:110} provides a bias current to $Q_1$ that is determined by the current source formed by $Q_2, R_1, R_2, \text{ and } R_E$. The bias current is independent of $R_B$ and nearly independent of $\beta_1$ (as long as both $Q_1$ and $Q_2$ operate in the active mode).
 It is required to design the circuit using $\pm 5 \si{\V}$ dc supplies to establish $I_{C1} = \SI{0.1}{\mA}$ and $V_{CE1} = \SI{1.5}{\V}$, in the ideal situation of infinite $\beta_1$ and $\beta_2$. In designing the current source, use $\SI{2}{\V}$ dc voltage drop across $R_E$ and impose the requirement that $I_{E2}$ remain within $5\%$ of its ideal value of $\beta_2$ as low as $50$. 
 In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 50$, $V_{CE2}$ is $\SI{2.5}{\V}$. Use standard $5 \%$ resistor values (see Appendix H). What values for $R_1, R_2, R_E, R_B, R_C$ do you choose? What values of $I_{C1} \text{ and } I_{CE1}$ result for $\beta_1 = \beta_2 = 50, 100, \text{ and } , 200$?
 
@@ -531,81 +453,14 @@ In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 5
   \end{circuitikz}
 \end{center}
 \caption{}
-\label{fig:5.56}
+\label{fig:110}
 \end{figure}
 
-\begin{enumerate}[(a)]
-  \item \Ans \\
-    Simply check that 
-    \begin{alignat*}{3}
-      V_G &= \frac{5}{10+5} \cdot \SI{15}{\V} &&= \SI{5}{\V} \\
-      V_S &= (\SI{3}{\kohm}) I_D &&= \SI{3}{\V} \\
-      V_{GS} &= V_{G} - V_{S} &&= \SI{2}{\V} \quad \text{(check)}\\
-      V_D &= 15 - \SI{7.5}{\kohm} \cdot I_D &&= \SI{7.5}{\V} \\
-      V_D & \geq V_G - V_t, V_G \geq V_S + V_t && \quad\text{(check in saturation)} \\
-      k_n &= \frac{2 I_D}{(V_{GS} - V_t)^2} &&= \SI{2}{\mA\per\V\squared}
-      \quad \text{(check)}
-    \end{alignat*}
-  \item \Ans \\
-    \begin{alignat*}{3}
-      g_m &= \frac{2 I_D}{V_{OV}} = \frac{2 I_D}{V_{GS} - V_t} && = \SI{2}{\mA\per\V} \\
-      r_o &= \frac{V_A}{I_D} &&= \SI{100}{\kohm}
-    \end{alignat*}
-  \item 
-    \begin{figure}[H]
-    \begin{center}
-      \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
-        \draw[default]
-        (0, 0) node[ground]{} to[V, l=$v_{sig}$] ++(0, 3) to[R, l=100<\kohm>, -o]  ++(3, 0) coordinate(v1) to[R, l_=5<\mega\ohm>] ++(0, -3) node[ground]{}
-        (v1) to[short] ++(1, 0) coordinate(v2) to[R, l=10<\mega\ohm>]  ++(0, -3) node[ground]{}
-        (v2) to[short] ++(2.5, 0) coordinate(v3) to [R, l=$1/g_m$, i=$I$] ++(0, -3) node[ground]{} 
-        (v3)  ++(0, 3) coordinate(uu) to[short] ++(1, 0) coordinate(v4) to[R, l=$r_o$] ++(0, -3) node[ground]{} 
-        (v4) to[short] ++(1.5, 0) coordinate(v5) to[R, l=5<\kohm>] ++(0, -3) node[ground]{}
-        (v5) to[short] ++(2, 0) to[R, l=7.5<\kohm>] ++(0, -3) node[ground]{}
-        (uu) to[cI, l_=$I$] (v3)
-        ;
-
-      \end{circuitikz}
-    \end{center}
-    \caption{}
-    \label{fig:}
-    \end{figure}
-  \item \Ans \\
-    \begin{alignat*}{3}
-      R_{in} &= (\SI{10}{\mega\ohm}) \paral (\SI{5}{\mega\ohm}) &&\approx \SI{3.33}{\mega\ohm} \\
-      \frac{v_{gs}}{v_{sig}}  &= \frac{R_{in}}{R_{in} + (\SI{3.33}{\mega\ohm})} && \approx 0.97 \\
-      \frac{v_{o}}{v_{gs}}  &= g_m (\SI{7.5}{\kohm} \paral \SI{10}{\kohm} \paral r_o) && \approx 8.22 \\
-      \frac{v_{o}}{v_{sig}} &= \frac{v_{gs}}{v_{sig}} \frac{v_{o}}{v_{gs}} \approx 7.97
-    \end{alignat*}
-
-\end{enumerate}
-
-Another solution \\
-\begin{enumerate}[(a)]
-  \item \Ans \\$I_D = \SI{1}{\mA} \Rightarrow V_S = \SI{3}{\V}$, and $V_G = \SI{15}{\V}
-    \cdot 5/(5+10) = \SI{5}{\V}$. So $V_{GS} = V_G - V_S = \SI{2}{\V}$ and
-    $V_D = \SI{15}{\V} - \SI{7.5}{\kohm} \cdot \SI{1}{\mA} = \SI{7.5}{\V}$
-    which is the desired result.
-  \item \Ans \\
-    $V_{OV} = V_{GS} - V_t = \SI{1}{\V}$, so $g_m = k_n V_{OV} = \SI{2}{\mA/\V}$.
-    $r_o = V_A / I_D = \SI{100}{\kohm}$.
-  \item \Ans \\
-    For small-signal we can remove all large capacitor, change the two upper
-    terminals to ground, and use T model to substitute the transistor.
-    (Don't forget $r_o$).
-  \item \Ans \\
-    Since there is no current flowing into the gate of transistor, 
-    $R_{in} = \SI{10}{\mega\ohm} \parallel \SI{5}{\mega\ohm} = \SI{3.33}{\mega\ohm}$.
-    And for small signal, $v_d = 0$, so $v_{gs} = v_g = v_{sig} \cdot
-    R_{in} / (R_{in} + \SI{100}{\kohm}) \Rightarrow v_{gs}/v_{sig} = 0.97$.
-    Notice that $r_o$ connect drain to ground, so we have $v_o/v_{gs} =
-    -g_m (r_o \parallel \SI{7.5}{\kohm} \parallel \SI{10}{\kohm}) = 8.22$.
-    $v_o / v_{sig} = 8.22 \cdot 0.97 = 7.97$.
-\end{enumerate}
+\Ans \\
 
 % 117:147
 \section{4.117}
-The amplifier of Figure~\ref{fig:} consists of two identical common-emitter amplifiers connected in cascade. Observe that the input resistance of the second stage, $R_{in2}$, constitutes the load resistance of the first stage.
+The amplifier of Figure~\ref{fig:4.117} consists of two identical common-emitter amplifiers connected in cascade. Observe that the input resistance of the second stage, $R_{in2}$, constitutes the load resistance of the first stage.
 
 \begin{enumerate}[(a)]
   \item For $V_{CC} = \SI{15}{\V}, R_1 = \SI{100}{\kohm}, R_2 = \SI{47}{\kohm}, R_E = \SI{3.9}{\kohm}, R_C = \SI{6.8}{\kohm}, \text{ and } \beta = 100$, determine the dc collector current and dc collector voltage of each transistor.
@@ -652,26 +507,17 @@ The amplifier of Figure~\ref{fig:} consists of two identical common-emitter ampl
     \draw[red, ->] (8.8, -.5) node[below]{$R_{in2}$} |- ++(1, 2.7);
   \end{circuitikz}
   \caption{}
-  \label{fig:5.72}
+  \label{fig:4.117}
 \end{figure}
-\Ans \\
-Since $I_D = V_S / R_S = \SI{2}{\V} / \SI{1}{\kohm} = \SI{2}{\mA}$, so
-\begin{align*}
-  & \frac{1}{2} k'_n(W/L) (V_G - V_S - V_t)^2 = I_D \\
-  \Rightarrow & (\SI{3} - V_t)^2 = \SI{2}{} \\
-  \Rightarrow & V_t \approx \SI{1.59}{\V} 
-\end{align*} 
-If now $V'_t = V_t - \SI{0.5}{\V} = \SI{1.09}{\V}$, We have
-\begin{align*}
-  & \frac{1}{2} (\SI{2}{\mA\per\V}) ((\SI{5}{\V}) - V_S - (\SI{1.09}{\V}))^2 = V_S / \SI{1}{\kohm}  \\
-  \Rightarrow & V_S \approx \SI{2.37}{\V} \quad \text{ \footnotemark}\\
-  \Rightarrow & I_S = V_S / R_S \approx \SI{2.37}{\mA}
-\end{align*}
-\footnotetext{There are two solutions, but the other one would let $V_S > V_G$.} 
+
+\Ans
+\begin{enumerate}[(a)]
+  \item 
+\end{enumerate}
 
 % 122:152
 \section{4.122}
-For the emitter-follower circuit shown in Figure~\ref{fig:}, the BJT used  is specified to have $\beta$ values in the range of $40 \text{ to } 200$ (a distressing situation for the circuit designer). For the two extreme values of $\beta$ ($\beta = 400$ and $\beta = 200$), find:
+For the emitter-follower circuit shown in Figure~\ref{fig:4.122}, the BJT used  is specified to have $\beta$ values in the range of $40 \text{ to } 200$ (a distressing situation for the circuit designer). For the two extreme values of $\beta$ ($\beta = 400$ and $\beta = 200$), find:
 
 \begin{enumerate}
   \item $I_E, V_E, \text{ and } V_B$.
@@ -693,62 +539,15 @@ For the emitter-follower circuit shown in Figure~\ref{fig:}, the BJT used  is sp
     ;
     \draw[default, ->] (o1) -- ++(0, .2);
     \draw[default, ->] (o2) -- ++(0, .2);
-    \draw[red, ->] (2.2, -.5) node[below]{$R_{in}$} |- ++(1, 2.7);
+    \draw[red, ->, rounded corners] (2.2, -.5) node[below]{$R_{in}$} |- ++(1, 2.7);
   \end{circuitikz}
   \caption{}
-  \label{fig:5.72}
+  \label{fig:4.122}
 \end{figure}
-\begin{enumerate}[(a)]
-  \item \Ans \\
-    \begin{alignat*}{3}
-      V_G &= \frac{200}{300+200} (\SI{5}{\V}) &&= \SI{2}{\V} \\
-      V_S &= (\SI{2}{\kohm}) (\SI{0.5}{\mA}) &&= \SI{1}{\V} \\
-      V_D &= \SI{5}{\V} - (\SI{5}{\kohm}) (\SI{0.5}{\mA}) &&= \SI{2.5}{\V} \\
-    \end{alignat*}
-    Since $V_D \geq V_G - V_t, \; V_G \geq V_S + V_t$, the nmos is indeed operate in saturation region.
-    \[
-      k_n = \frac{2 I_D}{V_{OV}^2} = \SI{11.11}{\mA\per\V\squared}
-    \]
-  \item \Ans \\
-    Calculate $r_o = V_A / I_D = \SI{100}{\kohm}$.
-    \[
-      R_{in} = \SI{300}{\kohm} \paral \SI{200}{\kohm} = \SI{120}{\kohm} \]
-    And
-    \begin{align*}
-      g_m &= \frac{2 I_D}{V_{OV}} = \SI{3.33}{\mA\per\V} \\
-      v_{i} &= \frac{R_{in}}{\SI{120}{\kohm} + R_{in}} v_{sig} = \frac{1}{2} v_{sig}  \\
-      G_v &= v_o / v_{sig} = \frac{1}{2} v_o / v_i = -\frac{1}{2} g_m (\SI{5}{\kohm} \paral \SI{5}{\kohm} \paral r_o) \approx \SI{-4.05}{\V\per\V} \\
-    \end{align*}
+
+\Ans
+\begin{enumerate}
   \item 
-    Remains in saturation requires $v_d + V_D \geq v_g + V_G - V_{t}$. Notice that \\ $v_d = v_o = G_v v_{sig}, \; v_g = \frac{1}{2} v_{sig}$, so
-    \[
-      -4.05 \hat{v}_{sig} + \SI{2.5}{\V} = \frac{1}{2} \hat{v}_{sig} + \SI{2}{\V} - \SI{0.7}{\V} \quad \Rightarrow \quad 
-      \hat{v}_{sig} \approx \SI{263}{\mV} \numeq \label{eq:80-1}
-    \]
-    \[
-      \hat{v}_{o} = \hat{v}_{sig} G_v \approx \SI{1.07}{\V}
-    \]
-  \item 
-    By modifing Equation \eqref{eq:80-1} (let $-4.05 \rightarrow G'_v$)
-    We have
-    \[
-     \SI{1.2}{\V} = -G'_v \cdot 2\hat{v}_{sig} + \frac{1}{2} \cdot 2\hat{v}_{sig} \quad \Rightarrow \quad G'_v \approx -1.78
-    \]
-    if we let $R = R_S \paral \SI{2}{\kohm}$, $R_D = \SI{5}{\kohm} \paral \SI{5}{\kohm}$
-    , By using T model we obtain \footnote{a little complicate calculation}
-    \[
-      2G'_v = -g_m R_D/ (1 + g_mR + (R+R_D)/r_o) \quad \Rightarrow \quad
-      R = \SI{393}{\ohm}
-    \]
-    finally,
-    \[
-      \frac{\SI{2}{\kohm} \cdot R_S}{\SI{2}{\kohm} + R_S } = \SI{393}{\ohm}
-      \quad \Rightarrow \quad R_S \approx \SI{489}{\ohm}
-    \]
-    \[
-      \hat{v}_o = \abs{G'_v} 2\hat{v}_{sig} \approx  \SI{936}{\mV}
-    \]
-    
 \end{enumerate}
 
-
+\end{document}
