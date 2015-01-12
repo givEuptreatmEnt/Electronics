@@ -285,12 +285,12 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
     \centering
     \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
       \draw[default] 
-      (0, 3) node[npn, anchor=E] (h1) {} to[R, l^=5.1<\kohm>] (0, 0) 
+      (0, 3) node[pnp, anchor=C] (h1) {} to[R, l^=5.1<\kohm>] (0, 0) 
       (h1.B) -- ++ (-1.5, 0) coordinate(v2) to[R, *-, l^=91<\kohm>] ++(0, 3.25) coordinate(v4)
       (v2) to[R, l_=150<\kohm>] ++(0, -3.75) coordinate(v5)
-      (h1.C) to[R, l_=3.3<\kohm>] ++(0, 2.5) coordinate(v3)
-      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_{12}$}
-      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_{11}$}
+      (h1.E) to[R, l_=3.3<\kohm>] ++(0, 2.5) coordinate(v3)
+      (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_{12}$}
+      (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_{11}$}
       (v2) to[short, -o] ++(-.5, 0) node[left]{\red $V_{10}$}
         ;
       \draw[->, default] (v3) -- ++(0, .5) node[above, xshift=-1cm]{$+\SI{5}{\V}$};
@@ -311,11 +311,76 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
   \item \\
     First we assume that it is at active mode.
     \begin{alignat*}{2}
-      V_B &  = \SI{22}\kohm \frac{\SI{2}\mA}{\beta + 1} && \quad \approx \SI{-0.43}{\V} \\
+      V_B &  = \SI{22}\kohm \frac{\SI{2}\mA}{\beta + 1} && \approx \SI{-0.43}{\V} \\
       V_1 &  = V_E = V_B - 0.7 &&\approx \SI{-1.13}\V \\
-      V_2 &  = V_C = \SI{5}\V - \SI{1.6}\kohm \frac{\beta}{\beta + 1} \SI{2}\mA &&\approx \SI{1.83}\V
+      V_2 &  = V_C = \SI{5}\V - (\SI{1.6}\kohm) \frac{\beta}{\beta + 1} (\SI{2}\mA) &&\approx \SI{1.83}\V
     \end{alignat*}
+    We check that $V_{BC} < \SI{0.4}\V$.
+  \item \\
+    First we assume that it is at active mode.
+    \begin{alignat*}{2}
+      V_E & = 0 - \SI{0.7}\V &&= \SI{-0.7}\V \\
+      I_4 & = \frac{ \SI{-0.7}{\V} - (\SI{-5}\V) }{ \SI{2.2}\kohm } 
+      && \approx \SI{1.95}\mA \\
+      V_3 & = \SI{5}\V - \frac{\beta}{\beta + 1} (\SI{1.6}\kohm) I_4 
+      && \approx \SI{1.90}\V 
+    \end{alignat*}
+    since $V_{BC} = -V_C < \SI{0.4}\V$, The assumption is correct.
+  \item \\
+    We assume that it is at active mode.
+    \[
+      0 - (\SI{22}{\kohm}) \frac{I_E}{\beta + 1} - 0.7 - (\SI{2.2}\kohm) I_E = \SI{-5}{\V} \quad \Rightarrow \quad I_E \approx \SI{1.778}\mA
+    \]
+    \begin{alignat*}{2}
+      V_5 & = V_E = -\SI{5}\V + (\SI{2.2}\kohm) I_E && \approx \SI{-1.09}\V\\
+      V_6 & = V_B = V_E + \SI{0.7}\V && \approx \SI{0.39}\V \\
+      V_7 & = \SI{5}\V - (\SI{1.6}\kohm) \frac{\beta}{\beta + 1} I_E && \approx \SI{2.18}\V
+    \end{alignat*}
+    since $V_{BC} = V_6 - V_7 < \SI{0.4}\V$, The assumption is correct.
+
+  \item Notice that it is a pnp. We assume that it is at active mode.
+    \[
+      \SI{1.2}\V + (\SI{56}{\kohm}) \frac{I_E}{\beta + 1} + 0.7 + (\SI{5.1}\kohm) I_E = \SI{5}{\V} \quad \Rightarrow \quad I_E \approx \SI{0.80}\mA
+    \]
+    \begin{alignat*}{2}
+      V_8 & = V_E = \SI{5}\V - (\SI{3.3}\kohm)  I_E && \approx \SI{2.35}\V
+      V_9 & = V_C = -\SI{5}\V + (\SI{5.1}\kohm) \alpha I_E && \approx \SI{-1.09}\V\\
+    \end{alignat*}
+    since $V_{CB} = V_9 - V_8 + 0.7 < \SI{0.4}\V$, The assumption is correct.
+
+  \item \\
+    By using Thévenin's equivalence. $R_{eq} = (\SI{91}\kohm \paral \SI{150}{\kohm}) \approx \SI{56.64}\kohm$, $V_{eq} = \frac{150}{91+150} \SI{5}{\V} + \frac{91}{91+150} (\SI{-5}\V) \approx \SI{1.224}{\V}$.\\
+    \begin{figure}[H]
+      \centering
+      \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+        \draw[default] 
+        (0, 3) node[pnp, anchor=C] (h1) {} to[R, l^=5.1<\kohm>] (0, 0) 
+        (h1.B) -- ++ (-1.5, 0) coordinate(v2) to[R, *-, l_=56.64<\kohm>] ++(-3.5, 0) coordinate(v4)
+        (h1.E) to[R, l_=3.3<\kohm>] ++(0, 2.5) coordinate(v3)
+        (h1.C) to[short, *-o] ++(1, 0) node[right]{\red $V_{12}$}
+        (h1.E) to[short, *-o] ++(1, 0) node[right]{\red $V_{11}$}
+        (v2) to[short, -o] ++(0, .5) node[above]{\red $V_{10}$}
+          ;
+        \draw[->, default] (v3) -- ++(0, .5) node[above]{$+\SI{5}{\V}$};
+        \draw[->, default] (0, 0) -- ++(0, -.5) node[below]{$-\SI{5}{\V}$};
+        \draw[->, default] (v4) -- ++(-.5, 0) node[left]{$+\SI{1.224}{\V}$};
+      \end{circuitikz}
+      \caption{}
+      \label{fig:4.47eq}
+    \end{figure}
+
+    We assume that it is at active mode.
+    \[
+      \SI{1.224}\V + (\SI{56.64}{\kohm}) \frac{I_E}{\beta + 1} + 0.7 + (\SI{3.3}\kohm) I_E \approx \SI{5}{\V} \quad \Rightarrow \quad I_E \approx \SI{0.80}\mA
+    \]
+    \begin{alignat*}{2}
+      V_{10} &= V_B \approx \SI{1.224}\V + \SI{56.64}\kohm I_E / (\beta + 1) &&  \approx \SI{1.67}\V \\
+      V_{11} & = V_E = \SI{5}\V - (\SI{3.3}\kohm)  I_E && \approx \SI{2.37}\V \\
+      V_{12} & = V_C = -\SI{5}\V + (\SI{5.1}\kohm) \alpha I_E && \approx \SI{-0.98}\V\\
+    \end{alignat*}
+    since $V_{CB} = V_{12} - V_{10} + 0.7 < \SI{0.4}\V$, The assumption is correct.
 \end{enumerate}
+
 
 
 % 51:68
