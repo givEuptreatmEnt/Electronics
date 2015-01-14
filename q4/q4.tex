@@ -308,7 +308,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
 \Ans \\
 
 \begin{enumerate}
-  \item \\
+  \item 
     First we assume that it is at active mode.
     \begin{alignat*}{2}
       V_B &  = \SI{22}\kohm \frac{\SI{2}\mA}{\beta + 1} && \approx \SI{-0.43}{\V} \\
@@ -316,7 +316,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
       V_2 &  = V_C = \SI{5}\V - (\SI{1.6}\kohm) \frac{\beta}{\beta + 1} (\SI{2}\mA) &&\approx \SI{1.83}\V
     \end{alignat*}
     We check that $V_{BC} < \SI{0.4}\V$.
-  \item \\
+  \item
     First we assume that it is at active mode.
     \begin{alignat*}{2}
       V_E & = 0 - \SI{0.7}\V &&= \SI{-0.7}\V \\
@@ -326,7 +326,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
       && \approx \SI{1.90}\V 
     \end{alignat*}
     since $V_{BC} = -V_C < \SI{0.4}\V$, The assumption is correct.
-  \item \\
+  \item
     We assume that it is at active mode.
     \[
       0 - (\SI{22}{\kohm}) \frac{I_E}{\beta + 1} - 0.7 - (\SI{2.2}\kohm) I_E = \SI{-5}{\V} \quad \Rightarrow \quad I_E \approx \SI{1.778}\mA
@@ -348,7 +348,7 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
     \end{alignat*}
     since $V_{CB} = V_9 - V_8 + 0.7 < \SI{0.4}\V$, The assumption is correct.
 
-  \item \\
+  \item
     By using Thévenin's equivalence. $R_{eq} = (\SI{91}\kohm \paral \SI{150}{\kohm}) \approx \SI{56.64}\kohm$, $V_{eq} = \frac{150}{91+150} \SI{5}{\V} + \frac{91}{91+150} (\SI{-5}\V) \approx \SI{1.224}{\V}$.\\
     \begin{figure}[H]
       \centering
@@ -380,7 +380,6 @@ For the circuits in Figure~\ref{fig:4.47}, find values for the labeled node volt
     \end{alignat*}
     since $V_{CB} = V_{12} - V_{10} + 0.7 < \SI{0.4}\V$, The assumption is correct.
 \end{enumerate}
-
 
 
 % 51:68
@@ -423,21 +422,30 @@ Notice that
 \begin{alignat*}{3}
   V_2 &= 0 - \SI{0.7}\V && = \SI{-0.7}{\V} \\
   V_4 &= V_3 + \SI{0.7}\V &&= \SI{0.7}\V \\
-  V_6 &= V_5 - \SI{0.7}\V &&= \SI{-4.7}\V \\
+  V_6 &= V_5 - \SI{0.7}\V &&= \SI{-4.7}\V
 \end{alignat*}
 So 
 \begin{alignat*}{3}
-  R_1 &= \frac{V_2 - \SI{-10}\V}{\SI{2}\mA} &&= \SI{4.65}\kohm \\
+  R_1 &= \frac{V_2 - (\SI{-10}\V)}{\SI{2}\mA} &&= \SI{4.65}\kohm \\
   R_2 &= \frac{\SI{10}\V - V_3}{\SI{2}\mA} &&= \SI{5}\kohm \\
   R_3 &= \frac{\SI{10}\V - V_4}{\SI{2}\mA} &&= \SI{4.65}\kohm \\
-  R_4 &= \frac{V_5 - \SI{-10}\V}{\SI{2}\mA} &&= \SI{3}\kohm \\
+  R_4 &= \frac{V_5 - (\SI{-10}\V)}{\SI{2}\mA} &&= \SI{3}\kohm \\
   R_5 &= \frac{\SI{10}\V - V_7}{\SI{4}\mA} &&= \SI{2}\kohm \\
-  R_6 &= \frac{V_6 - \SI{-10}\V}{\SI{4}\mA} &&= \SI{1.325}\kohm \\
+  R_6 &= \frac{V_6 - (\SI{-10}\V)}{\SI{4}\mA} &&= \SI{1.325}\kohm
 \end{alignat*}
 Then we choose
 \begin{alignat*}{5}
   \widetilde{R}_1 &= \SI{4.7}\kohm, && \quad \widetilde{R}_2 &= \SI{5.1}\kohm, && \quad \widetilde{R}_3 &= \SI{4.7}\kohm, \\
-  \widetilde{R}_4 &= \SI{3.0}\kohm, && \quad \widetilde{R}_5 &= \SI{2.0}\kohm, && \quad \widetilde{R}_6 &= \SI{1.3}\kohm 
+  \widetilde{R}_4 &= \SI{3.0}\kohm, && \quad \widetilde{R}_5 &= \SI{2.0}\kohm, && \quad \widetilde{R}_6 &= \SI{1.3}\kohm.
+\end{alignat*}
+Now we use the resistors above to calculate $V_3, V_4, V_5, V_6, V_7$
+for $\beta = 100$.
+\begin{alignat*}{3}
+  V_3 &= \SI{10}{\V} - \frac{V_2 - (\SI{-10}\V)}{R_1}\frac{\beta}{\beta+1}R_2 && \approx \SI{8.4}{\mV} \\
+  V_4 &= V_3 + \SI{0.7}{\V} && \approx \SI{0.708}{\V} \\
+  V_5 &= \frac{\SI{10}\V - V_4}{R_3}\frac{\beta}{\beta+1}R_4 - \SI{10}{\V} && \approx \SI{-4.13}{\V} \\
+  V_6 &= V_5 - \SI{0.7}{\V} && \approx \SI{-4.83}{\V} \\
+  V_7 &= \SI{10}{\V} - \frac{V_6 - (\SI{-10}\V)}{R_6}\frac{\beta}{\beta+1}R_5 && \approx \SI{2.12}{\V}
 \end{alignat*}
 
 % 75:95  7.5\kohm <- 8.2\kohm
@@ -476,7 +484,7 @@ Now, by using hybrid-$\pi$ model.
 Notice that
 \[ r_\pi = \frac{\beta}{g_m} \rightarrow \infty \quad \text{ as } \beta \rightarrow \infty \]
 and the control source current is $g_m v_{be}$. But $v_{be} = -v_i$, so 
-\[ v_c = -(\SI{7.5}\kohm) g_m v_i = 150 v_i \quad \Rightarrow \quad \frac{v_c}{v_i} = 150 \]
+\[ v_c = -(\SI{7.5}\kohm) g_m v_{be} = 150 v_i \quad \Rightarrow \quad \frac{v_c}{v_i} = 150 \]
  
 
 % 80:101
