@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{../header/header.tex}
+\newcommand{\bt}[1]{\:\framebox{\texttt{#1}}\:}
+\newcommand{\arrow}{$\rightarrow$\:}
+\newcommand{\xe}{{\bf ex:\ }}
+\renewcommand{\baselinestretch}{1.2}
+
+\begin{document}
+
+\section{Variables}
+\subsection{Store variable}
+\bt{shift} \arrow \bt{RCL} (\bt{STO}) \arrow \bt{A}, \bt{B} ... (Do {\bf not} press \bt{ALPHA}) \\
+\xe \bt{3} \bt{$\times$} \bt{5} \bt{=} \bt{shift} \bt{STO} \bt{A} \arrow Store $15$ in $A$.
+\subsection{Use variable}
+\bt{alpha} \arrow \bt{A}, \bt{B} ...
+
+\section{Solver}
+In comp mode, use \bt{alpha} \arrow \bt{CALC} to enter \texttt{=}, \bt{alpha} \arrow \bt{)} (\bt{X}) to type $x$, and you can enter an equation with respect to $x$. Then press \bt{shift} \arrow \bt{CALC} to compute. You have to give an initial value $x_0$. If you wish to change your last equation (Or probably you mistype \bt{=} and an error show up), use $\leftarrow$ to navigate back.
+
+\section{Complex}
+\subsection{Enter complex mode}
+\bt{MODE} \arrow \bt{2}
+\subsection{Imaginary number}
+\bt{ENG} 
+\xe \bt1 \bt+ \bt3 \bt{i} \arrow Input $1 + 3i$, the multiplication sign could be omitted
+\subsection{Operator}
+\bt{shift} \arrow \bt2 includes $\arg$, $\bar{z}$, $(x, y) \leftrightarrow (r, \theta)$. For $\abs{z}$, simply use \bt{shift} \arrow \bt{hyp} ( \bt{abs} ).
+
+\section{Equation solver}
+\subsection{Enter equation mode}
+\bt{MODE} \arrow \bt{5}, select what type you want.
+\xe to solve
+\[
+  \begin{bmatrix}
+    3 & 1 & 4 \\
+    1 & 5 & 9 \\
+    2 & 6 & 5
+  \end{bmatrix}%
+  \begin{bmatrix}
+    x \\ y \\ z
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    3 \\ 5 \\ 8
+  \end{bmatrix}
+\]
+Press \bt{MODE} \bt5 \bt2, then fill in
+
+\[
+  a = \begin{bmatrix}
+    3 \\
+    1 \\
+    2 
+  \end{bmatrix},
+  b = \begin{bmatrix}
+    1 \\ 5 \\ 6 
+  \end{bmatrix},
+  c = \begin{bmatrix}
+    4 \\ 9 \\ 5
+  \end{bmatrix},
+  d = \begin{bmatrix}
+    3 \\ 5 \\ 8
+  \end{bmatrix}
+\]
+
+\section{Matrix}
+\subsection{Enter matrix mode}
+\bt{MODE} \arrow \bt{6}, select what type you want.
+\subsection{Enter value}
+\bt{shift} \bt4 \bt1 to change dimentions and values, \bt{shift} \bt4 \bt2 to change only value. \\
+\subsection{Call value}
+\bt{shift} \bt4 \bt3, \bt4, \bt5 to use $A, B, C$.\\
+\bt{shift} \bt4 \bt6 is the latest answer.
+
+\subsection{Operator}
+\bt{shift} \bt4 \bt7 \arrow $\det A$ \\
+\bt{shift} \bt4 \bt8 \arrow $A^{T}$ \\
+\bt{$x^{-1}$}  \arrow $A^{-1}$ \\
+\xe To solve $Ax = b$, input $A, b$ and then do \bt{shift} \bt4 \bt3 \bt{$x^{-1}$} \bt{shift} \bt4 \bt4 \bt=
+
+
+
+\end{document}
+

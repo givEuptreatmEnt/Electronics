@@ -576,30 +576,83 @@ In selecting a value for $R_B$, ensure that for the lowest value of $\beta_1 = 5
 
 \begin{figure}[H]
 \begin{center}
-  \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
-    \draw[default]
-    (0, 0) to[R=$R_E$] ++(0, 2.5) node[npn, anchor=E] (q2) {}
-    ($(q2.E) !.5! (q2.C)$) node[right] {$Q_2$}
-    (q2.B) to[short, -*] ++ (-1, 0) coordinate(v1) to[R=$R_1$, -*] ++(0, 2.5) 
-    coordinate(v2) to[R=$R_B$] ++(0, 2) to[short, *-] ++(1, 0) node[npn, anchor=B](q1){}
-    ($(q1.E) !.5! (q1.C)$) node[right] {$Q_2$}
-    (v1) to[R=$R_2$] ++(0, -2.5) coordinate(o1)
-    (v2) -- ++(-.5, 0) node[ground]{}
-    (q1.E) -- (q2.C)
-    (q1.C) to[R=$R_C$] ++(0, 2.5) coordinate(o2)
-    ;
-    \draw[default, ->] (0, 0) -- ++(0, -.5);
-    \draw[default, ->] (o1) -- ++(0, -1.25);
-    \draw[default, ->] (o2) -- ++(0, .5);
-    \node[below] at (-1, -.5) {$-V_{EE}$};
+  \begin{subfigure}[b]{0.45\textwidth}
+    \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+      \draw[default]
+      (0, 0) to[R=$R_E$] ++(0, 2.5) node[npn, anchor=E] (q2) {}
+      ($(q2.E) !.5! (q2.C)$) node[right] {$Q_2$}
+      (q2.B) to[short, -*] ++ (-1, 0) coordinate(v1) to[R=$R_1$, -*] ++(0, 2.5) 
+      coordinate(v2) to[R=$R_B$] ++(0, 2) to[short, *-] ++(1, 0) node[npn, anchor=B](q1){}
+      ($(q1.E) !.5! (q1.C)$) node[right] {$Q_1$}
+      (v1) to[R=$R_2$] ++(0, -2.5) coordinate(o1)
+      (v2) -- ++(-.5, 0) node[ground]{}
+      (q1.E) -- (q2.C)
+      (q1.C) to[R=$R_C$] ++(0, 2.5) coordinate(o2)
+      ;
+      \draw[default, ->] (0, 0) -- ++(0, -.5);
+      \draw[default, ->] (o1) -- ++(0, -1.25);
+      \draw[default, ->] (o2) -- ++(0, .5) node[above]{$V_{CC}$};
+      \node[below] at (-1, -.5) {$-V_{EE}$};
 
-  \end{circuitikz}
+    \end{circuitikz}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.45\textwidth}
+    \begin{circuitikz}[>=triangle 45, scale=1, transform shape]
+      \draw[default]
+      (0, 0) to[R, l_=$R_E$] ++(0, 2.5) node[npn, anchor=E] (q2) {}
+      ($(q2.E) !.5! (q2.C)$) node[right] {$Q_2$}
+      (q2.B) to[short, -*] ++ (-1, 0) coordinate(v1) to[open] ++(0, 2.5) 
+      coordinate(v2) to[R=$R_B$] ++(0, 2) to[short, *-] ++(1, 0) node[npn, anchor=B](q1){}
+      ($(q1.E) !.5! (q1.C)$) node[right] {$Q_1$}
+      (v1) to[R, l_={\blue $R_{eq}$}] ++(0, -2.5) coordinate(o1)
+      (v2) node[ground]{}
+      (q1.E) -- (q2.C)
+      (q1.C) to[R=$R_C$] ++(0, 2.5) coordinate(o2)
+      ;
+      \draw[default, ->] (0, 0) -- ++(0, -.5) node[below]{$V_{EE}$};
+      \draw[default, ->] (o1) -- ++(0, -1.25) node[below]{\blue $V_{eq}$};
+      \draw[default, ->] (o2) -- ++(0, .5) node[above]{$V_{CC}$};
+
+    \end{circuitikz}
+  \end{subfigure}
 \end{center}
 \caption{}
 \label{fig:110}
 \end{figure}
 
 \Ans \\
+Again, we use Thévenin's equivalence, $R_{eq} = R_1 \paral R_2, V_{eq} = - V_{EE} R_1 / (R_1 + R_2)$.
+First, if $\beta = \infty$, $V_{C1} = V_{B1} - \SI{0.7}\V + V_{CE1} = \SI{0}\V - \SI{0.7}\V + \SI{1.5}\V = \SI{0.8}\V$. Then we have
+\[ R_C = \frac{V_{CC} - V_{C1}}{I_{C1}} = \SI{42}\kohm \]
+Now if $V_{E2} - V_{EE} = \SI{2}\V$, we obtain
+\[ R_E =\frac{\SI{2}\V}{I_{C1}}  =  \SI{20}\kohm \quad \footnotemark\]
+\footnotetext{If $\beta_1 = \beta_2 = \infty$, then $I_{C1} = I_{E2}$.}
+And also $V_{eq} = V_{EE} + \SI{2}\V + \SI{0.7}\V = \SI{2.3}\V$. \\
+If now $\beta_2 = 50$, by a loop analysis, we have
+\[ V_{EE} + \widetilde{I}_{C2} R_E + \SI{0.7}\V + \frac{1}{\beta + 1}
+  R_{eq} \widetilde{I}_{C2} = V_{eq} \quad \Rightarrow \quad 
+\widetilde{I}_{C2} = \frac{\SI{2}\V}{R_E + R_{eq} / (\beta + 1)} \]
+and if $\widetilde{I}_{C2}$ is to be within $5\%$,
+\[
+  \frac{R_E}{R_E + R_{eq} / (\beta+1)} > 0.95 \quad \Rightarrow
+  R_{eq} \lesssim \SI{53.68}\kohm
+\]
+Notice that
+\[
+  \frac{- R_{eq} V_{EE}}{V_{eq}} = R_2 \quad \Rightarrow \quad R_2 \lesssim \SI{116.7}\kohm
+\]
+and 
+\[
+  V_{eq} = - V_{EE} R_1 / (R_1 + R_2) \qRq  \frac{R_1}{R_2} =  \frac{11}{14} 
+\]
+Now if $\beta_1 = 50$, to ensure $V_{CE2} = \SI{2.5}\V$, notice that $I_{E1} = I_{C2} = I_{E2}$ remains $\SI{0.1}\mA$, so 
+
+\newcommand{\VCE}{\widetilde{V}_{CE2}}
+\[
+  \SI{2.5}\V = \VCE = \left( 0 - \frac{I_{C2}}{\beta_2} R_{B} - \SI{0.7}\V \right ) - (\SI{-3}\V) \qRq R_B = \SI{-102}\kohm
+\]
+........
 
 % 117:147
 \section{4.117}
@@ -617,14 +670,14 @@ The amplifier of Figure~\ref{fig:4.117} consists of two identical common-emitter
   \centering
   \begin{circuitikz}[>=triangle 45, scale=.8, transform shape]
     \draw[default]
-    (0, 0) node[ground]{} to[V=$v_{sig}$] ++(0, 3) to[R=$R_{sig}$] ++(2.5, 0) to[C=$\infty$, o-*] ++(2.5, 0) coordinate(v1) to[short] ++(.5, 0) node[npn, anchor=B](q1){}
+    (0, 0) node[ground]{} to[V=$v_{sig}$] ++(0, 3) to[R=$R_{sig}$] ++(2.5, 0) node[above right]{\red $v_{b1}$} to[C=$\infty$, o-*] ++(2.5, 0) coordinate(v1) to[short] ++(.5, 0) node[npn, anchor=B](q1){}
     (v1) to[R, l^=$R_1$] ++(0, 3) coordinate(o1)
     (v1) to[R, l_=$R_2$] ++(0, -3) node[ground]{}
     ($(q1.C) !.5! (q1.E)$) node[right]{$Q_1$}
     (q1.E) to[R, l_=$R_E$, *-] ++(0, -2.25) node[ground]{}
     (q1.E) -- ++(1, 0) to[C=$\infty$] ++(0, -2.25) node[ground]{}
     (q1.C) to[R, l_=$R_C$] ++(0, 2.25) coordinate(o2)
-    (q1.C) to[C=$\infty$] ++(4, 0) to[short] ++(0, -.75) coordinate(v2) to[short, *-o] ++(0, -.5) node[below]{$v_{b2}$}
+    (q1.C) to[C=$\infty$] ++(4, 0) to[short] ++(0, -.75) coordinate(v2) to[short, *-o] ++(0, -.5) node[below]{\red $v_{b2}$}
     (v2) to[short, -*] ++(.5, 0) coordinate(v3) to[short] ++(.5, 0) node[npn, anchor=B](q2){}
     ($(q2.C) !.5! (q2.E)$) node[right]{$Q_2$}
     (v3) to[R=$R_1$] ++(0, 3) coordinate(o3)
@@ -656,6 +709,36 @@ The amplifier of Figure~\ref{fig:4.117} consists of two identical common-emitter
 \Ans
 \begin{enumerate}[(a)]
   \item 
+    By using Thévenin's equivalence, $R_{eq} = R_1 \paral R_2 \approx \SI{31.97}\kohm, V_{eq} = V_{CC} R_2 / (R_1 + R_2) \approx \SI{4.8}\V$. So
+    \begin{alignat*}{3}
+      I_E &= \frac{V_{eq} - \SI{0.7}\V}{R_E + R_{eq} / (\beta + 1)} 
+      && \approx \SI{0.97}\mA \\
+      I_C &= \alpha I_E  && \approx \SI{0.96}\mA \\
+      V_C &= V_{CC} - I_C R_C && \approx \SI{8.45}\V
+    \end{alignat*}
+    Note that stage 1 and stage 2 are actual identical, so this is the solution for both stages.
+  \item 
+    \[ g_m = \frac{I_C}{V_T} \approx \SI{38.5}{\per\kohm} \]
+    Using hybrid-$\pi$ model, we have
+    \[ r_\pi = \frac{\beta}{g_m} \approx \SI{2.60}\kohm \]
+  \item 
+    \begin{alignat*}{3}
+      R_{in1} &= R_{eq} \paral r_\pi && \approx  \SI{2.4}\kohm \\
+      v_{b1} / v_{sig} &= \frac{R_{in1}}{R_{in1} + R_{sig}} &&= \approx 0.324
+    \end{alignat*}
+  \item 
+    $R_{in1} = R_{in2} \approx \SI{2.4}\kohm$ since the two stage are identical.
+    \[ - \frac{v_{b1}}{r_\pi} \beta (R_C \paral R_{in2}) = v_{b2} \qRq
+    \frac{v_{b2}}{v_{b1}} \approx -68.22 \]
+  \item 
+    Similarly, 
+    \[ - \frac{v_{b2}}{r_\pi} \beta (R_C \paral R_L) = v_{b2} \qRq
+    \frac{v_{b2}}{v_{b1}} \approx -59.44 \]
+  \item
+    Finally,
+    \[ \frac{v_o}{v_{sig}} = \frac{v_o}{v_{b2}} \frac{v_{b2}}{v_{b1}} 
+    \frac{v_{b1}}{v_{sig}} \approx 1313.8 \]
+    
 \end{enumerate}
 
 % 122:152
@@ -692,7 +775,7 @@ For the emitter-follower circuit shown in Figure~\ref{fig:4.122}, the BJT used  
 For dc voltage at emitter, we can write
 \[
   (\beta+1)\frac{9 - (V_E + 0.7)}{100} = \frac{V_E}{1} \quad \Rightarrow \quad
-  V_E = \frac{8.3(\beta+1)}{\beta + 1 + 100}, I_E = V_E (\si{\mA})
+  V_E = \frac{8.3(\beta+1)}{\beta + 1 + 100}, I_E = V_E / (\SI{1}{\kohm})
 \]
 For small signal, by using T model, $r_e = V_T/I_E = 25/V_E (\si{\ohm})$.
 The input resistance is $R_{in} = \SI{100}{\kohm} \paral (\beta+1)\left(
@@ -703,13 +786,13 @@ r_e + (\SI{1}{\kohm} \paral \SI{1}{\kohm}) \right)$. The voltage gain is
 \]
 Now we can plug in the value of $\beta$. For $\beta = 40$, we get
 \begin{gather*}
-  I_E = \SI{2.41}{\mA} \quad V_E = \SI{2.41}{\V} \quad V_B = \SI{3.11}{\V} \\
-  \quad R_{in} = \SI{17.3}{\kohm} \quad v_o / v_{sig} = 0.62
+  I_E = \SI{2.41}{\mA}, \quad V_E = \SI{2.41}{\V}, \quad V_B = \SI{3.11}{\V}, \\
+  \quad R_{in} = \SI{17.3}{\kohm}, \quad v_o / v_{sig} = 0.62
 \end{gather*}
 For $\beta = 200$, 
 \begin{gather*}
-  I_E = \SI{5.54}{\mA} \quad V_E = \SI{5.54}{\V} \quad V_B = \SI{6.24}{\V} \\
-  \quad R_{in} = \SI{50.35}{\kohm} \quad v_o / v_{sig} = 0.83
+  I_E = \SI{5.54}{\mA}, \quad V_E = \SI{5.54}{\V}, \quad V_B = \SI{6.24}{\V}, \\
+  \quad R_{in} = \SI{50.35}{\kohm}, \quad v_o / v_{sig} = 0.83
 \end{gather*}
 
 \end{document}
