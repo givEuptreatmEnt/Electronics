@@ -1,0 +1,204 @@
+\documentclass[12pt, a4paper]{article}
+\input{../../header/header.tex}
+
+%%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
+\title{} %標題
+\author{} %作者
+\date{} %日期
+
+\begin{document}
+\tikzstyle{default}=[thick, color=black]
+% \maketitle %製作tilte page
+% \thispagestyle{empty}  %去除頁碼
+% \thispagestyle{fancy}  %使用fancyhdr
+% \tableofcontents %目錄
+%%%%%%%%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{8.3}
+
+The NMOS transistor in the discrete CS amplifier circuit of Fig
+is biased to have $g_m = \SI{1}{\mA/\V}$. Find
+$A_M, f_{P1}, f_{P2}, f_{P3}, f_L$.
+
+\Ans \\
+
+$R_{\text{sig}} = \SI{100}{\kohm},
+R_G = \SI{47}{\Mohm} \paral \SI{10}{\Mohm}
+\approx \SI{8.25}{\Mohm}, R_D = \SI{4.7}{\kohm}, R_L = \SI{10}{\kohm},
+g_m = \SI{1}{\mA/\V}$,
+\[ A_M = \frac{R_G}{R_{\text{sig}} + R_G}g_m(R_D \paral R_L)
+\approx 3.16 (\si{\V/\V}). \]
+
+$C_1 = \SI{0.01}{\micro\F}, C_S = \SI{10}{\micro\F}, C_2 = \SI{0.1}{\micro\F}$,
+let $r_m = 1/g_m = \SI{1}{\kohm}, R_S = \SI{2}{\kohm}$,
+\begin{alignat*}{3}
+  f_{P1} &= \frac{1}{2\pi C_1(R_{\text{sig}}+R_G)} &&\approx \SI{1.9}{\Hz}, \\
+  f_{P2} &= \frac{1}{2\pi C_S(r_m \paral R_S)} &&\approx \SI{23.9}{\Hz}, \\
+  f_{P3} &= \frac{1}{2\pi C_1(R_{\text{sig}}+R_G)} &&\approx \SI{108.3}{\Hz}.
+\end{alignat*}
+So $f_L = f_{P3} = \SI{108.3}{\Hz}$.
+
+\section{8.16}
+Starting from the expression for the MOSTFET unity-gain frequency,
+\[ f_T = \frac{g_m}{2\pi (C_{gs}+C_{gd})} \]
+and making the approximation that $C_{gs} \gg C_{gd}$ and that the
+overlap component of $C_{gs}$ is negligibly small, show that for an
+n-channel device
+\[ f_T \approx \frac{3\mu_nV_{OV}}{4\pi L^2} \]
+Observe that for a given channel length, $f_T$ can be increased by
+operating the MOSFET at a higher overdrive voltage. Evaluate $f_T$ for
+devices with $L = \SI{1.0}{\um}$ operated at overdrive voltages of
+\SI{0.25}{\V} and \SI{0.5}{\V}. Use $\mu_n = \SI{450}{\cm^2/\V}$s.
+
+\Ans \\
+\[ f_T = \frac{g_m}{2\pi (C_{gs}+C_{gd})} \]
+Now let $C_{gs} \gg C_{gd}$, we know $g_m = k_nV_{OV} = \mu_nC_{ox}(W/L)$ and
+$C_{gs} = \frac{2}{3}WLC_{ox}$, so
+\[ f_T \approx \frac{\mu_n C_{ox}(W/L)V_{OV}}{2\pi \frac{2}{3}WLC_{ox}}
+= \frac{3\mu_nV_{OV}}{4\pi L^2} \]
+$f_T$ will increase as $V_{OV}$ inscreases.
+
+Now $L = \SI{1}{\um}, \mu_n = \SI{450}{\cm^2/\V}$, we can evaluate $f_T$:
+\begin{alignat*}{2}
+  V_{OV} &= \SI{0.25}{\V} & \qRq f_T &\approx \SI{2.7}{\GHz} \\
+  V_{OV} &= \SI{0.5}{\V} & \qRq f_T &\approx \SI{5.4}{\GHz}
+\end{alignat*}
+
+\section{8.30}
+The analysis of the high-frequency response of the common-source amplifier,
+presented in the text, is based on the assumption that the resistance of
+the signal source, $R_{\text{sig}}$, is large and, thus, that its interaction
+with the input capacitance $C_{\text{in}}$ produces the ``dominat pole''
+that determines the upper 3-dB frequency $f_H$. In some situations, however,
+the CS amplifier is fed with a very low $R_{\text{sig}}$. To investigate the
+high-frequency response of the amplifier in such a case, Fig shows the
+equivalent circuit when the CS amplifier is fed with an ideal voltage source
+$V_{\text{sig}}$ having $R_{\text{sig}} = 0$. Note that $C_L$ denotes the
+total capacitance at the output node. By writing a node equation at the
+output, show that the transfer function $V_o/V_{\text{sig}}$ is given by
+\[ \frac{V_o}{V_{\text{sig}}} =
+-g_mR_L' \frac{1-s(C_{gd}/g_m)}{1+s(C_L+C_{gd})R_L'} \]
+At frequencies $\omega \ll (g_m/C_{gd})$, the $s$ term in the numerator
+can be neglected. In such case, what is the upper 3-dB frequency resulting?
+Compute the values of $A_M$ and $f_H$ for the case:
+$C_{gd} = \SI{0.5}{\pF}, C_L = \SI{2}{\pF}, g_m = \SI{4}{\mA/\V}$, and
+$R_L' = \SI{5}{\kohm}$.
+
+\Ans \\
+Use node analysis, we have
+\[
+  V_o \left(sC_{gd} + \frac{1}{R_L'} + sC_L\right)
+  = V_{\text{sig}} \left(sC_{gd} - g_m\right),
+\]
+so
+\[ \frac{V_o}{V_{\text{sig}}} =
+-g_mR_L' \frac{1-s(C_{gd}/g_m)}{1+s(C_L+C_{gd})R_L'}.
+\]
+as desired.
+
+If $\omega \ll (g_m/C_{gd})$, we have
+\[ \frac{V_o}{V_{\text{sig}}} \approx
+-g_mR_L' \frac{1}{1+s(C_L+C_{gd})R_L'}.
+\]
+So $\omega_H = 1/(C_L+C_{gd})R_L'$, the 3-dB frequency $f_H = \omega_H / 2\pi$.
+
+For $C_{gd} = \SI{0.5}{\pF}, C_L = \SI{2}{\pF}, g_m = \SI{4}{\mA/\V}$, and
+$R_L' = \SI{5}{\kohm}$.
+\begin{gather*}
+  A_{M} = -g_mR_L' = -20 (\si{\V/\V}), \\
+  f_H = \frac{1}{2\pi (C_L+C_{gd})R_L'} = \SI{12.7}{\MHz}.
+\end{gather*}
+
+\section{8.34}
+For a version of the CE amplifier circuit in Fig,
+$R_{\text{sig}} = \SI{10}{\kohm}, R_1 = \SI{68}{\kohm}, R_2 = \SI{27}{\kohm},
+R_E = \SI{2.2}{\kohm}, R_C = \SI{4.7}{\kohm}, R_L = \SI{10}{\kohm}.$
+The collector current is $\SI{0.8}{\mA}, \beta = 200, f_T = \SI{1}{\GHz},
+C_{\mu} = \SI{0.8}{\pF}$. Neglecting the effect of $r_x$ and $r_o$,
+find the midband voltage gain and the upper 3-dB frequency $f_H$.
+
+\Ans \\
+First we calculate $g_m = I_C / V_T = \SI{32}{\mA/\V}$, so
+$r_{\pi} = \beta/g_m = \SI{6.25}{\kohm},
+r_e = \alpha/g_m \approx \SI{31.1}{\ohm}$.
+Let $R_B = R_1 \paral R_2 = \SI{19.33}{\kohm}$, then
+\[
+  A_M = -\frac{R_B \paral r_{\pi}}{R_{\text{sig}}+(R_B\paral r_{\pi})}
+  \frac{R_C \paral R_L}{r_e}
+  \approx -32.8 (\si{\V/\V}).
+\]
+Now we know that
+\[ f_H = \frac{\omega_H}{2\pi}
+= \frac{1}{2\pi C_{\text{in}}R_{\text{sig}}'} \]
+where
+\begin{gather*}
+  C_{\text{in}} = C_{\pi} + C_{\mu}(1+g_mR_L') \\
+  R_{\text{sig}}' = R_{\text{sig}} \paral R_B \paral r_{\pi} \\
+  R_{L}' = R_C \paral R_L
+\end{gather*}
+and $C_{\pi} + C_{\mu} = g_m/2\pi f_T$, now use the values given we can get
+\[ f_H \approx \SI{571}{\kHz}. \]
+
+\section{8.48}
+A common-source MOS amplifier, whose equivalent circuit resembles that
+in Fig, is to be evaluated for its high-frequency response. For this
+particular design, $R_{\text{sig}} = \SI{1}{\Mohm}, R_G = \SI{5}{\Mohm},
+R_L' = \SI{100}{\kohm}, C_{gs} = \SI{0.2}{\pF}, C_{gd} = \SI{0.1}{\pF},
+g_m = \SI{0.3}{\mA/\V}$. Estimate the midband gain and the 3-dB frequency.
+
+\section{8.63}
+It is required to analyze the high-frequency response of the CMOS amplifier
+shown in Fig. The dc bias current is \SI{100}{\uA}.
+For $Q_1$, $\mu_nC_{ox} = \SI{90}{\uA/\V^2}, V_A = \SI{12.8}{\V},
+W/L = \SI{100}{\um}/\SI{1.6}{\um}, C_{gs} = \SI{0.2}{\pF},
+C_{gd} = \SI{0.015}{\pF}, C_{db} = \SI{20}{\fF}$. For $Q_2$,
+$C_{gd} = \SI{0.015}{\pF}$, $C_{db} = \SI{36}{\fF}, \abs{V_A} = \SI{19.2}{\V}$.
+Assume that the resistance of the input signal generator is negligibly small.
+Also, for simplicity, assume that the signal voltage at the gate of $Q_2$
+is zero. Find the low-frequency gain, the frequency of the pole, and the
+frequency of the zero.
+\section{8.67}
+Consider a CS amplifier loaded in a current source with an output resistance
+equal to $r_o$ of the amplifying transistor. the amplifier is fed from a
+signal source with $R_{\text{sig}} = r_o/2$. The transistor is biased to
+operate at $g_m = \SI{2}{\mA/\V}$ and $r_o = \SI{20}{\kohm}$;
+$C_{gs} = C_{gd} = \SI{0.1}{\pF}$. Use the Miller approximation to
+determine an estimate of $f_H$. Repeat for the follwing two cases:
+\begin{enumerate*}[(i)]
+  \item the bias current $I$ in the entire system is reduced by a factor of
+    $4$, and
+  \item the bias current $I$ in the entire system is increased by a factor of
+    $4$.
+\end{enumerate*}
+Remember that both $R_{\text{sig}}$ and $R_L$ will change as $r_o$ changes.
+
+\section{8.72}
+Find the dc gain and the 3-dB frequency of a MOS cascode amplifier operated
+at $g_m = \SI{1}{\mA/\V}$ and $r_o = \SI{50}{\kohm}$. The MOSFETs have
+$C_{gs} = \SI{30}{\fF}, C_{gd} = \SI{10}{\fF}, C_{db} = \SI{10}{\fF}$.
+The amplifier is fed from a signal source with
+$R_{\text{sig}} = \SI{100}{\kohm}$ and is connected to a load resistance of
+\SI{2}{\Mohm}. There is also a load capacitance $C_L$ of \SI{40}{\fF}.
+\section{8.79}
+Refer to Fig. In situations in which $R_{\text{sig}}$ is large, the
+high-frequency response of the source follower is determined by the low-pass
+circuit formed by $R_{\text{sig}}$ and the input capacitance. An estimate
+of $C_{\text{in}}$ can be obtained by using the Miller approximation to
+replace $C_{gs}$ with an input capacitance $C_{eq} = C_{gs}(1-K)$ where $K$
+is the gain from gate to source. Using the low-frequency value of
+$K = g_mR_L'/(1+g_mR_L')$ find $C_{eq}$ and hence $C_{\text{in}}$ and an
+estimate of $f_H$. Is this estimate higher or lower than that obtained by the
+method of open-circuit time constants?
+
+\section{8.88}
+Consider the active-loaded CMOS differential amplifier of Fig for
+the case of all transistors operated at the same $\abs{V_{OV}}$ and having
+the same $\abs{V_A}$. Also let the total capacitance at the output node
+$(C_L)$ be four times the total capacitance at the input node of the
+current mirror $C_m$, and show that the unity-gain frequency of $A_d$ is
+$g_m/2\pi C_L$. For $V_A=\SI{20}{\V}, V_{OV}=\SI{0.2}{\V}, I=\SI{0.2}{\mA},
+C_L=\SI{100}{\fF},C_m=\SI{25}{\fF}$, find the dc value of $A_d$, and the
+value of $f_{P1}, f_t, f_{P2}, f_Z$ and sketch a Bode plot for $\abs{A_d}$.
+
+
+\end{document}
