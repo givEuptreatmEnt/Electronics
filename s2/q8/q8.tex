@@ -185,7 +185,7 @@ By using node analysis, we can write
   \frac{1}{r_{o1}}+\frac{1}{r_{o2}}}
 \]
 Now $I_{D1} = I_{D2} = \SI{0.1}{\mA}, r_o = V_A/I_D,
-g_m = k_nV_{OV} = I_D/V_{OV} = \sqrt{2k_nI_D}$. We can evaluate
+g_m = k_nV_{OV} = 2I_D/V_{OV} = \sqrt{2k_nI_D}$. We can evaluate
 $g_m = \SI{1.06}{\mA/\V}, r_{o1} = \SI{128}{\kohm}, r_{o2} = \SI{192}{\kohm}$.
 The low-frequency gain is
 $-g_m(r_{o1} \paral r_{o2})\approx -81.4(\si{\V/\V})$. The frequency of pole
@@ -274,6 +274,24 @@ $K = g_mR_L'/(1+g_mR_L')$ find $C_{eq}$ and hence $C_{\text{in}}$ and an
 estimate of $f_H$. Is this estimate higher or lower than that obtained by the
 method of open-circuit time constants?
 
+\Ans
+\begin{gather*}
+  C_{eq} = C_{gs}(1-K) = \frac{C_{gs}}{1+g_mR_L'} \\
+  C_\text{in} = C_{gd} + C_{eq} = C_{gd} + \frac{C_{gs}}{1+g_mR_L'} \\
+  f_H \approx \frac{1}{2\pi C_\text{in}R_\text{sig}}
+  = \frac{1}{2\pi \left(C_{gd}+\frac{C_{gs}}{1+g_mR_L'}\right) R_\text{sig}}
+\end{gather*}
+Use the method of open-circuit time constants we have
+\begin{gather*}
+  \tau_H = R_\text{sig}C_{gd} + \frac{R_\text{sig}+R_L'}{1+g_mR_L'}C_{gs}
+  + (R_L' \paral \frac{1}{g_m})C_L \\
+  f_H = \frac{1}{2\pi \tau_H}
+  = \frac{1}{2\pi \left(R_\text{sig}C_{gd} +
+    \frac{R_\text{sig}+R_L'}{1+g_mR_L'}C_{gs} +
+   \frac{R_L'}{1+g_mR_L'}C_L\right)}
+\end{gather*}
+So the estimate is higher than the method of open-circuit time constants.
+
 \section{8.88}
 Consider the active-loaded CMOS differential amplifier of Fig for
 the case of all transistors operated at the same $\abs{V_{OV}}$ and having
@@ -284,5 +302,51 @@ $g_m/2\pi C_L$. For $V_A=\SI{20}{\V}, V_{OV}=\SI{0.2}{\V}, I=\SI{0.2}{\mA},
 C_L=\SI{100}{\fF},C_m=\SI{25}{\fF}$, find the dc value of $A_d$, and the
 value of $f_{P1}, f_t, f_{P2}, f_Z$ and sketch a Bode plot for $\abs{A_d}$.
 
+\Ans \\
+For an active-loaded CMOS differential amplifier, the transfer function is
+\[
+  A_d(s) = g_mR_o\left(\frac{1+s\frac{C_m}{2g_{m3}}}{1+s\frac{C_m}{g_{m3}}}\right)
+      \frac{1}{1+sC_LR_o}.
+\]
+where $R_o = r_{o2} \paral r_{o4}$.
+Since all trasistors have the same $\abs{V_{OV}}$ and $\abs{V_A}$, all
+$g_m, r_o$ are the same. Thus
+\[
+  A_d(s) = g_mR_o\left(\frac{1+s\frac{C_m}{2g_m}}{1+s\frac{C_m}{g_m}}\right)
+      \frac{1}{1+sC_LR_o}
+\]
+and $R_o = r_o / 2$. The transfer function has two poles and one zero:
+\[
+  f_Z = \frac{2g_m}{2\pi C_m}, \quad
+  f_{P1} = \frac{1}{2\pi C_LR_o}, \quad
+  f_{P2} = \frac{g_m}{2\pi C_m}
+\]
+Since $C_L$ is four times $C_m$, $f_{P1}$ is dominant pole. Then
+\[
+  A_d(s) \approx g_mR_o \frac{1}{1+sC_LR_o}.
+\]
+To evaluate unity-gain frequency,
+\[
+  \abs{A_d(j\omega_1)} = 1 \qRq
+  \omega_1^2 = \frac{(g_mR_o)^2 - 1}{(C_LR_o)^2}.
+\]
+Since $g_mR_o = g_mr_o/2 \gg 1$, $\omega_1 \approx g_m/C_L$, so
+\[
+  f_1 = \frac{\omega_1}{2\pi} = \frac{g_m}{2\pi C_L}
+\]
+as desired.
+
+For $V_A=\SI{20}{\V}, V_{OV}=\SI{0.2}{\V}, I=\SI{0.2}{\mA},
+C_L=\SI{100}{\fF},C_m=\SI{25}{\fF}$, $I_D = I/2=\SI{0.1}{\mA}$, we have
+\[
+  g_m = \frac{2I_D}{V_{OV}} = \SI{1}{\mA/\V}, \quad
+  r_o = \frac{V_A}{I_D} = \SI{200}{\kohm}
+\]
+The dc value of $A_d = g_mR_o = g_mr_o/2 = 100(\si{\V/\V})$.
+\begin{alignat*}{2}
+  f_Z &= \frac{2g_m}{2\pi C_m} & &= \SI{12.7}{\GHz} \\
+  f_{P1} &= \frac{1}{2\pi C_LR_o} & &= \SI{15.9}{\MHz} \\
+  f_{P2} &= \frac{g_m}{2\pi C_m} & &= \SI{6.37}{\GHz}
+\end{alignat*}
 
 \end{document}
