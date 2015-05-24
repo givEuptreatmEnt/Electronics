@@ -146,6 +146,25 @@ particular design, $R_{\text{sig}} = \SI{1}{\Mohm}, R_G = \SI{5}{\Mohm},
 R_L' = \SI{100}{\kohm}, C_{gs} = \SI{0.2}{\pF}, C_{gd} = \SI{0.1}{\pF},
 g_m = \SI{0.3}{\mA/\V}$. Estimate the midband gain and the 3-dB frequency.
 
+\Ans \\
+To estimate the midband gain $A_M$, we need to assume that the capacitors
+in this equivalent circuit are perfect open circuits. Then we have
+\[
+  A_M = \frac{V_o}{V_\text{sig}}
+  = \frac{-g_mV_{gs}R_L'}{V_\text{sig}}
+  = -g_mR_L' \frac{R_G}{R_G+R_\text{sig}}
+  = -25 (\si{\V/\V}).
+\]
+To estimate the 3-dB frequency, the resistance seen by
+$C_{gs}$ is $R_{gs} = R_G \paral R_\text{sig}$, the resistance
+seen by $C_{gd}$ is $R_{gs} + R_L' + g_mR_{gs}R_L'$. So
+\begin{gather*}
+  \tau_{gs} = C_{gs}R_{gs}, \\
+  \tau_{gd} = C_{gd}R_{gd}, \\
+  f_H = \frac{\omega_H}{2\pi} = \frac{1}{2\pi (\tau_{gs}+\tau_{gd})}
+  \approx \SI{57.7}{\kHz}.
+\end{gather*}
+
 \section{8.63}
 It is required to analyze the high-frequency response of the CMOS amplifier
 shown in Fig. The dc bias current is \SI{100}{\uA}.
@@ -157,6 +176,28 @@ Assume that the resistance of the input signal generator is negligibly small.
 Also, for simplicity, assume that the signal voltage at the gate of $Q_2$
 is zero. Find the low-frequency gain, the frequency of the pole, and the
 frequency of the zero.
+
+\Ans \\
+By using node analysis, we can write
+\[
+  \frac{V_o}{V_\text{sig}} =
+  \frac{sC_{gd1} - g_{m1}}{s(C_{gd1}+C_{db1}+C_{gd2}+C_{db2}) +
+  \frac{1}{r_{o1}}+\frac{1}{r_{o2}}}
+\]
+Now $I_{D1} = I_{D2} = \SI{0.1}{\mA}, r_o = V_A/I_D,
+g_m = k_nV_{OV} = I_D/V_{OV} = \sqrt{2k_nI_D}$. We can evaluate
+$g_m = \SI{1.06}{\mA/\V}, r_{o1} = \SI{128}{\kohm}, r_{o2} = \SI{192}{\kohm}$.
+The low-frequency gain is
+$-g_m(r_{o1} \paral r_{o2})\approx -81.4(\si{\V/\V})$. The frequency of pole
+and zero are
+\begin{alignat*}{3}
+  f_P = \frac{\omega_P}{2\pi} &=
+  -\frac{1/r_{o1}+1/r_{o2}}{2\pi (C_{gd1}+C_{db1}+C_{gd2}+C_{db2})}
+  && \approx & -\SI{24.1}{\MHz} \\
+  f_Z = \frac{\omega_Z}{2\pi} &= \frac{g_m}{2\pi C_{gd1}}
+  && \approx & \SI{11.3}{\GHz}
+\end{alignat*}
+
 \section{8.67}
 Consider a CS amplifier loaded in a current source with an output resistance
 equal to $r_o$ of the amplifying transistor. the amplifier is fed from a
@@ -172,6 +213,31 @@ determine an estimate of $f_H$. Repeat for the follwing two cases:
 \end{enumerate*}
 Remember that both $R_{\text{sig}}$ and $R_L$ will change as $r_o$ changes.
 
+\Ans \\
+$R_L = r_o \paral r_o = \SI{10}{\kohm}$.
+Use Miller approximation, let $C_\text{in}=C_{gs}+C_{gd}(1-K),
+C_L=C_{gd}(1-1/K)$. Now $K = -g_mR_L = -20$, we can calculate poles:
+\begin{gather*}
+  f_{Pi} = \frac{1}{2\pi C_\text{in} R_\text{sig}} \\
+  f_{Po} = \frac{1}{2\pi C_L R_L}
+\end{gather*}
+By approximation we assume $f_H \approx f_{Pi}$,
+so $f_H \approx \SI{7.23}{\MHz}$.
+
+Now we know $g_m = \sqrt{2k_nI_D}, r_o = V_A/I_D$. If current $I$ is
+reduced by a factor of $4$, $r_o$ will be increased by a factor of $4$,
+$g_m$ will be decreased by a factor of $2$. Then
+\[
+  f_H \approx f_{Pi} = \frac{1}{2\pi (C_{gs}+C_{gd}(1+40)) 4R_\text{sig}}
+  \approx \SI{947}{\kHz}
+\]
+If current $I$ is increased by a factor of $4$, $r_o$ will be decreased by
+a factor of $4$, $g_m$ will be increased by a factor of $2$. Then
+\[
+  f_H \approx f_{Pi} = \frac{1}{2\pi (C_{gs}+C_{gd}(1+10)) R_\text{sig}/4}
+  \approx \SI{53}{\MHz}
+\]
+
 \section{8.72}
 Find the dc gain and the 3-dB frequency of a MOS cascode amplifier operated
 at $g_m = \SI{1}{\mA/\V}$ and $r_o = \SI{50}{\kohm}$. The MOSFETs have
@@ -179,6 +245,24 @@ $C_{gs} = \SI{30}{\fF}, C_{gd} = \SI{10}{\fF}, C_{db} = \SI{10}{\fF}$.
 The amplifier is fed from a signal source with
 $R_{\text{sig}} = \SI{100}{\kohm}$ and is connected to a load resistance of
 \SI{2}{\Mohm}. There is also a load capacitance $C_L$ of \SI{40}{\fF}.
+
+\Ans \\
+Let $R_L = \SI{2}{\Mohm}$, $R_o = r_{o2} + r_{o1} + g_mr_{o2}r_{o1}$.
+The dc gain is $-g_m (R_o \paral R_L) = -1130 (\si{\V/\V})$.
+
+For 3-dB frequency, first we calculate the time constants:
+\begin{align*}
+  \tau_{H} &= R_\text{sig} (C_{gs1} + C_{gd1}(1+g_{m1}R_{d1}))
+  + R_{d1}(C_{gd1} + C_{db1} + C_{gs2}) \\
+  & \quad + (R_L \paral R_o) (C_{gd2} + C_{db2} + C_L)
+\end{align*}
+where $R_{d1} = r_{o1} \paral R_\text{in2}, R_\text{in2} =
+\frac{r_{o2}+R_L}{1+g_{m2}r_{o2}}$.
+And 3-dB frequency is
+\[
+  f_H \approx \frac{1}{2\pi \tau_H} \approx \SI{1.67}{\MHz}.
+\]
+
 \section{8.79}
 Refer to Fig. In situations in which $R_{\text{sig}}$ is large, the
 high-frequency response of the source follower is determined by the low-pass
