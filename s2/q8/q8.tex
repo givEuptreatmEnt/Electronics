@@ -16,9 +16,35 @@
 
 \section{8.3}
 
-The NMOS transistor in the discrete CS amplifier circuit of Fig
+The NMOS transistor in the discrete CS amplifier circuit of Fig \ref{fig:8.3}
 is biased to have $g_m = \SI{1}{\mA/\V}$. Find
 $A_M, f_{P1}, f_{P2}, f_{P3}, f_L$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) node[ground]{} to[V=$V_\text{sig}$] ++(0, 2) -- ++(1, 0)
+      to[R, l=\SI{100}{\kohm}] ++(1.5, 0)
+      to[C, l_=\SI{0.01}{\micro\F}, -*] ++(1.5, 0) coordinate(v1)
+      (v1) -- ++(0, 1.25) to[R, l=\SI{47}{\Mohm}] ++(0, 3) coordinate(v2)
+      (v1) -- ++(0, -1.25) to[R, l_=\SI{10}{\Mohm}] ++(0, -3) node[ground]{}
+      (v1) -- ++(0.75, 0) node[nmos, anchor=G, scale=1.6] (q1){}
+      (q1.S) to[R, l_=\SI{2}{\kohm}, *-] ++(0, -3) node[ground]{}
+      (q1.D) to[R, l_=\SI{4.7}{\kohm}, *-] ++(0, 3) coordinate(v3)
+      (q1.S) -- ++(1.5, 0) to[C, l=\SI{10}{\micro\F}] ++(0, -3) node[ground]{}
+      (q1.D) to[C, l_=\SI{0.1}{\micro\F}] ++(4, 0) coordinate(v4)
+      to[short, *-o] ++(1, 0) node[right] {$V_o$}
+      (v4) to[R, l=\SI{10}{\kohm}] ++(0, -3) node[ground] {}
+    ;
+    \draw[->, default] 
+      (v2) -- ++(0, .5) node[above=0.5em, right=1em]{$V_{DD}$};
+    \draw[->, default] 
+      (v3) -- ++(0, .5);
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.3}
+\end{figure}
 
 \Ans \\
 
@@ -52,8 +78,8 @@ devices with $L = \SI{1.0}{\um}$ operated at overdrive voltages of
 
 \Ans \\
 \[ f_T = \frac{g_m}{2\pi (C_{gs}+C_{gd})} \]
-Now let $C_{gs} \gg C_{gd}$, we know $g_m = k_nV_{OV} = \mu_nC_{ox}(W/L)$ and
-$C_{gs} = \frac{2}{3}WLC_{ox}$, so
+Now let $C_{gs} \gg C_{gd}$, we know $g_m = k_nV_{OV}=\mu_nC_{ox}(W/L)V_{OV}$
+and $C_{gs} = \frac{2}{3}WLC_{ox}$, so
 \[ f_T \approx \frac{\mu_n C_{ox}(W/L)V_{OV}}{2\pi \frac{2}{3}WLC_{ox}}
 = \frac{3\mu_nV_{OV}}{4\pi L^2} \]
 $f_T$ will increase as $V_{OV}$ inscreases.
@@ -71,11 +97,12 @@ the signal source, $R_{\text{sig}}$, is large and, thus, that its interaction
 with the input capacitance $C_{\text{in}}$ produces the ``dominat pole''
 that determines the upper 3-dB frequency $f_H$. In some situations, however,
 the CS amplifier is fed with a very low $R_{\text{sig}}$. To investigate the
-high-frequency response of the amplifier in such a case, Fig shows the
-equivalent circuit when the CS amplifier is fed with an ideal voltage source
-$V_{\text{sig}}$ having $R_{\text{sig}} = 0$. Note that $C_L$ denotes the
-total capacitance at the output node. By writing a node equation at the
-output, show that the transfer function $V_o/V_{\text{sig}}$ is given by
+high-frequency response of the amplifier in such a case, Fig \ref{fig:8.30}
+shows the equivalent circuit when the CS amplifier is fed with an ideal
+voltage source $V_{\text{sig}}$ having $R_{\text{sig}} = 0$. Note that $C_L$
+denotes the total capacitance at the output node. By writing a node equation
+at the output, show that the transfer function $V_o/V_{\text{sig}}$ is given
+by
 \[ \frac{V_o}{V_{\text{sig}}} =
 -g_mR_L' \frac{1-s(C_{gd}/g_m)}{1+s(C_L+C_{gd})R_L'} \]
 At frequencies $\omega \ll (g_m/C_{gd})$, the $s$ term in the numerator
@@ -83,6 +110,24 @@ can be neglected. In such case, what is the upper 3-dB frequency resulting?
 Compute the values of $A_M$ and $f_H$ for the case:
 $C_{gd} = \SI{0.5}{\pF}, C_L = \SI{2}{\pF}, g_m = \SI{4}{\mA/\V}$, and
 $R_L' = \SI{5}{\kohm}$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) to[V=$V_\text{sig}$] ++(0, 3) -- ++(2, 0)
+      to[C, l=$C_{gd}$] ++(4, 0) -- ++(6, 0) to[open, o-o] ++(0, -3)
+      -- (0, 0)
+      (2, 3) to[C, l=$C_{gs}$, v=$V_{gs}$, *-*] ++(0, -3)
+      (6, 3) to[cI, l_=$g_mV_{gs}$, *-*] ++(0, -3)
+      (8, 3) to[R, l=$R_L'$, *-*] ++(0, -3)
+      (10, 3) to[C, l=$C_L$, *-*] ++(0, -3)
+      [xshift=-7pt](12, 3) to[open, v^=\hspace{-9pt} $V_o$] ++(0, -3)
+    ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.30}
+\end{figure}
 
 \Ans \\
 Use node analysis, we have
@@ -110,12 +155,38 @@ $R_L' = \SI{5}{\kohm}$.
 \end{gather*}
 
 \section{8.34}
-For a version of the CE amplifier circuit in Fig,
+For a version of the CE amplifier circuit in Fig \ref{fig:8.34},
 $R_{\text{sig}} = \SI{10}{\kohm}, R_1 = \SI{68}{\kohm}, R_2 = \SI{27}{\kohm},
 R_E = \SI{2.2}{\kohm}, R_C = \SI{4.7}{\kohm}, R_L = \SI{10}{\kohm}.$
 The collector current is $\SI{0.8}{\mA}, \beta = 200, f_T = \SI{1}{\GHz},
 C_{\mu} = \SI{0.8}{\pF}$. Neglecting the effect of $r_x$ and $r_o$,
 find the midband voltage gain and the upper 3-dB frequency $f_H$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) node[ground]{} to[V=$V_\text{sig}$] ++(0, 4.25)
+      to[R, l=$R_\text{sig}$, -o] ++(3, 0)
+      to[C, l=$C_{C1}$, -*] ++(2, 0) coordinate(v1)
+      (v1) -- ++(0, 1.25) to[R, l=$R_1$] ++(0, 3) coordinate(v2)
+      (v1) -- ++(0, -1.25) to[R, l_=$R_2$] ++(0, -3) node[ground]{}
+      (v1) -- ++(0.75, 0) node[npn, anchor=B, scale=1.6] (q1){}
+      (q1.E) to[R, l_=$R_E$, *-] ++(0, -3) node[ground]{}
+      (q1.C) to[R, l_=$R_C$, *-] ++(0, 3) coordinate(v3)
+      (q1.E) -- ++(1.5, 0) to[C, l=$C_E$] ++(0, -3) node[ground]{}
+      (q1.C) to[C, l_=$C_{C2}$] ++(4, 0) coordinate(v4)
+      to[short, *-o] ++(1, 0) node[right] {$V_o$}
+      (v4) to[R, l=$R_L$] ++(0, -3) node[ground] {}
+    ;
+    \draw[->, default] 
+      (v2) -- ++(0, .5) node[above=0.5em, right=1em]{$V_{CC}$};
+    \draw[->, default] 
+      (v3) -- ++(0, .5);
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.34}
+\end{figure}
 
 \Ans \\
 First we calculate $g_m = I_C / V_T = \SI{32}{\mA/\V}$, so
@@ -136,15 +207,34 @@ where
   R_{\text{sig}}' = R_{\text{sig}} \paral R_B \paral r_{\pi} \\
   R_{L}' = R_C \paral R_L
 \end{gather*}
-and $C_{\pi} + C_{\mu} = g_m/2\pi f_T$, now use the values given we can get
+and $C_{\pi} + C_{\mu} = g_m/2\pi f_T$, now by using the values given
+we can get
 \[ f_H \approx \SI{571}{\kHz}. \]
 
 \section{8.48}
 A common-source MOS amplifier, whose equivalent circuit resembles that
-in Fig, is to be evaluated for its high-frequency response. For this
-particular design, $R_{\text{sig}} = \SI{1}{\Mohm}, R_G = \SI{5}{\Mohm},
+in Fig \ref{fig:8.48}, is to be evaluated for its high-frequency response.
+For this particular design, $R_\text{sig}=\SI{1}{\Mohm}, R_G = \SI{5}{\Mohm},
 R_L' = \SI{100}{\kohm}, C_{gs} = \SI{0.2}{\pF}, C_{gd} = \SI{0.1}{\pF},
 g_m = \SI{0.3}{\mA/\V}$. Estimate the midband gain and the 3-dB frequency.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) node[ground]{} to[V=$V_\text{sig}(s)$] ++(0, 3)
+      to[R=$R_\text{sig}$] ++(2, 0) to[short, o-] ++(0.5, 0) -- ++(2.5, 0)
+      to[C, l=$C_{gd}$] ++(4, 0) to[short, -o] ++(5, 0)
+      (2.5, 3) to[R=_$R_G$, *-] ++(0, -3) node[ground]{}
+      (5, 3) to[C, l=$C_{gs}$, v=$V_{gs}$, *-] ++(0, -3) node[ground]{}
+      (9, 3) to[cI, l=$g_mV_{gs}$, *-] ++(0, -3) node[ground]{}
+      (12, 3) to[R, l=$R_L'$, *-] ++(0, -3) node[ground]{}
+      [xshift=-7pt](14, 3) to[open, v^=\hspace{-12pt} $V_o(s)$] ++(0, -3)
+    ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.48}
+\end{figure}
 
 \Ans \\
 To estimate the midband gain $A_M$, we need to assume that the capacitors
@@ -167,7 +257,7 @@ seen by $C_{gd}$ is $R_{gs} + R_L' + g_mR_{gs}R_L'$. So
 
 \section{8.63}
 It is required to analyze the high-frequency response of the CMOS amplifier
-shown in Fig. The dc bias current is \SI{100}{\uA}.
+shown in Fig \ref{fig:8.63}. The dc bias current is \SI{100}{\uA}.
 For $Q_1$, $\mu_nC_{ox} = \SI{90}{\uA/\V^2}, V_A = \SI{12.8}{\V},
 W/L = \SI{100}{\um}/\SI{1.6}{\um}, C_{gs} = \SI{0.2}{\pF},
 C_{gd} = \SI{0.015}{\pF}, C_{db} = \SI{20}{\fF}$. For $Q_2$,
@@ -176,6 +266,40 @@ Assume that the resistance of the input signal generator is negligibly small.
 Also, for simplicity, assume that the signal voltage at the gate of $Q_2$
 is zero. Find the low-frequency gain, the frequency of the pole, and the
 frequency of the zero.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (4, 2) node[nmos, scale=1.2] (q1){}
+      (4, 6) node[pmos, scale=1.2] (q2){}
+      (0, 6) node[pmos, scale=1.2, xscale=-1] (q3){}
+      (q1) node[xshift=0.3cm]{$Q_1$}
+      (q2) node[xshift=0.3cm]{$Q_2$}
+      (q3) node[xshift=-0.3cm]{$Q_3$}
+      (q1.D) -- ($(q1.D) !.5! (q2.D)$) coordinate(vo)
+      (q2.D) -- (vo)
+      (vo) to[short, *-o] ++(1.5, 0) node[right]{$V_o$}
+      (0, 0) node[ground]{} to[V=$V_i$] ++(0, 2) to[short, -o] ++(2, 0)
+      -- (q1.G)
+      (q1.S) -- (4, 0) node[ground]{}
+      (q3.D) to[I, l_=$I_\text{BIAS}$, *-] ++(0, -2) coordinate(v3)
+      ($(q3.G) !.5! (q2.G)$) |- (q3.D)
+      ($(q3.G) !.5! (q2.G)$) to[short, *-] (q3.G)
+      ($(q3.G) !.5! (q2.G)$) -- (q2.G)
+      (q2.S) -- ++(0, 0.5) coordinate(v1)
+      (q3.S) -- ++(0, 0.5) coordinate(v2)
+    ;
+    \draw[->, default] 
+      (v1) -- ++(0, .5);
+    \draw[->, default] 
+      (v2) -- ++(0, .5);
+    \draw[->, default] 
+      (v3) -- ++(0, -.5);
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.63}
+\end{figure}
 
 \Ans \\
 By using node analysis, we can write
@@ -274,6 +398,26 @@ $K = g_mR_L'/(1+g_mR_L')$ find $C_{eq}$ and hence $C_{\text{in}}$ and an
 estimate of $f_H$. Is this estimate higher or lower than that obtained by the
 method of open-circuit time constants?
 
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) node[ground]{} to[V=$V_\text{sig}$] ++(0, 3)
+      to[R=$R_\text{sig}$] ++(3, 0) -- ++(2, 0)
+      (3, 3) to[C, l_=$C_{gd}$, *-] ++(0, -3) node[ground]{}
+      (5, 3) to[C, l=$C_{gs}$, v=$V_{gs}$] ++(0, -3) coordinate(n1)
+      (n1) to[short, -o] ++ (6, 0)
+      ($(n1) + (1.5, 0)$) to[R, l=$R_L'$, *-] ++(0, -2.5) node[ground]{}
+      ($(n1) + (3.5, 0)$) to[C, l=$C_L$, *-] ++(0, -2.5) node[ground]{}
+      ($(n1) + (4.75, 3)$) to[cI, l_=$g_mV_{gs}$, -*] ++(0, -3)
+      ($(n1) + (4.75, 3)$) -| ++(1.25, -0.25) node[ground]{}
+      ($(n1) + (5.75, 0)$) to[open, v^=\hspace{-9pt} $V_o$] ++(0, -3)
+    ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.48}
+\end{figure}
+
 \Ans
 \begin{gather*}
   C_{eq} = C_{gs}(1-K) = \frac{C_{gs}}{1+g_mR_L'} \\
@@ -293,14 +437,45 @@ Use the method of open-circuit time constants we have
 So the estimate is higher than the method of open-circuit time constants.
 
 \section{8.88}
-Consider the active-loaded CMOS differential amplifier of Fig for
-the case of all transistors operated at the same $\abs{V_{OV}}$ and having
+Consider the active-loaded CMOS differential amplifier of Fig \ref{fig:8.88}
+for the case of all transistors operated at the same $\abs{V_{OV}}$ and having
 the same $\abs{V_A}$. Also let the total capacitance at the output node
 $(C_L)$ be four times the total capacitance at the input node of the
 current mirror $C_m$, and show that the unity-gain frequency of $A_d$ is
 $g_m/2\pi C_L$. For $V_A=\SI{20}{\V}, V_{OV}=\SI{0.2}{\V}, I=\SI{0.2}{\mA},
 C_L=\SI{100}{\fF},C_m=\SI{25}{\fF}$, find the dc value of $A_d$, and the
 value of $f_{P1}, f_t, f_{P2}, f_Z$ and sketch a Bode plot for $\abs{A_d}$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.8, transform shape, >=triangle 45]
+    \draw[default] 
+      (0, 0) node[nmos, scale=1.2] (q1){}
+      (4, 0) node[nmos, scale=1.2, xscale=-1] (q2){}
+      (0, 4) node[pmos, scale=1.2, xscale=-1] (q3){}
+      (4, 4) node[pmos, scale=1.2] (q4){}
+      (q1) node[xshift=0.3cm]{$Q_1$}
+      (q2) node[xshift=-0.3cm]{$Q_2$}
+      (q3) node[xshift=-0.3cm]{$Q_3$}
+      (q4) node[xshift=0.3cm]{$Q_4$}
+      (q1.S) -- (q2.S)
+      (q1.G) to[short, -o] ++(-0.5, 0) node[left]{$+V_{id}/2$}
+      (q2.G) to[short, -o] ++(0.5, 0) node[right]{$-V_{id}/2$}
+      ($(q3.G) !.5! (q4.G)$) |- (q3.D)
+      ($(q3.G) !.5! (q4.G)$) to[short, *-] (q3.G)
+      ($(q3.G) !.5! (q4.G)$) -- (q4.G)
+      (q3.D) to[short, *-] (q1.D)
+      (q3.D) -- ++(-1, 0) to[C, l_=$C_m$] ++(0, -1) node[ground]{}
+      ($(q3.S) !.5! (q4.S)$) node[ground, yscale=-1]{}
+      (q3.S) -- (q4.S)
+      (q4.D) -- (q2.D)
+      (q4.D) to[short, *-] ++(2, 0) to[C, l=$C_L$] ++(0, -1) node[ground]{}
+      (q4.D) ++(2, 0) to[short, *-o] ++(0, 1) node[above]{$V_o$}
+    ;
+  \end{circuitikz}
+  \caption{}
+  \label{fig:8.88}
+\end{figure}
 
 \Ans \\
 For an active-loaded CMOS differential amplifier, the transfer function is
