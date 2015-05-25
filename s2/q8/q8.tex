@@ -60,7 +60,7 @@ let $r_m = 1/g_m = \SI{1}{\kohm}, R_S = \SI{2}{\kohm}$,
 \begin{alignat*}{3}
   f_{P1} &= \frac{1}{2\pi C_1(R_{\text{sig}}+R_G)} &&\approx \SI{1.9}{\Hz}, \\
   f_{P2} &= \frac{1}{2\pi C_S(r_m \paral R_S)} &&\approx \SI{23.9}{\Hz}, \\
-  f_{P3} &= \frac{1}{2\pi C_1(R_{\text{sig}}+R_G)} &&\approx \SI{108.3}{\Hz}.
+  f_{P3} &= \frac{1}{2\pi C_2(R_D + R_L)} &&\approx \SI{108.3}{\Hz}.
 \end{alignat*}
 So $f_L = f_{P3} = \SI{108.3}{\Hz}$.
 
@@ -189,13 +189,13 @@ find the midband voltage gain and the upper 3-dB frequency $f_H$.
 \end{figure}
 
 \Ans \\
-First we calculate $g_m = I_C / V_T = \SI{32}{\mA/\V}$, so
+First we calculate
 $r_{\pi} = \beta/g_m = \SI{6.25}{\kohm},
 r_e = \alpha/g_m \approx \SI{31.1}{\ohm}$.
 Let $R_B = R_1 \paral R_2 = \SI{19.33}{\kohm}$, then
 \[
   A_M = -\frac{R_B \paral r_{\pi}}{R_{\text{sig}}+(R_B\paral r_{\pi})}
-  \frac{R_C \paral R_L}{r_e}
+  g_m(R_C \paral R_L)
   \approx -32.8 (\si{\V/\V}).
 \]
 Now we know that
@@ -321,6 +321,7 @@ and zero are
   f_Z = \frac{\omega_Z}{2\pi} &= \frac{g_m}{2\pi C_{gd1}}
   && \approx & \SI{11.3}{\GHz}
 \end{alignat*}
+Note: For $f_P$, we can just write \SI{24.1}{\MHz} instead of \SI{-24.1}{\MHz}.
 
 \section{8.67}
 Consider a CS amplifier loaded in a current source with an output resistance
@@ -388,11 +389,11 @@ And 3-dB frequency is
 \]
 
 \section{8.79}
-Refer to Fig. In situations in which $R_{\text{sig}}$ is large, the
-high-frequency response of the source follower is determined by the low-pass
-circuit formed by $R_{\text{sig}}$ and the input capacitance. An estimate
-of $C_{\text{in}}$ can be obtained by using the Miller approximation to
-replace $C_{gs}$ with an input capacitance $C_{eq} = C_{gs}(1-K)$ where $K$
+Refer to Fig \ref{fig:8.79}. In situations in which $R_{\text{sig}}$ is large,
+the high-frequency response of the source follower is determined by the
+low-pass circuit formed by $R_{\text{sig}}$ and the input capacitance. An
+estimate of $C_{\text{in}}$ can be obtained by using the Miller approximation
+to replace $C_{gs}$ with an input capacitance $C_{eq} = C_{gs}(1-K)$ where $K$
 is the gain from gate to source. Using the low-frequency value of
 $K = g_mR_L'/(1+g_mR_L')$ find $C_{eq}$ and hence $C_{\text{in}}$ and an
 estimate of $f_H$. Is this estimate higher or lower than that obtained by the
@@ -415,7 +416,7 @@ method of open-circuit time constants?
     ;
   \end{circuitikz}
   \caption{}
-  \label{fig:8.48}
+  \label{fig:8.79}
 \end{figure}
 
 \Ans
@@ -523,5 +524,90 @@ The dc value of $A_d = g_mR_o = g_mr_o/2 = 100(\si{\V/\V})$.
   f_{P1} &= \frac{1}{2\pi C_LR_o} & &= \SI{15.9}{\MHz} \\
   f_{P2} &= \frac{g_m}{2\pi C_m} & &= \SI{6.37}{\GHz}
 \end{alignat*}
+
+\section{朗誦要點(？)}
+\subsection{active-loaded differential amplifier}
+Transfer function 用唱的
+\[
+  A_d(s) = g_mR_o\left(\frac{1+s\frac{C_m}{2g_{m3}}}{1+s\frac{C_m}{g_{m3}}}\right)
+      \frac{1}{1+sC_LR_o}.
+\]
+\subsection{Miller Theorem}
+把一個 bipole $Z$ 拆成左右兩塊
+$Z_{eq1} = Z (1-K), Z_{eq2} = Z (1 - 1/K)$
+\subsection{capacitance of BJT}
+\begin{enumerate}
+  \item $C_\pi + C_\mu = g_m / 2\pi f_T$.
+  \item Miller approximation: $C_\text{in} = C_\pi + C_\mu(1 + g_mR_L')$,
+    \[ f_H \approx f_{Pi} = \frac{1}{2\pi C_\text{in} R_\text{sig}'} \]
+\end{enumerate}
+\subsection{MOSFET cascode amplifier}
+\begin{enumerate}
+  \item time constants:
+    \begin{align*}
+      \tau_{H} &= R_\text{sig} (C_{gs1} + C_{gd1}(1+g_{m1}R_{d1}))
+      + R_{d1}(C_{gd1} + C_{db1} + C_{gs2}) \\
+      & \quad + (R_L \paral R_o) (C_{gd2} + C_{db2} + C_L)
+    \end{align*}
+\end{enumerate}
+\subsection{看電阻}
+\subsubsection{NMOS}
+\begin{enumerate}
+  \item 從 S 往 D 方向看 
+    \[ R_{eq} = \frac{r_o + R_L}{1+g_mr_o} \]
+  \item 從 D 往 S 方向看 
+    \[ R_{eq} = r_o + (1 + g_m r_o) R_S \]
+\end{enumerate}
+\subsubsection{NPN BJT}
+\begin{enumerate}
+  \item 從 E 往 C 方向看 
+    \[ R_{eq} = \frac{r_o + R_L}{1+\frac{g_mr_o}{\alpha} + \frac{R_L}{r_\pi}} \]
+  \item 從 C 往 E 方向看 
+    \[ R_{eq} = r_o + (1 + g_mr_o) (R_E \paral r_\pi) \]
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \begin{circuitikz}[scale=1, transform shape, >=triangle 45]
+      \draw[default] 
+        (0, 0) node[nmos, scale=1.2] (q1){}
+        (q1.G) -- ++(-1, 0) node[ground]{}
+        (q1.S) to[R, l_=$R_S$] ++(0, -2) node[ground]{}
+        (q1.D) to[R, l=$R_L$] ++(0, 2) node[ground, yscale=-1]{}
+      ;
+    \end{circuitikz}
+    \caption{}
+    \label{fig:8.88}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \begin{circuitikz}[scale=1, transform shape, >=triangle 45]
+      \draw[default] 
+        (0, 0) node[npn, scale=1.2] (q1){}
+        (q1.B) -- ++(-1, 0) node[ground]{}
+        (q1.E) to[R, l_=$R_E$] ++(0, -2) node[ground]{}
+        (q1.C) to[R, l=$R_L$] ++(0, 2) node[ground, yscale=-1]{}
+      ;
+    \end{circuitikz}
+    \caption{}
+    \label{fig:8.88}
+  \end{subfigure}
+\end{figure}
+
+\subsection{基本參數}
+\subsubsection{MOSFET}
+\begin{enumerate}
+  \item $k_n = \mu C_{ox} (W/L)$
+  \item $g_m = k_n V_{OV} = 2I_D/V_{OV}$
+  \item $r_o = V_A/I_D$
+\end{enumerate}
+\subsubsection{MOSFET}
+\begin{enumerate}
+  \item $g_m = I_C / V_T$
+  \item $r_o = V_A / I_C$
+\end{enumerate}
+
 
 \end{document}
