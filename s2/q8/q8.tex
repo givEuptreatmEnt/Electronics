@@ -509,7 +509,7 @@ To evaluate unity-gain frequency,
 \]
 Since $g_mR_o = g_mr_o/2 \gg 1$, $\omega_t \approx g_m/C_L$, so
 \[
-  f_t = \frac{\omega_1}{2\pi} \approx \frac{g_m}{2\pi C_L}
+  f_t = \frac{\omega_t}{2\pi} \approx \frac{g_m}{2\pi C_L}
 \]
 as desired.
 
@@ -528,12 +528,12 @@ The dc value of $A_d = g_mR_o = g_mr_o/2 = 100(\si{\V/\V})$.
 \end{alignat*}
 bode plot was omitted. (too tired to plot graph...)
 
-\section{朗誦要點(？)}
+\section{朗誦要點(?)}
 \subsection{active-loaded differential amplifier}
 Transfer function 用唱的
 \[
   A_d(s) = g_mR_o\left(\frac{1+s\frac{C_m}{2g_{m3}}}{1+s\frac{C_m}{g_{m3}}}\right)
-      \frac{1}{1+sC_LR_o}.
+  \frac{1}{1+sC_LR_o}, \quad R_o = r_{o2} \paral r_{o4}.
 \]
 \subsection{Miller Theorem}
 把一個 bipole $Z$ 拆成左右兩塊
@@ -541,7 +541,7 @@ $Z_{eq1} = Z (1-K), Z_{eq2} = Z (1 - 1/K)$
 \subsection{capacitance of BJT}
 \begin{enumerate}
   \item $C_\pi + C_\mu = g_m / 2\pi f_T$.
-  \item Miller approximation (input node dominant):
+  \item Miller approximation (input capacitance dominate):
     $C_\text{in} = C_\pi + C_\mu(1 + g_mR_L')$,
     \[ f_H \approx f_{Pi} = \frac{1}{2\pi C_\text{in} R_\text{sig}'} \]
 \end{enumerate}
