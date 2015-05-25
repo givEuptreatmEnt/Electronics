@@ -504,12 +504,12 @@ Since $C_L$ is four times $C_m$, $f_{P1}$ is dominant pole. Then
 \]
 To evaluate unity-gain frequency,
 \[
-  \abs{A_d(j\omega_1)} = 1 \qRq
-  \omega_1^2 = \frac{(g_mR_o)^2 - 1}{(C_LR_o)^2}.
+  \abs{A_d(j\omega_t)} = 1 \qRq
+  \omega_t^2 = \frac{(g_mR_o)^2 - 1}{(C_LR_o)^2}.
 \]
-Since $g_mR_o = g_mr_o/2 \gg 1$, $\omega_1 \approx g_m/C_L$, so
+Since $g_mR_o = g_mr_o/2 \gg 1$, $\omega_t \approx g_m/C_L$, so
 \[
-  f_1 = \frac{\omega_1}{2\pi} = \frac{g_m}{2\pi C_L}
+  f_t = \frac{\omega_1}{2\pi} \approx \frac{g_m}{2\pi C_L}
 \]
 as desired.
 
@@ -523,8 +523,10 @@ The dc value of $A_d = g_mR_o = g_mr_o/2 = 100(\si{\V/\V})$.
 \begin{alignat*}{2}
   f_Z &= \frac{2g_m}{2\pi C_m} & &= \SI{12.7}{\GHz} \\
   f_{P1} &= \frac{1}{2\pi C_LR_o} & &= \SI{15.9}{\MHz} \\
-  f_{P2} &= \frac{g_m}{2\pi C_m} & &= \SI{6.37}{\GHz}
+  f_{P2} &= \frac{g_m}{2\pi C_m} & &= \SI{6.37}{\GHz} \\
+  f_t &\approx \frac{g_m}{2\pi C_L} & &= \SI{1.6}{\GHz}
 \end{alignat*}
+bode plot was omitted. (too tired to plot graph...)
 
 \section{朗誦要點(？)}
 \subsection{active-loaded differential amplifier}
@@ -539,9 +541,11 @@ $Z_{eq1} = Z (1-K), Z_{eq2} = Z (1 - 1/K)$
 \subsection{capacitance of BJT}
 \begin{enumerate}
   \item $C_\pi + C_\mu = g_m / 2\pi f_T$.
-  \item Miller approximation: $C_\text{in} = C_\pi + C_\mu(1 + g_mR_L')$,
+  \item Miller approximation (input node dominant):
+    $C_\text{in} = C_\pi + C_\mu(1 + g_mR_L')$,
     \[ f_H \approx f_{Pi} = \frac{1}{2\pi C_\text{in} R_\text{sig}'} \]
 \end{enumerate}
+For MOS, substitute $C_\pi$ with $C_{gs}$, $C_\mu$ with $C_{gd}$.
 \subsection{MOSFET cascode amplifier}
 \begin{enumerate}
   \item time constants:
@@ -604,11 +608,10 @@ $Z_{eq1} = Z (1-K), Z_{eq2} = Z (1 - 1/K)$
   \item $g_m = k_n V_{OV} = 2I_D/V_{OV}$
   \item $r_o = V_A/I_D$
 \end{enumerate}
-\subsubsection{MOSFET}
+\subsubsection{BJT}
 \begin{enumerate}
-  \item $g_m = I_C / V_T$
+  \item $g_m = I_C / V_T, r_\pi = \beta/g_m, r_e = \alpha/g_m$
   \item $r_o = V_A / I_C$
 \end{enumerate}
-
 
 \end{document}
