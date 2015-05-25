@@ -52,8 +52,8 @@ $R_{\text{sig}} = \SI{100}{\kohm},
 R_G = \SI{47}{\Mohm} \paral \SI{10}{\Mohm}
 \approx \SI{8.25}{\Mohm}, R_D = \SI{4.7}{\kohm}, R_L = \SI{10}{\kohm},
 g_m = \SI{1}{\mA/\V}$,
-\[ A_M = \frac{R_G}{R_{\text{sig}} + R_G}g_m(R_D \paral R_L)
-\approx 3.16 (\si{\V/\V}). \]
+\[ A_M = -\frac{R_G}{R_{\text{sig}} + R_G}g_m(R_D \paral R_L)
+\approx -3.16 (\si{\V/\V}). \]
 
 $C_1 = \SI{0.01}{\micro\F}, C_S = \SI{10}{\micro\F}, C_2 = \SI{0.1}{\micro\F}$,
 let $r_m = 1/g_m = \SI{1}{\kohm}, R_S = \SI{2}{\kohm}$,
@@ -62,7 +62,8 @@ let $r_m = 1/g_m = \SI{1}{\kohm}, R_S = \SI{2}{\kohm}$,
   f_{P2} &= \frac{1}{2\pi C_S(r_m \paral R_S)} &&\approx \SI{23.9}{\Hz}, \\
   f_{P3} &= \frac{1}{2\pi C_2(R_D + R_L)} &&\approx \SI{108.3}{\Hz}.
 \end{alignat*}
-So $f_L = f_{P3} = \SI{108.3}{\Hz}$.
+Since $f_{P3}$ is much larger than $f_{P1}, f_{P2}$(more than four times), 
+$f_L \approx f_{P3} = \SI{108.3}{\Hz}$.
 
 \section{8.16}
 Starting from the expression for the MOSTFET unity-gain frequency,
