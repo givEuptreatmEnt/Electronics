@@ -1,3 +1,5 @@
+%& -shell-escape
+%& enable-write18
 \documentclass[12pt, a4paper]{article}
 \input{../../header/header.tex}
 
@@ -526,7 +528,11 @@ The dc value of $A_d = g_mR_o = g_mr_o/2 = 100(\si{\V/\V})$.
   f_{P2} &= \frac{g_m}{2\pi C_m} & &= \SI{6.37}{\GHz} \\
   f_t &\approx \frac{g_m}{2\pi C_L} & &= \SI{1.6}{\GHz}
 \end{alignat*}
-bode plot was omitted. (too tired to plot graph...)
+bode plot:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{p1.pdf}
+\end{figure}
 
 \section{朗誦要點(？)}
 \subsection{active-loaded differential amplifier}
