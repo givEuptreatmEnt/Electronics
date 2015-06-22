@@ -1,0 +1,120 @@
+%& -shell-escape
+%& enable-write18
+\documentclass[12pt, a4paper]{article}
+\input{../../header/header.tex}
+\usepackage{marginnote}
+
+%%%%%%%%%%%%%%%Title的資訊%%%%%%%%%%%%%%%
+\title{} %標題
+\author{} %作者
+\date{} %日期
+
+\newcommand{\tikzcircle}{\tikz\draw[red,fill=red] (0,0) circle (.6ex);}%
+\newcommand{\important}{\marginnote{\tikzcircle}}
+
+\begin{document}
+\tikzstyle{default}=[thick, color=black]
+% \maketitle %製作tilte page
+% \thispagestyle{empty}  %去除頁碼
+% \thispagestyle{fancy}  %使用fancyhdr
+% \tableofcontents %目錄
+%%%%%%%%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\footnotetext{The red dot means the equation is worth memorizing.}
+\section{10.2}
+
+\Ans \\
+\begin{alignat*}{3}
+  V_{An} &= \abs{V_{An}'} \cdot \SI{0.8}\um \quad &= \SI{20}{V} \\
+  V_{Ap} &= \abs{V_{Ap}'} \cdot \SI{0.8}\um &= \SI{16}{V} 
+\end{alignat*}
+
+Now $A = A_1 A_2, A_1 = g_{m1} (r_{o2} \paral r_{o4}) = \frac{I/2}{V_{OV}/2} \frac{V_{An} \paral V_{Ap} }{I/2}
+= 2 (V_{An} \paral V_{Ap}) / V_{OV}$ , \\
+$A_2 = g_{m2} (r_{o6} \paral r_{o7}) = \frac{I}{V_{OV}/2} \frac{V_{An} \paral V_{Ap} }{I} = A_1$. \\
+Further calculation yields
+\begin{alignat*}{3}
+  A_1 &= 2 (V_{An} \paral V_{Ap}) / V_{OV} &\approx 71.1\\
+  A_2 &= A_1 &\approx 71.1\\
+  A &= A_1 A_2 &\approx 5057\\
+\end{alignat*}
+If $I = \SI{0.4}\mA$, $R_o = (r_{o6} \paral r_{o7}) = (V_{An} \paral V_{Ap} )/I \approx \SI{22.2}\kohm$
+To form a unity gain amplifier, 
+\[ \frac{A}{1 + A \beta} = 1 \quad \Rightarrow \quad A = 1 + A \beta \quad \Rightarrow \quad R_{of} = 
+\frac{R_o}{1 + A \beta} = \frac{R_o}{A} \approx \SI{4.39}\ohm \]
+
+\section{10.3}
+
+\Ans \\
+Same as 10.2, $A = A_1 A_2 = (V_A/V_{OV})^2 = 2500$, so $V_A/V_{OV} = 50$ and thus 
+$V_{OV} = V_{A} / 50 = \SI{0.2}\V$
+
+\section{10.6}
+
+\Ans \\
+\[ 75^{\degree} \approx \arctan\left( \frac{f_t}{f_{p2}} \right) \footnote{Since the angle 
+of dominate pole is already almost $90^{\degree}$ here.} \quad \Rightarrow \quad
+f_{p2} \approx \frac{\tan 75^{\degree}}{ f_{t}} \approx \SI{373}\Mohm \]
+By the textbook, We have
+\begin{equation*}
+\important f_{p2} = \frac{G_{m2}}{2 \pi C_2} = \frac{g_{m6}}{2 \pi C_2}  
+\end{equation*}
+So plug in $C_2 = \SI{1}{\pico \farad}$, we get $g_{m6} = 2 \pi C_2 f_{p2} \approx \SI{2.34}{\mA \per \V}$
+Now recall that the zero is
+\begin{equation*}
+  \important s = \frac{1}{C_C (1 / G_{m2} - R)} 
+\end{equation*}
+If a resistance $R$ is in series with $C_C$, Thus $R = 1 / g_{m6} \approx \SI{427}\ohm$.
+Also
+\begin{equation*}
+  \important \textrm{SR} = \frac{I}{C_C} = 2 \pi f_t V_{OV} 
+\end{equation*}
+Hence $\textrm{SR} \approx \SI{126e6}{\second}, \; C_C = I / \textrm{SR} \approx \SI{1.59}{\pico \farad}$.
+
+\section{10.12}
+
+\Ans \\
+Using the equation
+\[ I = \frac{1}{2} k' \frac{W}{L} V_{OV}^2 \]
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    CMOS & $I$ & $k'$ & $W / L$ \\
+    \hline
+    $Q_1, Q_2$ & $\SI{62.5}\uA$ & $\SI{250}{\uA \per \V \squared}$ & $12.5$ \\
+    \hline
+    $Q_3, Q_4$ & $\SI{87.5}\uA$ & $\SI{90}{\uA \per \V \squared}$ & $48.6$ \\
+    \hline
+    $Q_5, Q_6, Q_7, Q_8$ & $\SI{87.5}\uA$ & $\SI{250}{\uA \per \V \squared}$ & $17.5$ \\
+    \hline
+    $Q_9, Q_{10}$ & $\SI{150}\uA$ & $\SI{90}{\uA \per \V \squared}$ & $83.3$ \\
+    \hline
+    $Q_{11}$ & $\SI{125}\uA$ & $\SI{250}{\uA \per \V \squared}$ & $25$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{10.14}
+\Ans \\
+By the textbook, We have
+\begin{equation*}
+  \important \mathrm{SR} = \frac{I}{C_L} = 2 \pi f_t V_{OV}
+\end{equation*}
+Hence $I = (\SI{10e6}{\V \per \second}) (\SI{10e-12}{\farad}) = \SI{100}\uA$, 
+and $f_t = \mathrm{SR} / (2 \pi V_{OV}) \approx \SI{7.96}\MHz$.
+Now, 
+\[ \theta = - \arctan \frac{f_t}{f_p} - 2 \arctan \frac{f_t}{f_{p2}} 
+\approx -90^{\degree} - 2\arctan \frac{f_t}{f_p} \]
+So
+\[ \textrm{PM} \approx 90 - 2 \arctan \frac{f_t}{f_p} \approx 54.7^{\degree} \]
+If we want to make $\textrm{PM} = 75^{\degree}$, 
+\[ 90 - 2 \arctan \frac{f'_t}{f_p} = 75^{\degree} \quad \Rightarrow \quad 
+f'_t = f_p \arctan 15^{\degree} \approx \SI{3.29}\MHz \]
+Since $f'_t C'_L = f_t C_L$, 
+\[ C'_L - C_L = \left( \frac{f_t}{f'_t} - 1 \right) C_L \approx \SI{1.42}{\pico \farad} \]
+And finally,
+\[ \textrm{SR}' = \frac{I}{C'_L} \approx \SI{4.1}{\V \per \micro \second} \]
+
+\end{document}
