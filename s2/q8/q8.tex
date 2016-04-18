@@ -228,7 +228,7 @@ g_m = \SI{0.3}{\mA/\V}$. Estimate the midband gain and the 3-dB frequency.
       (0, 0) node[ground]{} to[V=$V_\text{sig}(s)$] ++(0, 3)
       to[R=$R_\text{sig}$] ++(2, 0) to[short, o-] ++(0.5, 0) -- ++(2.5, 0)
       to[C, l=$C_{gd}$] ++(4, 0) to[short, -o] ++(5, 0)
-      (2.5, 3) to[R=_$R_G$, *-] ++(0, -3) node[ground]{}
+      (2.5, 3) to[R_=$R_G$, *-] ++(0, -3) node[ground]{}
       (5, 3) to[C, l=$C_{gs}$, v=$V_{gs}$, *-] ++(0, -3) node[ground]{}
       (9, 3) to[cI, l=$g_mV_{gs}$, *-] ++(0, -3) node[ground]{}
       (12, 3) to[R, l=$R_L'$, *-] ++(0, -3) node[ground]{}
@@ -590,7 +590,7 @@ For MOS, substitute $C_\pi$ with $C_{gs}$, $C_\mu$ with $C_{gd}$.
       ;
     \end{circuitikz}
     \caption{}
-    \label{fig:8.88}
+    \label{fig:tip1}
   \end{subfigure}%
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -603,7 +603,7 @@ For MOS, substitute $C_\pi$ with $C_{gs}$, $C_\mu$ with $C_{gd}$.
       ;
     \end{circuitikz}
     \caption{}
-    \label{fig:8.88}
+    \label{fig:tip2}
   \end{subfigure}
 \end{figure}
 
